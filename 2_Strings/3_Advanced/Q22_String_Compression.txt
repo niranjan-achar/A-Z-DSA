@@ -1,0 +1,47 @@
+Question Number: 22
+Problem Title: String compression
+Problem Description:
+Compress consecutive repeated characters, e.g., "aaabb" -> "a3b2".
+
+Approach / Explanation:
+1) Traverse the string and count consecutive duplicates.
+2) Append the character and its count to the result.
+3) Reset count when the character changes.
+4) Use a string builder to avoid repeated concatenation cost.
+5) Single pass is sufficient.
+6) Works for any characters.
+7) Output the compressed string.
+
+Brute Force Note:
+Repeated concatenation without reserving can be slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    if (s.empty()) { cout << ""; return 0; }
+
+    string out;
+    out.reserve(s.size());
+    int cnt = 1;
+    for (int i = 1; i <= (int)s.size(); ++i) {
+        if (i < (int)s.size() && s[i] == s[i - 1]) {
+            ++cnt;
+        } else {
+            out.push_back(s[i - 1]);
+            out += to_string(cnt);
+            cnt = 1;
+        }
+    }
+
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

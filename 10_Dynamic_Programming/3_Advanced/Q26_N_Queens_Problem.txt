@@ -1,0 +1,49 @@
+Question Number: 26
+Problem Title: N-Queens Problem
+Problem Description:
+Given n, count the number of ways to place n queens on an n x n board.
+
+Approach / Explanation:
+1) Use backtracking row by row with column and diagonal tracking.
+2) If a column or diagonal is occupied, skip that placement.
+3) Place a queen and recurse to the next row.
+4) When all rows are placed, increment count.
+5) Backtrack by removing the queen and marks.
+6) This explores only valid configurations.
+7) Output the total count.
+
+Brute Force Note:
+Trying all n^n placements is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long countSol = 0;
+vector<int> col, d1, d2;
+
+void dfs(int r, int n) {
+    if (r == n) { ++countSol; return; }
+    for (int c = 0; c < n; ++c) {
+        if (col[c] || d1[r - c + n - 1] || d2[r + c]) continue;
+        col[c] = d1[r - c + n - 1] = d2[r + c] = 1;
+        dfs(r + 1, n);
+        col[c] = d1[r - c + n - 1] = d2[r + c] = 0;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    col.assign(n, 0);
+    d1.assign(2*n - 1, 0);
+    d2.assign(2*n - 1, 0);
+    dfs(0, n);
+    cout << countSol;
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

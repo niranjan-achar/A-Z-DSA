@@ -1,0 +1,50 @@
+Question Number: 22
+Problem Title: Traveling Salesman Problem (DP)
+Problem Description:
+Given a complete graph cost matrix, find the minimum tour starting from node 0.
+
+Approach / Explanation:
+1) Use DP with bitmask for visited nodes.
+2) dp[mask][u] = min cost to reach u with visited set mask.
+3) Transition by visiting an unvisited node v.
+4) Final answer adds cost to return to 0.
+5) This is classic TSP DP.
+6) O(n^2 * 2^n) time.
+7) Output the minimum tour cost.
+
+Brute Force Note:
+Trying all permutations is factorial.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<vector<long long>> cost(n, vector<long long>(n));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < n; ++j) cin >> cost[i][j];
+
+    int N = 1 << n;
+    const long long INF = (long long)4e18;
+    vector<vector<long long>> dp(N, vector<long long>(n, INF));
+    dp[1][0] = 0;
+    for (int mask = 1; mask < N; ++mask) {
+        for (int u = 0; u < n; ++u) if (dp[mask][u] < INF) {
+            for (int v = 0; v < n; ++v) if (!(mask & (1 << v))) {
+                int nmask = mask | (1 << v);
+                dp[nmask][v] = min(dp[nmask][v], dp[mask][u] + cost[u][v]);
+            }
+        }
+    }
+
+    long long ans = INF;
+    for (int u = 0; u < n; ++u) ans = min(ans, dp[N-1][u] + cost[u][0]);
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n^2 * 2^n)
+Space Complexity: O(n * 2^n)

@@ -1,0 +1,62 @@
+Question Number: 15
+Problem Title: Kruskal's Algorithm (Minimum Spanning Tree)
+Problem Description:
+Given a weighted undirected graph, compute the MST total weight.
+
+Approach / Explanation:
+1) Sort edges by weight ascending.
+2) Use DSU to track connected components.
+3) Add an edge if it connects different components.
+4) Stop after adding n-1 edges.
+5) This greedy choice ensures minimum total weight.
+6) O(m log m) time.
+7) Output total MST weight.
+
+Brute Force Note:
+Checking all spanning trees is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge { int u, v; long long w; };
+
+struct DSU {
+    vector<int> p, r;
+    DSU(int n): p(n), r(n,0) { iota(p.begin(), p.end(), 0); }
+    int find(int x){ return p[x]==x? x : p[x]=find(p[x]); }
+    bool unite(int a,int b){
+        a=find(a); b=find(b);
+        if (a==b) return false;
+        if (r[a]<r[b]) swap(a,b);
+        p[b]=a; if (r[a]==r[b]) ++r[a];
+        return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<Edge> edges(m);
+    for (int i = 0; i < m; ++i) {
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+        --edges[i].u; --edges[i].v;
+    }
+    sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b){ return a.w < b.w; });
+
+    DSU dsu(n);
+    long long total = 0; int used = 0;
+    for (const auto& e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            total += e.w; ++used;
+            if (used == n - 1) break;
+        }
+    }
+    cout << (used == n - 1 ? total : -1);
+    return 0;
+}
+
+Time Complexity: O(m log m)
+Space Complexity: O(n)

@@ -1,0 +1,54 @@
+Question Number: 20
+Problem Title: Combination Sum II (handle duplicates)
+Problem Description:
+Given candidates and a target, find unique combinations that sum to target, each element used once.
+
+Approach / Explanation:
+1) Sort the array to handle duplicates and prune.
+2) Use backtracking with a start index and remaining target.
+3) Skip duplicates at the same recursion depth.
+4) Recurse to the next index after choosing an element.
+5) Stop when remaining target is zero or negative.
+6) Ensures unique combinations only.
+7) Output each combination on a new line.
+
+Brute Force Note:
+Generating all subsets then filtering duplicates is slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, int target, vector<int>& cur) {
+    if (target == 0) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << " ";
+            cout << cur[i];
+        }
+        cout << "\n";
+        return;
+    }
+    for (int i = idx; i < (int)a.size(); ++i) {
+        if (i > idx && a[i] == a[i-1]) continue;
+        if (a[i] > target) break;
+        cur.push_back(a[i]);
+        dfs(i + 1, a, target - a[i], cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target; if (!(cin >> n >> target) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    sort(a.begin(), a.end());
+    vector<int> cur;
+    dfs(0, a, target, cur);
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

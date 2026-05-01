@@ -1,0 +1,42 @@
+Question Number: 21
+Problem Title: Longest substring without repeating characters
+Problem Description:
+Given a string, find the length of the longest substring with all distinct characters.
+
+Approach / Explanation:
+1) Use sliding window with two pointers.
+2) Track the last seen index of each character.
+3) If a character repeats, move left to last_seen + 1.
+4) Update the maximum window length at each step.
+5) This keeps the window valid and minimal.
+6) Linear scan gives O(n) time.
+7) Output the maximum length.
+
+Brute Force Note:
+Checking all substrings costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    vector<int> last(256, -1);
+    int best = 0, left = 0;
+
+    for (int i = 0; i < (int)s.size(); ++i) {
+        unsigned char c = s[i];
+        if (last[c] >= left) left = last[c] + 1;
+        last[c] = i;
+        best = max(best, i - left + 1);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

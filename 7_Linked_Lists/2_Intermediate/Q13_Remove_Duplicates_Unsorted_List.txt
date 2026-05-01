@@ -1,0 +1,57 @@
+Question Number: 13
+Problem Title: Remove duplicates from an unsorted linked list
+Problem Description:
+Given an unsorted linked list, remove duplicate nodes.
+
+Approach / Explanation:
+1) Use a hash set to track seen values.
+2) Traverse the list with a previous pointer.
+3) If current value is already seen, remove the node.
+4) Otherwise, insert into set and move forward.
+5) This preserves the first occurrence order.
+6) Linear time on average.
+7) Output the updated list.
+
+Brute Force Note:
+Checking each node against all previous nodes costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+
+    unordered_set<long long> seen;
+    Node* cur = head; Node* prev = nullptr;
+    while (cur) {
+        if (seen.count(cur->val)) {
+            Node* del = cur;
+            prev->next = cur->next;
+            cur = cur->next;
+            delete del;
+        } else {
+            seen.insert(cur->val);
+            prev = cur;
+            cur = cur->next;
+        }
+    }
+
+    cur = head; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

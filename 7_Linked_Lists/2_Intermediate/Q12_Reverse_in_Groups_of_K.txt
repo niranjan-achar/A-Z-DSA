@@ -1,0 +1,58 @@
+Question Number: 12
+Problem Title: Reverse a linked list in groups of k nodes
+Problem Description:
+Given a linked list and k, reverse nodes in groups of size k.
+
+Approach / Explanation:
+1) Reverse the first k nodes using standard pointer reversal.
+2) Recursively process the remaining list.
+3) Connect the end of the reversed group to the result of recursion.
+4) If remaining nodes are fewer than k, still reverse or keep (based on requirement).
+5) This version reverses the last smaller group as well.
+6) O(n) time with O(n/k) recursion depth.
+7) Output the new head.
+
+Brute Force Note:
+Collecting nodes into arrays uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+Node* reverseK(Node* head, int k) {
+    Node* prev = nullptr; Node* cur = head; Node* nxt = nullptr;
+    int cnt = 0;
+    while (cur && cnt < k) {
+        nxt = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = nxt;
+        ++cnt;
+    }
+    if (nxt) head->next = reverseK(nxt, k);
+    return prev;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n >> k) || n <= 0 || k <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+
+    head = reverseK(head, k);
+
+    Node* cur = head; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n/k) recursion

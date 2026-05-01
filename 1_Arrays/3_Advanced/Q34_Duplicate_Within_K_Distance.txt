@@ -1,0 +1,46 @@
+Question Number: 34
+Problem Title: Check if array contains duplicate within k distance
+Problem Description:
+Given an array and k, check if any duplicate exists within distance k.
+
+Approach / Explanation:
+1) Use a hash map to store the last index of each value.
+2) When a value repeats, check the distance to last index.
+3) If distance <= k, return true.
+4) Update the last index each time.
+5) Single pass handles all elements.
+6) Hashing gives average O(1) lookups.
+7) Output 1 for true, 0 for false.
+
+Brute Force Note:
+Checking all pairs within distance is O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long k;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> k;
+
+    unordered_map<long long, int> last;
+    bool ok = false;
+    for (int i = 0; i < n; ++i) {
+        if (last.count(a[i]) && i - last[a[i]] <= k) {
+            ok = true; break;
+        }
+        last[a[i]] = i;
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

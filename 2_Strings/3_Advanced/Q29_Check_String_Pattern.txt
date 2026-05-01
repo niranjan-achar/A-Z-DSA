@@ -1,0 +1,52 @@
+Question Number: 29
+Problem Title: Check if string follows pattern (e.g., "abba" & "dog cat cat dog")
+Problem Description:
+Given a pattern and a string of words, check if the mapping is consistent.
+
+Approach / Explanation:
+1) Split the string into words.
+2) If word count differs from pattern length, return false.
+3) Map pattern chars to words and words to pattern chars.
+4) If any mapping conflicts, return false.
+5) Two-way mapping ensures bijection.
+6) Linear scan over pattern length.
+7) Output 1 if valid, 0 otherwise.
+
+Brute Force Note:
+Checking all bijections is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string pattern; if (!getline(cin, pattern)) return 0;
+    string line; if (!getline(cin, line)) return 0;
+
+    vector<string> words;
+    stringstream ss(line);
+    string w;
+    while (ss >> w) words.push_back(w);
+
+    if (pattern.size() != words.size()) { cout << 0; return 0; }
+
+    unordered_map<char, string> mp1;
+    unordered_map<string, char> mp2;
+    for (int i = 0; i < (int)pattern.size(); ++i) {
+        char c = pattern[i];
+        const string &word = words[i];
+        if (mp1.count(c) && mp1[c] != word) { cout << 0; return 0; }
+        if (mp2.count(word) && mp2[word] != c) { cout << 0; return 0; }
+        mp1[c] = word;
+        mp2[word] = c;
+    }
+
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

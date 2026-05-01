@@ -1,0 +1,55 @@
+Question Number: 3
+Problem Title: Job Sequencing Problem
+Problem Description:
+Given jobs with deadlines and profits, schedule jobs to maximize profit with one job per slot.
+
+Approach / Explanation:
+1) Sort jobs by profit in descending order.
+2) Try to schedule each job in the latest available slot before its deadline.
+3) Use DSU to find the next available slot quickly.
+4) Count scheduled jobs and sum profits.
+5) Greedy by profit works with slot assignment.
+6) DSU makes it efficient for large deadlines.
+7) Output total jobs and total profit.
+
+Brute Force Note:
+Trying all job orders is factorial time.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Job { int d; long long p; };
+
+struct DSU {
+    vector<int> parent;
+    DSU(int n): parent(n+1) { iota(parent.begin(), parent.end(), 0); }
+    int find(int x){ return parent[x]==x? x : parent[x]=find(parent[x]); }
+    void unite(int x, int y){ parent[find(x)] = find(y); }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<Job> jobs(n);
+    int maxD = 0;
+    for (int i = 0; i < n; ++i) { cin >> jobs[i].d >> jobs[i].p; maxD = max(maxD, jobs[i].d); }
+    sort(jobs.begin(), jobs.end(), [](const Job& a, const Job& b){ return a.p > b.p; });
+
+    DSU dsu(maxD);
+    int count = 0; long long profit = 0;
+    for (const auto& job : jobs) {
+        int slot = dsu.find(job.d);
+        if (slot > 0) {
+            ++count; profit += job.p;
+            dsu.unite(slot, slot - 1);
+        }
+    }
+    cout << count << " " << profit;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

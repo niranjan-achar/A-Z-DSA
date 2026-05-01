@@ -1,0 +1,59 @@
+Question Number: 19
+Problem Title: Implement queue using two stacks
+Problem Description:
+Implement a queue using two stacks with enqueue and dequeue operations.
+
+Approach / Explanation:
+1) Use two stacks: inStack for enqueue, outStack for dequeue.
+2) Enqueue pushes to inStack.
+3) Dequeue pops from outStack; if empty, transfer all from inStack.
+4) Front is top of outStack (after transfer if needed).
+5) Amortized O(1) per operation.
+6) Uses O(n) space.
+7) Output results for sample operations.
+
+Brute Force Note:
+Using one stack would require O(n) per dequeue.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct QueueUsingStacks {
+    stack<long long> inSt, outSt;
+    void push(long long x) { inSt.push(x); }
+    void transfer() {
+        while (!inSt.empty()) { outSt.push(inSt.top()); inSt.pop(); }
+    }
+    bool pop() {
+        if (outSt.empty()) transfer();
+        if (outSt.empty()) return false;
+        outSt.pop(); return true;
+    }
+    bool front(long long &out) {
+        if (outSt.empty()) transfer();
+        if (outSt.empty()) return false;
+        out = outSt.top(); return true;
+    }
+    bool empty() const { return inSt.empty() && outSt.empty(); }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    QueueUsingStacks qu;
+    int q; if (!(cin >> q)) return 0;
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") { long long x; cin >> x; qu.push(x); cout << "ok\n"; }
+        else if (op == "pop") { cout << (qu.pop() ? "ok" : "underflow") << "\n"; }
+        else if (op == "front") { long long v; if (qu.front(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "empty") { cout << (qu.empty() ? 1 : 0) << "\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: Amortized O(1)
+Space Complexity: O(n)

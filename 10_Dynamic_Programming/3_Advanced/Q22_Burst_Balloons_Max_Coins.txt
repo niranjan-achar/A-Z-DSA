@@ -1,0 +1,48 @@
+Question Number: 22
+Problem Title: Burst Balloons (Maximum Coins)
+Problem Description:
+Given balloons with values, burst them to maximize coins.
+
+Approach / Explanation:
+1) Add virtual balloons with value 1 at both ends.
+2) Use dp[l][r] for max coins in interval (l,r).
+3) Choose k as the last balloon to burst in (l,r).
+4) dp[l][r] = max(dp[l][k] + dp[k][r] + val[l]*val[k]*val[r]).
+5) Build dp by increasing interval length.
+6) This uses optimal substructure.
+7) Output dp[0][n+1].
+
+Brute Force Note:
+Trying all burst orders is factorial.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<long long> a(n + 2, 1);
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+
+    int N = n + 2;
+    vector<vector<long long>> dp(N, vector<long long>(N, 0));
+    for (int len = 2; len < N; ++len) {
+        for (int l = 0; l + len < N; ++l) {
+            int r = l + len;
+            long long best = 0;
+            for (int k = l + 1; k < r; ++k) {
+                long long val = dp[l][k] + dp[k][r] + a[l] * a[k] * a[r];
+                best = max(best, val);
+            }
+            dp[l][r] = best;
+        }
+    }
+    cout << dp[0][N-1];
+    return 0;
+}
+
+Time Complexity: O(n^3)
+Space Complexity: O(n^2)

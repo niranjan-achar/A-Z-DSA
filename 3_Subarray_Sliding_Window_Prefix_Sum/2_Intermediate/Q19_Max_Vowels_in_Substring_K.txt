@@ -1,0 +1,51 @@
+Question Number: 19
+Problem Title: Maximum number of vowels in a substring of length k
+Problem Description:
+Given a string and k, find the maximum number of vowels in any substring of length k.
+
+Approach / Explanation:
+1) Use sliding window of size k.
+2) Count vowels in the first window.
+3) Slide by adding right char and removing left char.
+4) Track the maximum vowel count.
+5) Vowel check is constant time.
+6) Linear time and constant space.
+7) Output the maximum count.
+
+Brute Force Note:
+Counting vowels for each window costs O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isVowel(char c) {
+    c = (char)tolower((unsigned char)c);
+    return c=='a'||c=='e'||c=='i'||c=='o'||c=='u';
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    int k; if (!(cin >> k)) return 0;
+    int n = (int)s.size();
+    if (k <= 0 || k > n) return 0;
+
+    int cnt = 0;
+    for (int i = 0; i < k; ++i) if (isVowel(s[i])) ++cnt;
+    int best = cnt;
+
+    for (int i = k; i < n; ++i) {
+        if (isVowel(s[i - k])) --cnt;
+        if (isVowel(s[i])) ++cnt;
+        best = max(best, cnt);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

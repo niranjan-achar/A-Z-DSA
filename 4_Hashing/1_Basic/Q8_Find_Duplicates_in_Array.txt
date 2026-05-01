@@ -1,0 +1,40 @@
+Question Number: 8
+Problem Title: Find duplicates in an array
+Problem Description:
+Given an array, print elements that appear more than once.
+
+Approach / Explanation:
+1) Use a hash map to count occurrences.
+2) Scan the array and increment counts.
+3) Print elements with count > 1.
+4) This runs in linear time on average.
+5) Works for any integer values.
+6) If no duplicates, output -1.
+7) Output each duplicate once.
+
+Brute Force Note:
+Checking all pairs costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    unordered_map<long long, int> freq;
+    for (int i = 0; i < n; ++i) { long long x; cin >> x; ++freq[x]; }
+
+    bool any = false;
+    for (const auto &kv : freq) {
+        if (kv.second > 1) { cout << kv.first << "\n"; any = true; }
+    }
+
+    if (!any) cout << -1;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

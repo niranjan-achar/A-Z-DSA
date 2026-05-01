@@ -1,0 +1,47 @@
+Question Number: 24
+Problem Title: Zigzag conversion of a string
+Problem Description:
+Convert a string to zigzag pattern on given rows and read line by line.
+
+Approach / Explanation:
+1) Handle edge cases: rows = 1 or rows >= length.
+2) Use a vector of strings for each row.
+3) Traverse the string, moving down and up between rows.
+4) Append characters to the current row.
+5) Finally, concatenate all rows.
+6) This simulates the zigzag path.
+7) Output the transformed string.
+
+Brute Force Note:
+Building the full 2D grid wastes space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    int rows; if (!(cin >> rows)) return 0;
+
+    if (rows <= 1 || rows >= (int)s.size()) { cout << s; return 0; }
+
+    vector<string> lines(rows);
+    int cur = 0, dir = 1;
+    for (char c : s) {
+        lines[cur].push_back(c);
+        if (cur == 0) dir = 1;
+        else if (cur == rows - 1) dir = -1;
+        cur += dir;
+    }
+
+    string out;
+    for (string &row : lines) out += row;
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

@@ -1,0 +1,59 @@
+Question Number: 17
+Problem Title: Flatten a multilevel doubly linked list
+Problem Description:
+Given a multilevel doubly linked list, flatten it into a single-level list.
+
+Approach / Explanation:
+1) Use DFS traversal with a stack.
+2) When encountering a child, push next node to stack and go down.
+3) Link nodes in traversal order.
+4) Ensure prev pointers are updated.
+5) Continue until stack is empty.
+6) Linear time in number of nodes.
+7) Output the flattened list.
+
+Brute Force Note:
+Recursive flattening also works but may overflow stack for deep lists.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    long long val; Node* prev; Node* next; Node* child;
+    Node(long long v): val(v), prev(nullptr), next(nullptr), child(nullptr) {}
+};
+
+Node* flatten(Node* head) {
+    if (!head) return head;
+    stack<Node*> st;
+    Node* cur = head;
+    while (cur) {
+        if (cur->child) {
+            if (cur->next) st.push(cur->next);
+            cur->next = cur->child;
+            cur->next->prev = cur;
+            cur->child = nullptr;
+        }
+        if (!cur->next && !st.empty()) {
+            cur->next = st.top(); st.pop();
+            cur->next->prev = cur;
+        }
+        cur = cur->next;
+    }
+    return head;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Node* head = nullptr;
+    head = flatten(head);
+    Node* cur = head;
+    while (cur) { cout << cur->val << " "; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n) worst-case

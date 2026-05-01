@@ -1,0 +1,61 @@
+Question Number: 27
+Problem Title: Minimum Cost to Connect All Cities (MST)
+Problem Description:
+Given a weighted graph, compute the minimum cost to connect all cities.
+
+Approach / Explanation:
+1) Use Kruskal's algorithm with DSU.
+2) Sort edges by weight.
+3) Add edges connecting different components.
+4) Stop when n-1 edges are added.
+5) If not all nodes are connected, return -1.
+6) Greedy choice yields MST.
+7) Output total cost.
+
+Brute Force Note:
+Checking all spanning trees is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge { int u, v; long long w; };
+struct DSU {
+    vector<int> p, r;
+    DSU(int n): p(n), r(n,0) { iota(p.begin(), p.end(), 0); }
+    int find(int x){ return p[x]==x? x : p[x]=find(p[x]); }
+    bool unite(int a,int b){
+        a=find(a); b=find(b);
+        if (a==b) return false;
+        if (r[a]<r[b]) swap(a,b);
+        p[b]=a; if (r[a]==r[b]) ++r[a];
+        return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<Edge> edges(m);
+    for (int i = 0; i < m; ++i) {
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+        --edges[i].u; --edges[i].v;
+    }
+    sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b){ return a.w < b.w; });
+
+    DSU dsu(n);
+    long long total = 0; int used = 0;
+    for (const auto& e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            total += e.w; ++used;
+            if (used == n - 1) break;
+        }
+    }
+    cout << (used == n - 1 ? total : -1);
+    return 0;
+}
+
+Time Complexity: O(m log m)
+Space Complexity: O(n)

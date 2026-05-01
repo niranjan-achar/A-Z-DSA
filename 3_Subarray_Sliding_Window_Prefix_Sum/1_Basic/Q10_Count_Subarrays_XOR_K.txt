@@ -1,0 +1,47 @@
+Question Number: 10
+Problem Title: Count of subarrays with XOR = K
+Problem Description:
+Given an array and K, count subarrays whose XOR equals K.
+
+Approach / Explanation:
+1) Use prefix XOR; XOR of subarray is pref[i] ^ pref[j-1].
+2) For each prefix XOR, we need pref ^ K seen before.
+3) Use a frequency map of prefix XORs.
+4) Initialize freq[0] = 1.
+5) Update answer as you scan.
+6) Handles all integer values.
+7) Output the count.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long K;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> K;
+
+    unordered_map<long long, long long> freq;
+    freq[0] = 1;
+    long long pref = 0, ans = 0;
+    for (long long x : a) {
+        pref ^= x;
+        long long need = pref ^ K;
+        if (freq.count(need)) ans += freq[need];
+        ++freq[pref];
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

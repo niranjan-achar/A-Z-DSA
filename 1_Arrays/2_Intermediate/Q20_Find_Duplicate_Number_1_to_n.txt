@@ -1,0 +1,47 @@
+Question Number: 20
+Problem Title: Find the duplicate number (one duplicate, others 1 to n)
+Problem Description:
+Given an array of size n+1 containing numbers from 1 to n with one duplicate, find the duplicate.
+
+Approach / Explanation:
+1) Treat values as next pointers to form a linked list.
+2) Use Floyd's cycle detection to find the cycle.
+3) The meeting point inside the cycle implies a duplicate value.
+4) Move one pointer to start and advance both by one step.
+5) Their meeting value is the duplicate.
+6) This uses constant space and linear time.
+7) Output the duplicate number.
+
+Brute Force Note:
+Sorting or hashing works but uses O(n log n) time or O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int nPlus; if (!(cin >> nPlus) || nPlus <= 1) return 0;
+    vector<int> a(nPlus);
+    for (int i = 0; i < nPlus; ++i) cin >> a[i];
+
+    int slow = a[0], fast = a[0];
+    do {
+        slow = a[slow];
+        fast = a[a[fast]];
+    } while (slow != fast);
+
+    slow = a[0];
+    while (slow != fast) {
+        slow = a[slow];
+        fast = a[fast];
+    }
+
+    cout << slow;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

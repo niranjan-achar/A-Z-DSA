@@ -1,0 +1,49 @@
+Question Number: 25
+Problem Title: Permute a string with non-repeating characters
+Problem Description:
+Given a string with unique characters, print all permutations.
+
+Approach / Explanation:
+1) Use backtracking with a used array and current string.
+2) At each step, try any unused character.
+3) Append it and recurse.
+4) When length equals n, output the permutation.
+5) Backtrack by removing and unmarking.
+6) Generates all n! permutations.
+7) Output each permutation on a new line.
+
+Brute Force Note:
+All permutations must be listed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(const string& s, vector<int>& used, string& cur) {
+    if ((int)cur.size() == (int)s.size()) {
+        cout << cur << "\n";
+        return;
+    }
+    for (int i = 0; i < (int)s.size(); ++i) {
+        if (used[i]) continue;
+        used[i] = 1;
+        cur.push_back(s[i]);
+        dfs(s, used, cur);
+        cur.pop_back();
+        used[i] = 0;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    vector<int> used(s.size(), 0);
+    string cur;
+    dfs(s, used, cur);
+    return 0;
+}
+
+Time Complexity: O(n * n!)
+Space Complexity: O(n)

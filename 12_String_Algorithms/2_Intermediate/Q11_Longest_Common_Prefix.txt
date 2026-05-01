@@ -1,0 +1,42 @@
+Question Number: 11
+Problem Title: Longest common prefix among strings
+Problem Description:
+Given a list of strings, find their longest common prefix.
+
+Approach / Explanation:
+1) Take the first string as reference.
+2) Compare its characters with all strings at each index.
+3) Stop when any mismatch occurs.
+4) The prefix up to that point is the answer.
+5) Handles empty list or empty strings.
+6) Linear time in total characters.
+7) Output the prefix (empty if none).
+
+Brute Force Note:
+Sorting and comparing ends is another option but not needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<string> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    string pref = a[0];
+    for (int i = 1; i < n; ++i) {
+        int j = 0;
+        while (j < (int)pref.size() && j < (int)a[i].size() && pref[j] == a[i][j]) ++j;
+        pref = pref.substr(0, j);
+        if (pref.empty()) break;
+    }
+    cout << pref;
+    return 0;
+}
+
+Time Complexity: O(total chars)
+Space Complexity: O(1) extra

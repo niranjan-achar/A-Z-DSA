@@ -1,0 +1,39 @@
+Question Number: 13
+Problem Title: Print all valid expressions with given number of '+' and '-'
+Problem Description:
+Given counts of plus and minus, generate all strings of length p+m using '+' and '-'.
+
+Approach / Explanation:
+1) Use backtracking with remaining plus and minus counts.
+2) Append '+' if plus count remains.
+3) Append '-' if minus count remains.
+4) When length reaches p+m, output the expression.
+5) This generates all possible arrangements.
+6) Total outputs are binomial in size.
+7) Output each expression on a new line.
+
+Brute Force Note:
+All unique arrangements must be generated.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int p, int m, string& cur) {
+    if (p == 0 && m == 0) { cout << cur << "\n"; return; }
+    if (p > 0) { cur.push_back('+'); dfs(p - 1, m, cur); cur.pop_back(); }
+    if (m > 0) { cur.push_back('-'); dfs(p, m - 1, cur); cur.pop_back(); }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int p, m; if (!(cin >> p >> m) || p < 0 || m < 0) return 0;
+    string cur;
+    dfs(p, m, cur);
+    return 0;
+}
+
+Time Complexity: O(C(p+m, p))
+Space Complexity: O(p+m)

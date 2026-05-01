@@ -1,0 +1,48 @@
+Question Number: 24
+Problem Title: Min Cost to Connect All Points
+Problem Description:
+Given points in a plane, connect all points with minimum total cost (Manhattan distance).
+
+Approach / Explanation:
+1) Build MST using Prim's algorithm.
+2) Start from any point, track min edge to unvisited nodes.
+3) Each step picks the smallest cost to add a new point.
+4) Update the min cost for remaining points.
+5) Greedy MST gives minimal total cost.
+6) O(n^2) time without heap for dense graph.
+7) Output the total cost.
+
+Brute Force Note:
+Trying all spanning trees is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<pair<int,int>> p(n);
+    for (int i = 0; i < n; ++i) cin >> p[i].first >> p[i].second;
+
+    vector<int> minDist(n, INT_MAX);
+    vector<int> vis(n, 0);
+    minDist[0] = 0;
+    long long total = 0;
+    for (int i = 0; i < n; ++i) {
+        int u = -1; int best = INT_MAX;
+        for (int j = 0; j < n; ++j) if (!vis[j] && minDist[j] < best) { best = minDist[j]; u = j; }
+        vis[u] = 1; total += best;
+        for (int v = 0; v < n; ++v) if (!vis[v]) {
+            int w = abs(p[u].first - p[v].first) + abs(p[u].second - p[v].second);
+            minDist[v] = min(minDist[v], w);
+        }
+    }
+    cout << total;
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n)

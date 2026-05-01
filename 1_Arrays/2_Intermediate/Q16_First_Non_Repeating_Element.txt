@@ -1,0 +1,41 @@
+Question Number: 16
+Problem Title: Find the first non-repeating element
+Problem Description:
+Given an array, find the first element that occurs exactly once.
+
+Approach / Explanation:
+1) Use a hash map to count frequencies of all elements.
+2) Scan the array again from left to right.
+3) The first element with frequency 1 is the answer.
+4) Two passes ensure correct order handling.
+5) Hashing provides average O(1) counting.
+6) If none exist, output -1.
+7) Works for negative numbers and duplicates.
+
+Brute Force Note:
+Counting by nested loops costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    unordered_map<long long, int> freq;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; ++freq[a[i]]; }
+
+    long long ans = LLONG_MIN;
+    for (long long x : a) {
+        if (freq[x] == 1) { ans = x; break; }
+    }
+
+    if (ans == LLONG_MIN) cout << -1; else cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

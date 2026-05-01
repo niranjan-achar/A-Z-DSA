@@ -1,0 +1,61 @@
+Question Number: 10
+Problem Title: Flatten a linked list
+Problem Description:
+Given a linked list with next and down pointers (sorted), flatten it into a single sorted list.
+
+Approach / Explanation:
+1) Use merge of two sorted lists on next and down pointers.
+2) Recursively flatten the rest of the list.
+3) Merge current list with flattened next list.
+4) This preserves sorted order.
+5) Uses recursion and merge logic.
+6) Time depends on total nodes across levels.
+7) Output flattened list using down pointers.
+
+Brute Force Note:
+Collecting all nodes and sorting is simpler but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    long long val; Node* next; Node* down;
+    Node(long long v): val(v), next(nullptr), down(nullptr) {}
+};
+
+Node* mergeLists(Node* a, Node* b) {
+    Node dummy(0); Node* tail = &dummy;
+    while (a && b) {
+        if (a->val <= b->val) { tail->down = a; a = a->down; }
+        else { tail->down = b; b = b->down; }
+        tail = tail->down;
+        tail->next = nullptr;
+    }
+    tail->down = a ? a : b;
+    return dummy.down;
+}
+
+Node* flatten(Node* head) {
+    if (!head || !head->next) return head;
+    head->next = flatten(head->next);
+    head = mergeLists(head, head->next);
+    return head;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Input format for multilevel list is not standardized.
+    // This snippet shows the flatten logic.
+    Node* head = nullptr;
+
+    head = flatten(head);
+    Node* cur = head;
+    while (cur) { cout << cur->val << " "; cur = cur->down; }
+    return 0;
+}
+
+Time Complexity: O(N)
+Space Complexity: O(1) extra (ignoring recursion stack)

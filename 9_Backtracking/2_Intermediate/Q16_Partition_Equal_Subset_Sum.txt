@@ -1,0 +1,45 @@
+Question Number: 16
+Problem Title: Partition Equal Subset Sum
+Problem Description:
+Given an array, determine if it can be partitioned into two subsets with equal sum.
+
+Approach / Explanation:
+1) Compute total sum; if odd, impossible.
+2) Target is sum/2.
+3) Use backtracking with pruning to reach target.
+4) Sort descending to speed pruning.
+5) If target becomes zero, success.
+6) Backtrack when current sum exceeds target.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+All subsets may be explored in worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int idx, const vector<int>& a, int target) {
+    if (target == 0) return true;
+    if (idx == (int)a.size()) return false;
+    if (a[idx] > target) return dfs(idx + 1, a, target);
+    if (dfs(idx + 1, a, target - a[idx])) return true;
+    return dfs(idx + 1, a, target);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    int sum = 0;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; sum += a[i]; }
+    if (sum % 2 != 0) { cout << 0; return 0; }
+    sort(a.rbegin(), a.rend());
+    cout << (dfs(0, a, sum / 2) ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

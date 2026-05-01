@@ -1,0 +1,53 @@
+Question Number: 10
+Problem Title: Combination Sum (repetition allowed)
+Problem Description:
+Given an array and a target, find all combinations that sum to the target with reuse allowed.
+
+Approach / Explanation:
+1) Sort the array to enable pruning.
+2) Use backtracking with a start index and remaining target.
+3) Choose an element and recurse with same index to allow reuse.
+4) Skip elements greater than remaining target.
+5) If target becomes zero, output current combination.
+6) Backtrack after each recursive call.
+7) Output all valid combinations.
+
+Brute Force Note:
+The number of combinations can be exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, int target, vector<int>& cur) {
+    if (target == 0) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << " ";
+            cout << cur[i];
+        }
+        cout << "\n";
+        return;
+    }
+    for (int i = idx; i < (int)a.size(); ++i) {
+        if (a[i] > target) break;
+        cur.push_back(a[i]);
+        dfs(i, a, target - a[i], cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target; if (!(cin >> n >> target) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    sort(a.begin(), a.end());
+    vector<int> cur;
+    dfs(0, a, target, cur);
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

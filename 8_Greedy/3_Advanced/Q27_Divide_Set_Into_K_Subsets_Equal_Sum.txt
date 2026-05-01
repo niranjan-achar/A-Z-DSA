@@ -1,0 +1,55 @@
+Question Number: 27
+Problem Title: Divide a set into K subsets of equal sum
+Problem Description:
+Given an array and k, determine if it can be partitioned into k subsets with equal sum.
+
+Approach / Explanation:
+1) Compute total sum; if not divisible by k, impossible.
+2) Sort descending to place large numbers first.
+3) Use greedy backtracking with buckets and pruning.
+4) Try to place each number into a bucket without exceeding target.
+5) If all numbers placed, partition exists.
+6) Works well with pruning on equal buckets.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+Trying all partitions is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int idx, vector<long long>& a, vector<long long>& bucket, long long target) {
+    if (idx == (int)a.size()) return true;
+    long long cur = a[idx];
+    for (int i = 0; i < (int)bucket.size(); ++i) {
+        if (bucket[i] + cur <= target) {
+            bucket[i] += cur;
+            if (dfs(idx + 1, a, bucket, target)) return true;
+            bucket[i] -= cur;
+        }
+        if (bucket[i] == 0) break;
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n >> k) || n <= 0 || k <= 0) return 0;
+    vector<long long> a(n);
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; sum += a[i]; }
+    if (sum % k != 0) { cout << 0; return 0; }
+    long long target = sum / k;
+    sort(a.rbegin(), a.rend());
+    if (a[0] > target) { cout << 0; return 0; }
+
+    vector<long long> bucket(k, 0);
+    cout << (dfs(0, a, bucket, target) ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: Exponential in worst case
+Space Complexity: O(n + k)

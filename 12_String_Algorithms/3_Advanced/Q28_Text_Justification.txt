@@ -1,0 +1,63 @@
+Question Number: 28
+Problem Title: Text Justification
+Problem Description:
+Given words and max width, fully justify text lines.
+
+Approach / Explanation:
+1) Greedily pack as many words as fit in a line.
+2) Compute total spaces to distribute.
+3) Distribute spaces evenly; extra spaces go left.
+4) Last line is left-justified.
+5) Build each line and output.
+6) O(total chars) time.
+7) Output each line on a new line.
+
+Brute Force Note:
+This is a direct formatting task.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, maxW; if (!(cin >> n >> maxW) || n < 0) return 0;
+    vector<string> words(n);
+    for (int i = 0; i < n; ++i) cin >> words[i];
+
+    int i = 0;
+    while (i < n) {
+        int j = i, lineLen = 0;
+        while (j < n && lineLen + (int)words[j].size() + (j - i) <= maxW) {
+            lineLen += words[j].size();
+            ++j;
+        }
+        int gaps = j - i - 1;
+        string line;
+        if (j == n || gaps == 0) {
+            for (int k = i; k < j; ++k) {
+                if (k > i) line += ' ';
+                line += words[k];
+            }
+            line += string(maxW - line.size(), ' ');
+        } else {
+            int spaces = maxW - lineLen;
+            int even = spaces / gaps;
+            int extra = spaces % gaps;
+            for (int k = i; k < j; ++k) {
+                line += words[k];
+                if (k < j - 1) {
+                    line += string(even + (extra-- > 0 ? 1 : 0), ' ');
+                }
+            }
+        }
+        cout << line << "\n";
+        i = j;
+    }
+    return 0;
+}
+
+Time Complexity: O(total chars)
+Space Complexity: O(maxW)

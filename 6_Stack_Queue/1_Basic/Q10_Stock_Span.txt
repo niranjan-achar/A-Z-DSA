@@ -1,0 +1,45 @@
+Question Number: 10
+Problem Title: Stock Span Problem
+Problem Description:
+Given daily stock prices, compute the span of each day.
+
+Approach / Explanation:
+1) Use a stack of indices with decreasing prices.
+2) For each day, pop indices with price <= current.
+3) Span is current index minus index of previous greater price.
+4) If stack is empty, span is i+1.
+5) Push current index.
+6) Single pass gives linear time.
+7) Output spans.
+
+Brute Force Note:
+Checking each day backwards costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> price(n), span(n);
+    for (int i = 0; i < n; ++i) cin >> price[i];
+
+    stack<int> st;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && price[st.top()] <= price[i]) st.pop();
+        span[i] = st.empty() ? i + 1 : i - st.top();
+        st.push(i);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << span[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

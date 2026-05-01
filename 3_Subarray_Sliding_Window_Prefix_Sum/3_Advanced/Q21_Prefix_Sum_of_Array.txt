@@ -1,0 +1,44 @@
+Question Number: 21
+Problem Title: Prefix sum of an array
+Problem Description:
+Given an array, compute its prefix sums.
+
+Approach / Explanation:
+1) Prefix sum at i is sum of a[0..i].
+2) Compute cumulatively in one pass.
+3) Store each prefix value in an output array.
+4) This enables fast range sum queries later.
+5) Linear time with constant extra work.
+6) Output all prefix sums.
+7) Works for negative values.
+
+Brute Force Note:
+Computing each prefix sum by summing from scratch is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), pref(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum += a[i];
+        pref[i] = sum;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << pref[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

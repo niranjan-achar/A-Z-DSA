@@ -1,0 +1,39 @@
+Question Number: 3
+Problem Title: Maximum sum subarray (Kadane's Algorithm)
+Problem Description:
+Given an array, find the maximum possible sum of a contiguous subarray.
+
+Approach / Explanation:
+1) Maintain current sum ending at each index.
+2) Either extend the previous sum or start fresh at current element.
+3) Track the global maximum across all positions.
+4) This avoids checking all subarrays.
+5) Works for all-negative arrays by selecting the largest element.
+6) Single pass gives linear time.
+7) Output the maximum sum.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    long long best = LLONG_MIN, cur = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        cur = max(x, cur + x);
+        best = max(best, cur);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

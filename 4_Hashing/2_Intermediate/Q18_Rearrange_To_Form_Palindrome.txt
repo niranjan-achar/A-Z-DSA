@@ -1,0 +1,38 @@
+Question Number: 18
+Problem Title: Check if a string can be rearranged to form a palindrome
+Problem Description:
+Given a string, determine if its characters can be rearranged to form a palindrome.
+
+Approach / Explanation:
+1) Count frequencies of all characters.
+2) For a palindrome, at most one character can have odd frequency.
+3) Scan counts and count odd occurrences.
+4) If oddCount <= 1, it is possible.
+5) Works for any ASCII characters.
+6) Linear time with constant space.
+7) Output 1 if possible, 0 otherwise.
+
+Brute Force Note:
+Trying all permutations is factorial time.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    vector<int> freq(256, 0);
+    for (unsigned char c : s) ++freq[c];
+
+    int odd = 0;
+    for (int f : freq) if (f % 2 != 0) ++odd;
+
+    cout << (odd <= 1 ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

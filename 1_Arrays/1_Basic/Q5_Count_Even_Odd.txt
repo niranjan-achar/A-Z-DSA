@@ -1,0 +1,39 @@
+Question Number: 5
+Problem Title: Count even and odd numbers
+Problem Description:
+Given an array, count how many elements are even and how many are odd.
+
+Approach / Explanation:
+1) Initialize two counters: even and odd.
+2) Scan each element and check parity using x % 2.
+3) Increment the corresponding counter.
+4) Single pass ensures linear time.
+5) Works for negative values as well.
+6) No extra memory is used.
+7) Output even count and odd count.
+
+Brute Force Note:
+No alternative beats a single pass for exact counts.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    if (!(cin >> n) || n <= 0) return 0;
+    long long even = 0, odd = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        if (x % 2 == 0) ++even; else ++odd;
+    }
+
+    cout << even << " " << odd;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

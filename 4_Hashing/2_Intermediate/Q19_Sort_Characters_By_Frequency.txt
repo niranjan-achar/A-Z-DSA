@@ -1,0 +1,48 @@
+Question Number: 19
+Problem Title: Sort characters by frequency
+Problem Description:
+Given a string, sort characters by decreasing frequency.
+
+Approach / Explanation:
+1) Count frequencies of all characters.
+2) Use a max-heap of (frequency, character).
+3) Pop from heap and append character freq times.
+4) This produces characters in descending frequency order.
+5) Works for ASCII strings.
+6) Complexity depends on alphabet size.
+7) Output the sorted string.
+
+Brute Force Note:
+Sorting the entire string by custom comparator is O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    vector<int> freq(256, 0);
+    for (unsigned char c : s) ++freq[c];
+
+    using P = pair<int, char>;
+    priority_queue<P> pq;
+    for (int i = 0; i < 256; ++i) {
+        if (freq[i] > 0) pq.push({freq[i], (char)i});
+    }
+
+    string out;
+    out.reserve(s.size());
+    while (!pq.empty()) {
+        auto [f, c] = pq.top(); pq.pop();
+        out.append(f, c);
+    }
+
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n + a log a)
+Space Complexity: O(a)

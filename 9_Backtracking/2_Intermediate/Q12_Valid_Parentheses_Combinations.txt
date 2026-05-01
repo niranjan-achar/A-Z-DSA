@@ -1,0 +1,50 @@
+Question Number: 12
+Problem Title: Find all valid parentheses combinations
+Problem Description:
+Given n pairs of parentheses, generate all valid combinations.
+
+Approach / Explanation:
+1) Use backtracking with counts of open and close used.
+2) Add '(' if open < n.
+3) Add ')' if close < open.
+4) When length reaches 2n, output the combination.
+5) This ensures only valid prefixes are built.
+6) Generates all valid sequences.
+7) Output each combination on a new line.
+
+Brute Force Note:
+Filtering all 2^(2n) strings is wasteful.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int n, int open, int close, string& cur) {
+    if ((int)cur.size() == 2 * n) {
+        cout << cur << "\n";
+        return;
+    }
+    if (open < n) {
+        cur.push_back('(');
+        dfs(n, open + 1, close, cur);
+        cur.pop_back();
+    }
+    if (close < open) {
+        cur.push_back(')');
+        dfs(n, open, close + 1, cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    string cur;
+    dfs(n, 0, 0, cur);
+    return 0;
+}
+
+Time Complexity: O(Catalan(n))
+Space Complexity: O(n)

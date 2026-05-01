@@ -1,0 +1,44 @@
+Question Number: 21
+Problem Title: Word Break Problem
+Problem Description:
+Given a string and a dictionary, determine if it can be segmented into dictionary words.
+
+Approach / Explanation:
+1) Use dp[i] indicating if prefix s[0..i-1] is segmentable.
+2) dp[0]=true for empty prefix.
+3) For each i, try all j<i with dp[j]=true.
+4) If s[j..i-1] in dictionary, set dp[i]=true.
+5) This is standard word break DP.
+6) O(n^2) substring checks.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+Recursive splitting without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int n; cin >> n;
+    unordered_set<string> dict;
+    for (int i = 0; i < n; ++i) { string w; cin >> w; dict.insert(w); }
+
+    int m = s.size();
+    vector<char> dp(m + 1, 0);
+    dp[0] = 1;
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 0; j < i; ++j) if (dp[j]) {
+            if (dict.count(s.substr(j, i - j))) { dp[i] = 1; break; }
+        }
+    }
+    cout << (dp[m] ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n)

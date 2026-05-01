@@ -1,0 +1,44 @@
+Question Number: 18
+Problem Title: Move all zeroes to the end
+Problem Description:
+Given an array, move all zeros to the end while keeping the order of non-zero elements.
+
+Approach / Explanation:
+1) Use a write index to place non-zero elements.
+2) Scan the array and write each non-zero in order.
+3) After the scan, fill the remaining positions with 0.
+4) This preserves the relative order of non-zero values.
+5) Only one pass over the array is needed.
+6) In-place update uses no extra array.
+7) Output the modified array.
+
+Brute Force Note:
+Using a separate array is simpler but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    int write = 0;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] != 0) a[write++] = a[i];
+    }
+    while (write < n) a[write++] = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

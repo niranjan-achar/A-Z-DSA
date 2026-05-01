@@ -1,0 +1,56 @@
+Question Number: 23
+Problem Title: Find common elements in 3 arrays
+Problem Description:
+Given three arrays, find elements common to all three.
+
+Approach / Explanation:
+1) Count elements of first array in a set.
+2) For second array, keep only elements present in the first set.
+3) For third array, check against the filtered set.
+4) Use another set to avoid duplicates in output.
+5) This works for unsorted arrays.
+6) Hashing gives average O(1) lookups.
+7) Output common elements or -1 if none.
+
+Brute Force Note:
+Triple nested loops cost O(n^3).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n1, n2, n3; if (!(cin >> n1 >> n2 >> n3)) return 0;
+    vector<long long> a(n1), b(n2), c(n3);
+    for (int i = 0; i < n1; ++i) cin >> a[i];
+    for (int i = 0; i < n2; ++i) cin >> b[i];
+    for (int i = 0; i < n3; ++i) cin >> c[i];
+
+    unordered_set<long long> s1(a.begin(), a.end());
+    unordered_set<long long> s2;
+    for (long long x : b) if (s1.count(x)) s2.insert(x);
+
+    vector<long long> res;
+    unordered_set<long long> used;
+    for (long long x : c) {
+        if (s2.count(x) && !used.count(x)) {
+            res.push_back(x);
+            used.insert(x);
+        }
+    }
+
+    if (res.empty()) cout << -1;
+    else {
+        for (int i = 0; i < (int)res.size(); ++i) {
+            if (i) cout << " ";
+            cout << res[i];
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n1 + n2 + n3) average
+Space Complexity: O(n1 + n2)

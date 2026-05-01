@@ -1,0 +1,62 @@
+Question Number: 30
+Problem Title: Rat in a Maze (backtracking)
+Problem Description:
+Given a grid with 1 as open and 0 as blocked, print one valid path from start to end.
+
+Approach / Explanation:
+1) Use DFS backtracking from the start cell.
+2) Move in four directions while staying in bounds.
+3) Mark cells in the path as 1 in solution matrix.
+4) If a move fails, unmark and backtrack.
+5) Stop when destination is reached.
+6) This finds one valid path if it exists.
+7) Output the solution matrix.
+
+Brute Force Note:
+The search is exponential in the worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m;
+vector<vector<int>> grid, sol, vis;
+int dr[4] = {1, 0, 0, -1};
+int dc[4] = {0, -1, 1, 0};
+
+bool dfs(int r, int c) {
+    if (r == n - 1 && c == m - 1) { sol[r][c] = 1; return true; }
+    vis[r][c] = 1; sol[r][c] = 1;
+    for (int k = 0; k < 4; ++k) {
+        int nr = r + dr[k], nc = c + dc[k];
+        if (nr < 0 || nc < 0 || nr >= n || nc >= m) continue;
+        if (grid[nr][nc] == 0 || vis[nr][nc]) continue;
+        if (dfs(nr, nc)) return true;
+    }
+    sol[r][c] = 0; vis[r][c] = 0;
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    if (!(cin >> n >> m) || n <= 0 || m <= 0) return 0;
+    grid.assign(n, vector<int>(m, 0));
+    sol.assign(n, vector<int>(m, 0));
+    vis.assign(n, vector<int>(m, 0));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) cin >> grid[i][j];
+    if (grid[0][0] == 1 && grid[n-1][m-1] == 1) dfs(0, 0);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (j) cout << " ";
+            cout << sol[i][j];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n*m)

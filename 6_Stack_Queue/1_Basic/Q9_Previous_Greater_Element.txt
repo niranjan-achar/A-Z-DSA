@@ -1,0 +1,45 @@
+Question Number: 9
+Problem Title: Previous Greater Element
+Problem Description:
+Given an array, find the previous greater element for each element.
+
+Approach / Explanation:
+1) Use a stack to maintain a decreasing sequence.
+2) For each element, pop until a greater element remains.
+3) The top (if any) is the previous greater.
+4) Push current element.
+5) Single pass gives linear time.
+6) Output -1 if no previous greater exists.
+7) Output the result array.
+
+Brute Force Note:
+Checking all left elements costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), pg(n, -1);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    stack<long long> st;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && st.top() <= a[i]) st.pop();
+        if (!st.empty()) pg[i] = st.top();
+        st.push(a[i]);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << pg[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

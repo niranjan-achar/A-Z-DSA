@@ -1,0 +1,55 @@
+Question Number: 20
+Problem Title: Flood fill algorithm
+Problem Description:
+Given a grid, starting cell, and new color, recolor the connected region.
+
+Approach / Explanation:
+1) Use DFS/BFS from the starting cell.
+2) Only move to cells with the original color.
+3) Recolor each visited cell with the new color.
+4) Use 4-directional moves.
+5) This fills the connected area.
+6) O(n*m) time.
+7) Output the updated grid.
+
+Brute Force Note:
+No brute force needed beyond traversal.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m;
+vector<vector<int>> grid;
+int dr[4] = {1, -1, 0, 0};
+int dc[4] = {0, 0, 1, -1};
+
+void dfs(int r, int c, int oldc, int newc) {
+    if (r < 0 || c < 0 || r >= n || c >= m) return;
+    if (grid[r][c] != oldc) return;
+    grid[r][c] = newc;
+    for (int k = 0; k < 4; ++k) dfs(r + dr[k], c + dc[k], oldc, newc);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int sr, sc, newc; if (!(cin >> n >> m >> sr >> sc >> newc) || n <= 0 || m <= 0) return 0;
+    grid.assign(n, vector<int>(m, 0));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) cin >> grid[i][j];
+    int oldc = grid[sr][sc];
+    if (oldc != newc) dfs(sr, sc, oldc, newc);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (j) cout << " ";
+            cout << grid[i][j];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

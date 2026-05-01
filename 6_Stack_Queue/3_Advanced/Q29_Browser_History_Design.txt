@@ -1,0 +1,59 @@
+Question Number: 29
+Problem Title: Design data structure for browser history
+Problem Description:
+Implement a browser history with visit, back, and forward operations.
+
+Approach / Explanation:
+1) Maintain two stacks: backStack and forwardStack.
+2) visit clears forwardStack and pushes current to backStack.
+3) back pops from backStack to current and pushes to forwardStack.
+4) forward pops from forwardStack to current and pushes to backStack.
+5) All operations are O(1).
+6) This simulates browser navigation.
+7) Output current page after each operation.
+
+Brute Force Note:
+Storing full history with index also works but is less intuitive.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string current; if (!(cin >> current)) return 0;
+    int q; cin >> q;
+    stack<string> backSt, forwardSt;
+
+    while (q--) {
+        string op; cin >> op;
+        if (op == "visit") {
+            string url; cin >> url;
+            backSt.push(current);
+            current = url;
+            while (!forwardSt.empty()) forwardSt.pop();
+            cout << current << "\n";
+        } else if (op == "back") {
+            int steps; cin >> steps;
+            while (steps-- > 0 && !backSt.empty()) {
+                forwardSt.push(current);
+                current = backSt.top(); backSt.pop();
+            }
+            cout << current << "\n";
+        } else if (op == "forward") {
+            int steps; cin >> steps;
+            while (steps-- > 0 && !forwardSt.empty()) {
+                backSt.push(current);
+                current = forwardSt.top(); forwardSt.pop();
+            }
+            cout << current << "\n";
+        }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(steps)
+Space Complexity: O(n)

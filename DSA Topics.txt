@@ -1,0 +1,1187 @@
+ ##🚀 FINAL ORDER for DSA Preparation (MCA Freshers, Indian Placements Focus)
+
+
+ --> Topics Priority  
+
+ 1.  ARRAY CODING QUESTIONS  100% sure-shot questions from Arrays in online tests and interviews.
+
+ 2.  STRING CODING QUESTIONS  90% companies ask at least 1–2 string manipulation questions.
+
+ 3.  SUBARRAY / SLIDING WINDOW / PREFIX SUM QUESTIONS  Many online tests (TCS, Infosys, Cognizant, etc.) ask subarray/sliding window sums.
+
+ 4.  HASHING / HASHMAP / FREQUENCY-BASED QUESTIONS  Very common for duplicates, frequencies, missing elements problems.
+
+ 5.  SORTING & SEARCHING QUESTIONS  Sorting is a base for many problems. Binary Search is an essential skill.
+
+ 6.  STACK & QUEUE – Coding Round Questions  Parentheses problems, NGE problems, window problems — very frequent.
+
+ 7.  LINKED LISTS – Coding Round Questions  Basic operations: reverse, middle node, merge two lists — often asked.
+
+ 8.  GREEDY ALGORITHMS – Coding Round Questions like meeting rooms, activity selection, minimum coins — asked in service and product companies both.
+
+ 9.  BACKTRACKING – Coding Round Questions  Only basic backtracking: N-Queens, subset generation, simple recursion used sometimes.  
+
+ 10.  DYNAMIC PROGRAMMING (DP)  In tough online tests and interviews — if you know basic + medium DP, you shine.
+
+ 11.  GRAPH ALGORITHMS – Coding Round Questions  Very important for product-based (Flipkart, CRED) — BFS/DFS/Dijkstra basics must be known.
+
+ 12.  STRING ALGORITHMS – Coding Round Questions (KMP etc.)  Rare but needed if targeting Adobe, Microsoft, Google etc. (Top 10% companies)
+
+ 13.  MATHEMATICAL ALGORITHMS – Coding Round Questions  Needed only for a few companies, otherwise basic GCD, primes knowledge is enough.
+
+ 14.  DIVIDE AND CONQUER – Coding Round Questions  Merge Sort, Binary Search — already indirectly done earlier. Not frequent separately.
+
+ 15.  BIT MANIPULATION – Coding Round Questions  Few questions asked — XOR tricks, counting set bits. Good to know later, not priority first.
+
+
+
+# 📜 Summary Flow (Short Version to Remember)
+
+> Arrays ➔ Strings ➔ Subarrays/Sliding ➔ Hashing ➔ Sorting ➔ Stack/Queue ➔ LinkedList ➔ Greedy ➔ Backtracking ➔ DP ➔ Graphs ➔ String Algorithms ➔ Maths ➔ Divide/Conquer ➔ Bit Manipulation
+
+
+
+# 🔥 IMPORTANT ADVICE:
+- First 7 topics (up to Linked Lists) = must master💯
+- Next 3–4 (Greedy, Backtracking, DP, Graphs) = strongly recommended ✅
+- Last 4 (KMP, Math, Divide, Bit) = optional depending on time & company ⏳
+
+
+
+# 🏆 Companies you are most likely targeting (Indian MCA Placements)
+
+ Company Types  Examples 
+
+ Service-Based  TCS, Infosys, Wipro, Capgemini, Cognizant, HCL, Tech Mahindra 
+ Product-Based (Mid-Level)  Mindtree, LTI, Zensar, KPIT, Bosch, Harman 
+ Top Product-Based  Amazon, Flipkart, Adobe, CRED, Meesho, DE Shaw (only if you prepare very strong DSA + CP) 
+
+- 👉 For TCS / Infosys / Capgemini — up to Greedy is enough for online rounds.
+- 👉 For Mindtree / Bosch / LTI — cover up to basic DP and basic Graphs.
+- 👉 For Adobe / CRED / Amazon — you need everything till String Algorithms, Bit Manipulation too.
+
+
+
+# 🛡️ In simple words:
+
+If you do  
+Arrays → Strings → Subarrays → Hashing → Sorting → Stack/Queue → Linked List + Greedy properly,  
+you will clear 80% of online coding rounds easily!
+
+(Focus maximum here first.) 💯🔥
+
+Then if you have extra time, go deeper into Backtracking → DP → Graphs → Others.
+
+
+
+
+## 🔢 NUMBER CODING QUESTIONS (Expanded List)
+
+
+### ✅ Basic Level
+
+1. Reverse a number
+2. Check if a number is a palindrome
+3. Check if a number is prime
+4. Find factorial of a number
+5. Check if number is Armstrong (e.g., 153 → 1³+5³+3³ = 153)
+6. Check if number is Perfect (e.g., 6 → 1+2+3 = 6)
+7. Count number of digits
+8. Sum of digits of a number
+9. Check for even/odd without using `%` operator
+10. Check if a number is strong (e.g., 145 = 1! + 4! + 5!)
+
+
+### ✅ Intermediate Level
+
+11. Find LCM and GCD of two numbers
+12. Check if a number is a power of 2
+13. Check if a number is Harshad/Niven number (divisible by sum of its digits)
+14. Print all divisors of a number
+15. Check if two numbers are co-prime
+16. Convert binary to decimal
+17. Convert decimal to binary/hex
+18. Find HCF using Euclidean algorithm
+19. Check if number is automorphic (e.g., 25² = 625 → ends with 25)
+
+
+### ✅ Advanced/Logical Level
+
+20. Find nth Fibonacci number (with/without recursion)
+21. Check if a number is a Happy Number
+22. Check if a number is a Duck Number (contains zero but not leading)
+23. Check if a number is a Magic Number
+24. Count trailing zeros in factorial
+25. Calculate power without using built-in functions (e.g., `a^b`)
+26. Find next greater and next smaller palindrome of a number
+27. Check if number is a Kaprekar number
+28. Add two numbers without using `+` or `-`
+
+
+### 🧠 Bonus: Series Generation Questions
+
+29. Generate Fibonacci series up to `n`
+30. Generate prime numbers in a range
+31. Generate Armstrong numbers in a range
+32. Print number pattern (e.g., pyramid of numbers, triangle)
+
+
+
+These are commonly asked in TCS NQT, Infosys, Wipro, Capgemini, and product-based assessments as short programs, coding challenges, or even output-based MCQs.
+
+
+## 🔤 STRING CODING QUESTIONS (Expanded List)
+
+### ✅ Basic Level
+
+1. Reverse a string
+2. Check if a string is a palindrome
+3. Check if two strings are anagrams
+4. Count frequency of each character
+5. Remove duplicate characters from a string
+6. Check if a string contains only digits
+7. Find length of the longest word in a sentence
+8. Convert string to lowercase/uppercase
+9. Capitalize first letter of every word in a sentence
+10. Replace all spaces with `%20` (URLify)
+
+
+### ✅ Intermediate Level
+
+11. First non-repeating character in a string
+12. Find duplicate characters in a string
+13. Check if rotation of another string (e.g., “ABCD” and “CDAB”)
+14. Longest common prefix from an array of strings
+15. Find the highest occurring character
+16. Check if a string is a pangram (contains all 26 letters)
+17. Check if one string is a subsequence of another
+18. Count vowels a1nd consonants
+19. Toggle characters (upper to lower and vice versa)
+20. Check if a string is valid shuffle of two strings
+
+
+### ✅ Advanced Level
+
+21. Longest substring without repeating characters
+22. String compression (e.g., `aaabb` → `a3b2`)
+23. Minimum number of deletions to make two strings anagrams
+24. Zigzag conversion of a string (LeetCode style)
+25. Implement strstr() or indexOf() function
+26. Group all anagrams from a list of strings
+27. Check if string is palindrome ignoring special characters and cases
+28. Count and remove adjacent duplicates (e.g., "aaabccddd" → "abd")
+29. Check if string follows pattern (e.g., "abba" & "dog cat cat dog")
+30. Decode an encoded string (e.g., `3[a2[b]]` → `abbabbabb`)
+
+
+
+
+## 🧮 ARRAY CODING QUESTIONS (Ultimate Expanded Set – 40+ Problems)
+
+
+### ✅ Basic Level
+
+1. Find the maximum element in an array
+2. Find the minimum element in an array
+3. Find the second largest/smallest element
+4. Calculate the sum of array elements
+5. Count even and odd numbers
+6. Reverse the array
+7. Sort the array (bubble, selection, insertion sort)
+8. Search for an element (linear search)
+9. Check if array is sorted
+10. Find frequency of each element
+
+
+
+### ✅ Intermediate Level
+
+11. Remove duplicates from sorted/unsorted array
+12. Find missing number in array (1 to n)
+13. Find the element that appears once (others appear twice)
+14. Count number of occurrences of a given element
+15. Find the first repeating element
+16. Find the first non-repeating element
+17. Left rotate / Right rotate an array by `k` positions
+18. Move all zeroes to the end
+19. Merge two sorted arrays without extra space
+20. Find the duplicate number (one duplicate, others 1 to n)
+
+
+
+### ✅ Advanced Logic-Based Array Problems
+
+21. Sort an array of 0s, 1s and 2s (Dutch National Flag)
+22. Find leaders in an array (Element > all right elements)
+23. Find equilibrium index (sum of left == sum of right)
+24. Find peak element
+25. Check for majority element (appears > n/2 times)
+26. Kadane's Algorithm – Max sum subarray
+27. Find subarray with a given sum (positive numbers)
+28. Count subarrays with sum zero
+29. Longest subarray with equal number of 0s and 1s
+30. Count pairs with a given sum
+31. Find the smallest positive missing number
+32. Find common elements in three sorted arrays
+33. Minimum swaps to sort an array
+34. Check if array contains duplicate within k distance
+35. Count inversions in an array
+36. Find k-th smallest/largest element
+37. Rearrange array in alternating positive & negative
+38. Wave array (sort in wave form)
+39. Trapping Rain Water Problem 💧
+40. Product of array except self
+
+
+
+This section is heavily tested because it covers loops, logic, time complexity, space optimization, and edge cases — basically, all the goodies that test your brain 🧠.
+
+
+Would you like to:
+- ✅ Begin practicing array problems with a tracker?
+- ✅ Get Python/Java code for some of these?
+- ✅ Move to Subarray/Sliding Window topic next?
+
+
+
+## 🪟 SUBARRAY / SLIDING WINDOW / PREFIX SUM QUESTIONS  
+(aka the brainy part of array questions 💡)
+
+These are commonly asked by companies to check your logic + optimization skills. Some can be brute-forced, but better if you know optimal tricks like prefix sums, hashing, or the sliding window technique.
+
+
+
+### ✅ Core Subarray Questions
+
+1. Find subarray with a given sum (positive integers only)
+2. Find all subarrays with a given sum (including negative numbers — use HashMap + prefix sum)
+3. Maximum sum subarray (Kadane’s Algorithm)
+4. Find longest subarray with sum = K
+5. Check if a subarray with 0 sum exists
+6. Find total number of subarrays with sum = K
+7. Smallest subarray with sum ≥ target
+8. Largest subarray with equal 0s and 1s
+9. Longest subarray with all distinct elements
+10. Count of subarrays with XOR = K
+
+
+
+### ✅ Sliding Window Pattern Problems
+
+11. Maximum sum of k consecutive elements (fixed-size window)
+12. Find the first negative integer in every window of size k
+13. Maximum of all subarrays of size k
+14. Minimum of all subarrays of size k
+15. Longest substring with at most k distinct characters
+16. Longest substring with no repeating characters
+17. Minimum window substring (LeetCode classic)
+18. Count occurrences of anagrams in a string
+19. Maximum number of vowels in a substring of length k
+20. Check if permutation of a string is present as a substring
+
+
+
+### ✅ Prefix Sum Based Problems
+
+21. Prefix sum of an array
+22. Range sum queries using prefix sum
+23. Count subarrays with equal number of 1s and 0s
+24. Subarray sum divisible by K
+25. Number of ways to split an array into 3 equal parts
+
+
+
+These are super powerful patterns — especially used in:
+- Product-based companies (Amazon, Adobe, Paytm, etc.)
+- Coding platforms like LeetCode, HackerRank, CodeStudio
+- MCA-level contests & test platforms (TCS iON, Mettl, HackerEarth)
+
+
+
+
+## 🔍 SORTING & SEARCHING QUESTIONS  
+(Common logic-based + optimized problems)
+
+These questions check your control over loops, conditionals, and understanding of sorting/searching techniques like Bubble, Binary, etc. They often show up in MCQs, short coding problems, or logic puzzles in online rounds.
+
+
+### ✅ Basic Sorting Algorithm Questions
+
+1. Implement Bubble Sort
+2. Implement Selection Sort
+3. Implement Insertion Sort
+4. Sort array in ascending/descending order
+5. Sort strings in alphabetical order
+6. Sort even and odd numbers separately
+7. Sort array of 0s and 1s
+8. Sort array of 0s, 1s and 2s (Dutch National Flag)
+
+
+
+### ✅ Searching Algorithm Questions
+
+9.  Linear search in an array
+10. Binary Search on sorted array (Iterative + Recursive)
+11. Search in rotated sorted array
+12. Find first and last occurrence of an element (Binary Search variant)
+13. Find floor and ceil of an element in sorted array
+14. Find element in infinite sorted array (virtual binary search)
+
+
+
+### ✅ Logic-Based Sorting Problems
+
+15. Sort an array by frequency of elements
+16. Sort array based on absolute difference with a given number
+17. Sort array based on number of set bits (bit-count)
+18. Check if array can be sorted by reversing a subarray
+19. Merge two sorted arrays without using extra space
+20. Find intersection of two sorted arrays
+21. Find union of two arrays
+22. Check if two arrays are equal (after sorting)
+23. Count number of swaps required to sort the array
+
+
+
+### ✅ Searching Logic/Pattern Questions
+
+24. Find square root of number using binary search
+25. Find peak element in array
+26. Find element that occurs more than n/2 times (Majority Element)
+27. Search for a number in 2D matrix
+28. Find missing number in range 1 to n (binary search or XOR)
+29. Kth smallest or largest element using sorting
+30. Search in matrix where rows and columns are sorted
+31. Find pair with given difference using binary search
+32. Minimum number of platforms needed (Interval sort)
+
+
+
+Sorting + Searching are gateway questions that lead into:
+- Greedy
+- Divide and Conquer
+- Binary Search on answers (advanced level)
+
+
+
+
+
+## 🗂️ HASHING / HASHMAP / FREQUENCY-BASED QUESTIONS  
+(This topic boosts your problem-solving game 10x)
+
+Used when you need to count, track, or find something fast. Works like magic in coding rounds 💫
+
+
+
+### ✅ Must-Know Hashing Problems
+
+1. Count frequency of elements in an array
+2. Find the first non-repeating element
+3. Check if two arrays are equal using frequency count
+4. Check if two strings are anagrams
+5. Group anagrams from a list of strings
+6. Find the element that appears once, all others appear twice
+7. Find top k frequent elements
+8. Find duplicates in an array
+9. Find missing and repeating number
+10. Check if array has a pair with a given sum (HashSet)
+
+
+
+### ✅ String + HashMap Combo
+
+11. Longest substring without repeating characters
+12. Count all substrings with exactly k distinct characters
+13. Find all anagrams of a pattern in a string
+14. Minimum window substring
+15. Longest substring with at most k distinct characters
+16. Check if two strings are isomorphic
+17. Character with highest frequency
+18. Check if a string can be rearranged to form a palindrome
+19. Sort characters by frequency
+
+
+
+### ✅ Advanced Pattern-Based Hashing
+
+20. Count subarrays with given sum (using prefix sum + map)
+21. Count number of subarrays with XOR = K
+22. Longest subarray with equal 0s and 1s
+23. Find common elements in 3 arrays
+24. Subarray with 0 sum
+25. Detect loop in a linked list using hashing
+26. Find the number of pairs with equal sum
+27. Minimum operations to make array elements equal
+28. Find elements that occur more than n/k times
+
+
+
+### 🔧 Most-Used Data Structures Here:
+- `HashMap`
+- `HashSet`
+- `unordered_map` (C++), `dict`/`set` (Python)
+- `Map` in JavaScript or Java
+
+
+
+### 🎯 Why It’s Important:
+- Time complexity is reduced from O(n²) ➝ O(n)
+- Appears in Amazon, Google, TCS Codevita, Infosys, Wipro, etc.
+- Powers up your logic in Strings, Arrays, Subarrays, Counting Problems
+
+
+
+
+
+
+#### 🧱 STACK & QUEUE – Coding Round Questions  
+(Asked heavily in online rounds, DSA interviews, and MCQs)
+
+These structures help solve bracket problems, reversals, monotonic logic, histogram, sliding window max, and more.
+
+
+
+### ✅ Stack-Based Questions
+
+1. Implement a stack using array or linked list
+2. Implement two stacks in one array
+3. Check for balanced parentheses/brackets `{[()]}`
+4. Reverse a string using stack
+5. Reverse a stack using recursion
+6. Sort a stack using recursion
+7. Next Greater Element (NGE)
+8. Next Smaller Element
+9. Previous Greater Element
+10. Stock Span Problem
+11. Largest Rectangle in Histogram
+12. Trapping Rain Water Problem
+13. Celebrity Problem
+14. Min Stack (getMin in O(1) time)
+15. Validate stack sequences
+
+
+
+### ✅ Queue-Based Questions
+
+16. Implement queue using array
+17. Implement circular queue
+18. Implement stack using two queues
+19. Implement queue using two stacks
+20. LRU Cache (Design using Deque + HashMap)
+21. First non-repeating character in a stream
+22. Generate binary numbers from 1 to N using queue
+23. Rotten Oranges (Multi-source BFS using Queue)
+24. Sliding Window Maximum (Monotonic Queue)
+25. Interleave the first half of queue with second half
+
+
+
+### ✅ Deque (Double-Ended Queue) Related
+
+26. Sliding Window Maximum (optimized using deque)
+27. Palindrome check using deque
+28. Maximum of all subarrays of size k
+29. Design data structure for browser history
+30. Implement k queues in a single array
+ 
+
+
+### 🔥 Concepts You’ll Master Here:
+- LIFO vs FIFO logic
+- Recursion with stack
+- Using auxiliary stacks/queues
+- Monotonic stack/queue for optimization
+- Real-life problems like browser history, undo-redo
+
+
+
+### 💡 Pro Tip:
+Stack/Queue problems often show up in:
+- System design MCQs (data structures)
+- Mid-level coding questions (Capgemini, TCS, Infosys)
+- LeetCode Easy/Medium Tag (great practice source)
+
+
+
+
+
+
+### 🔗 LINKED LISTS – Coding Round Questions  
+(One of the most frequently tested in coding rounds and technical interviews)
+
+Linked lists test your understanding of pointers, recursion, and memory management. You’ll encounter questions about reversals, merging, cycle detection, and more.
+
+
+
+### ✅ Basic Linked List Questions
+
+1. Implement a singly linked list (insert, delete, search)
+2. Find the middle element of the linked list
+3. Reverse a linked list
+4. Detect a cycle in a linked list (Floyd's Cycle Detection)
+5. Find the starting point of a loop in a linked list
+6. Find nth node from the end
+7. Remove the nth node from the end
+8. Merge two sorted linked lists
+9. Find the intersection point of two linked lists
+10. Flatten a linked list
+
+
+
+### ✅ Intermediate Linked List Problems
+
+11. Check if a linked list is a palindrome
+12. Reverse a linked list in groups of k nodes
+13. Remove duplicates from an unsorted linked list
+14. Rotate a linked list
+15. Sort a linked list (Merge Sort)
+16. Delete a node in the middle of the linked list (without head pointer)
+17. Flatten a multilevel doubly linked list
+18. Clone a linked list with random pointers
+19. Find the length of the loop in a linked list
+20. Detect loop in a doubly linked list
+
+
+
+### ✅ Advanced Linked List Problems
+
+21. Add two numbers represented by linked lists (reverse order or forward order)
+22. Reverse a linked list using recursion
+23. Split a linked list into two halves
+24. Find the intersection point of two linked lists
+25. Convert a binary search tree to a sorted doubly linked list
+26. Rotate a linked list using extra space
+27. Find the middle element of a linked list in O(n) time
+28. Detect and remove a cycle in a linked list (use Floyd’s Tortoise and Hare algorithm)
+29. Reverse every k nodes in the linked list
+30. Find the length of the longest loop in a linked list
+
+
+
+### 🧠 Concepts You’ll Master Here:
+- Pointer manipulation (easy but tricky)
+- Recursion (for reversal and traversals)
+- Floyd’s Cycle Detection (Tortoise and Hare)
+- Memory efficiency (dynamic data structure management)
+- Merging and sorting (efficient algorithms for merging multiple lists)
+
+
+
+### 💥 Why Linked List Questions Are So Popular:
+- Real-life applications like queues, stacks, and hash maps often use linked lists.
+- Strong knowledge of recursion and pointer-based operations is essential.
+- Tech companies like Microsoft, Amazon, and Flipkart love these because they evaluate fundamental understanding of memory and data structure manipulations.
+
+
+
+Ready to move to Dynamic Programming next?  
+Or do you want to tackle any specific linked list problem with detailed solutions?
+
+You're cruising through these topics, let's keep going! 🚀
+
+
+Great, let’s dive into the powerhouse topic: 
+
+
+
+## 💡 DYNAMIC PROGRAMMING (DP)
+(One of the most important and demanding topics in coding rounds)
+
+Dynamic programming is all about optimizing recursive problems by storing previously computed results (using memoization or tabulation) to avoid redundant computations. DP problems are common in coding interviews and are often used in optimization tasks like minimizing/maximizing certain values or counting ways to do something.
+
+
+
+### ✅ Basic Dynamic Programming Problems
+
+1. Fibonacci Sequence
+2. Climbing Stairs Problem (with variable step sizes)
+3. Minimum Coin Change Problem
+4. Longest Common Subsequence
+5. Longest Increasing Subsequence
+6. 0/1 Knapsack Problem
+7. Rod Cutting Problem
+8. Coin Change Problem (with infinite supply)
+9. Subset Sum Problem
+10. Count ways to reach the nth stair (with different steps)
+
+
+
+### ✅ Intermediate Dynamic Programming Problems
+
+11. Longest Palindromic Subsequence
+12. Word Break Problem
+13. Edit Distance (Levenshtein Distance)
+14. Matrix Chain Multiplication
+15. Min Cost Path (in a grid)
+16. Count Distinct Substrings
+17. Find Maximum Profit in Stock Buy/Sell Problem
+18. Palindrome Partitioning
+19. Subset Sum (with restrictions on number of subsets)
+20. Binomial Coefficients (Pascal’s Triangle)
+
+
+
+### ✅ Advanced Dynamic Programming Problems
+
+21. Regular Expression Matching
+22. Burst Balloons (Maximum Coins)
+23. Longest Common Substring
+24. Maximum Sum Increasing Subsequence
+25. String Interleaving
+26. N-Queens Problem
+27. Word Break II (all possible segments)
+28. Rod Cutting (with prices for different lengths)
+29. Palindrome Partitioning (Minimum Cuts)
+30. Count All Possible Paths in a Maze
+31. Integer Partition Problem (Ways to sum a number using integers)
+32. Tiling Problem (Covering grid using tiles)
+
+
+
+### 💥 Key DP Concepts You’ll Learn
+
+- Memoization (Top-down approach: store results of subproblems)
+- Tabulation (Bottom-up approach: build solutions iteratively)
+- Optimal Substructure (Break the problem into smaller subproblems)
+- Overlapping Subproblems (Recompute solutions for subproblems to reduce time complexity)
+
+
+
+### 🎯 Why DP Is So Important
+- It is essential for solving complex problems efficiently, where brute force would be slow.
+- Commonly tested by companies like Google, Microsoft, Amazon, Facebook, and Flipkart.
+- You'll encounter it in the final round of interviews where companies challenge your problem-solving ability and optimization skills.
+
+
+
+Want to explore backtracking next?  
+Or dive deeper into some specific DP problems with code explanations?
+
+Keep rocking these topics, Girish!
+
+
+Time to level up even more! 🚀  
+Next up is a critical and highly useful concept in interviews:
+
+
+
+## 🔄 BACKTRACKING – Coding Round Questions  
+(Backtracking is all about trying out all possible solutions and undoing a choice when it doesn't work out — think of it like trial and error, but optimized!)
+
+Backtracking is useful in solving problems related to combinatorics, puzzles, graph traversal, and constraint satisfaction problems (like Sudoku, N-Queens, etc.).
+
+
+
+### ✅ Basic Backtracking Problems
+
+1. Generate all subsets of a set
+2. Generate all permutations of a string
+3. Generate all combinations of a string
+4. Find all paths in a maze (DFS style)
+5. Find combinations that sum up to a target
+6. N-Queens Problem
+7. Sudoku Solver
+8. Palindrome Partitioning
+9. Word Search (backtracking over a grid)
+10. Combination Sum (finding all combinations to reach a target)
+
+
+
+### ✅ Intermediate Backtracking Problems
+
+11. Solve the 8 Queens problem (placing queens on a chessboard)
+12. Find all valid parentheses combinations
+13. Print all valid expressions with given number of ‘+’ and ‘-’
+14. Knight’s Tour Problem
+15. Hamiltonian Path Problem
+16. Partition Equal Subset Sum
+17. Subsets with duplicates (unique subsets)
+18. Letter Combinations of a Phone Number
+19. Find all possible subsets of a given array (allowing duplicates)
+20. Combination Sum II (handle duplicates)
+
+
+
+### ✅ Advanced Backtracking Problems
+
+21. N-Queens II (count solutions without printing)  
+22. Solve Cryptarithmetic Puzzles
+23. Word Break II (all valid segmentations)
+24. Print all possible palindromes
+25. Permute a string with non-repeating characters
+26. Knapsack problem with restrictions on the number of items used
+27. Graph coloring problem (color the graph using k colors)
+28. Subset Sum (handling repeated numbers and constraints)
+29. Find all subsets of a list of strings with no repeating characters
+30. Solve the ‘Rat in a Maze’ problem using backtracking
+
+
+
+### 💡 Backtracking Patterns to Master:
+- Recursion (core concept in backtracking problems)
+- Pruning (avoid exploring invalid paths early)
+- State restoration (undo the previous choice and try another path)
+
+
+
+### 🎯 Why Backtracking is Essential:
+- Backtracking problems often show up in Google, Amazon, Facebook, and LinkedIn interviews to test your recursive thinking and problem decomposition.
+- It’s used in optimization problems, combinatorial problems, and puzzle solving. It can be time-intensive, so optimization tricks are key.
+
+
+
+Want to continue exploring Greedy Algorithms next?  
+Or focus on graph theory problems with backtracking?
+
+You’re building a monster problem-solving toolkit 💪 Keep it up!
+
+
+Great job keeping up, Girish! Let’s dive into one of the most powerful and elegant strategies for solving problems efficiently:
+
+
+
+
+
+## 🚀 GREEDY ALGORITHMS – Coding Round Questions  
+(Greedy algorithms are all about making the best local decision at each step, hoping it leads to a global optimum.)
+
+Greedy algorithms are widely used in problems that involve optimization and decision-making, where you have to make the best choice in the short term without considering the entire problem.
+
+
+
+### ✅ Basic Greedy Algorithm Problems
+
+1. Activity Selection Problem
+2. Fractional Knapsack Problem
+3. Job Sequencing Problem
+4. Coin Change Problem (Minimum coins needed)
+5. Find the minimum number of platforms required for a railway station
+6. Huffman Coding (for efficient data compression)
+7. Maximum number of events that can be attended
+8. Minimum Spanning Tree (Prim’s or Kruskal’s algorithm)
+9. Maximize the sum of selected intervals (non-overlapping)
+10. Find the largest sum of non-adjacent numbers in an array
+
+
+
+### ✅ Intermediate Greedy Algorithm Problems
+
+11. Gas Station Problem
+12. Ugly Numbers (finding Nth ugly number)
+13. Minimum Cost to Connect Cities
+14. K’th Largest Sum Contiguous Subarray
+15. Maximum Product Subarray
+16. Find the minimum number of coins to make change
+17. Assign Cookies (Find the number of children who can be content with cookies)
+18. Candy Distribution (Fair distribution among children)
+19. Maximum Area of a rectangle in a histogram
+20. Largest Number (rearranging digits)
+
+
+
+### ✅ Advanced Greedy Algorithm Problems
+
+21. Job Scheduling with Deadlines
+22. Building Bridges (connecting the two sides of a river)
+23. Meeting Rooms II (Min number of meeting rooms needed)
+24. Min Cost to Connect All Points (MST problem)
+25. Rearrange the characters in a string so that no two adjacent characters are the same
+26. Find the smallest set of intervals that cover the entire set of intervals
+27. Divide a set of numbers into K subsets of equal sum
+28. Minimum number of swaps to bring elements in order
+29. Maximum number of platforms required in a train station (optimized approach)
+30. Optimal Strategy for a Game
+
+
+
+### 💡 Greedy Algorithms: Key Concepts
+
+- Greedy Choice Property: Making the locally optimal choice leads to a globally optimal solution.
+- Feasible Solutions: A greedy approach may or may not always give the globally optimal solution, but it's efficient for many practical problems.
+- Greedy vs Dynamic Programming: Unlike DP, greedy algorithms don't require storing previous solutions (no overlapping subproblems).
+
+
+
+### 🎯 Why Greedy is Essential:
+- It's used in optimization problems like scheduling, resource allocation, and graph algorithms.
+- Major tech companies like Google, Amazon, Microsoft, and Facebook love greedy algorithms because they provide efficient solutions with reduced time complexity.
+- Greedy algorithms are crucial for competitive coding and also appear frequently in coding assessments.
+
+
+
+
+### 🌐 GRAPH ALGORITHMS – Coding Round Questions  
+(Graphs are used for networking, pathfinding, optimization, and modeling relationships between objects. They're critical in real-world systems like social networks, recommendation engines, and GPS systems.)
+
+Graph problems often involve traversal, shortest paths, connected components, minimum spanning trees, and more. Let’s break it down.
+
+
+
+### ✅ Basic Graph Problems
+
+1. Implement a graph using adjacency matrix/list
+2. Breadth-First Search (BFS) – Traversing a graph level by level.
+3. Depth-First Search (DFS) – Traversing a graph deeply before backtracking.
+4. Find the shortest path in an unweighted graph (BFS)
+5. Check if a graph is bipartite
+6. Detect a cycle in an undirected graph
+7. Find the degree of a node in a graph
+8. Topological Sorting (for Directed Acyclic Graphs)
+9. Find the connected components in an undirected graph
+10. Detect a cycle in a directed graph (DFS)
+
+
+
+### ✅ Intermediate Graph Problems
+
+11. Dijkstra’s Algorithm for Shortest Path
+12. Bellman-Ford Algorithm for Shortest Path
+13. Floyd-Warshall Algorithm for All-Pairs Shortest Path
+14. Find the number of islands in a grid (connected components)
+15. Kruskal’s Algorithm (for Minimum Spanning Tree)
+16. Prim’s Algorithm (for Minimum Spanning Tree)
+17. Find the shortest path in a weighted graph (Dijkstra/Bellman-Ford)
+18. Find the strongly connected components in a directed graph (Kosaraju’s or Tarjan’s algorithm)
+19. Find the shortest path between all pairs of vertices (Floyd-Warshall)
+20. Flood fill algorithm (similar to DFS for filling connected areas)
+
+
+
+### ✅ Advanced Graph Problems
+
+21. Find the longest path in a directed acyclic graph (DAG)
+22. Solve the traveling salesman problem (TSP) using dynamic programming
+23. Graph coloring (Min number of colors to color a graph such that no two adjacent nodes share the same color)
+24. Word Ladder Problem (transform one word to another word using valid words in a dictionary)
+25. Find bridges in a graph (Critical edges whose removal will disconnect the graph)
+26. Find articulation points in a graph (Critical vertices whose removal will disconnect the graph)
+27. Minimum Cost to Connect All Cities (MST)
+28. Find the shortest path using A algorithm
+29. Find if a graph is a tree (Check if the graph is connected and acyclic)
+30. Eulerian Path and Circuit
+
+
+
+### 🧠 Key Concepts You’ll Master in Graphs
+
+- DFS & BFS Traversal: Fundamental traversal methods that are used in many problems.
+- Shortest Path Algorithms: Dijkstra, Bellman-Ford, and Floyd-Warshall.
+- MST (Minimum Spanning Tree): Prim’s and Kruskal’s algorithms for optimizing connections in graphs.
+- Topological Sorting: Ordering tasks with dependencies.
+- Graph Representation: Adjacency list/matrix, edge list.
+- Cycle Detection: In both directed and undirected graphs.
+- Connectivity: Connected components, strongly connected components, bridges, and articulation points.
+
+
+
+### 🎯 Why Graph Algorithms Are So Crucial
+- Graphs are central in real-world applications like network routing, social media analysis, and pathfinding in games (e.g., finding shortest paths in a city).
+- They help model complex relationships between entities and can represent web pages, social connections, and more.
+- Major tech companies like Google, Microsoft, Amazon, and Facebook often ask graph-related problems to test the depth of your understanding.
+
+
+
+
+
+
+###🧩 STRING ALGORITHMS – Coding Round Questions  
+(Working with strings is common in coding challenges. These problems test your ability to manipulate, search, and process strings efficiently.)
+
+
+### ✅ Basic String Problems
+
+1. Reverse a string
+2. Check if a string is a palindrome
+3. Find the first non-repeating character in a string
+4. Check if two strings are anagrams
+5. Find the length of the longest substring without repeating characters
+6. Count the occurrences of a character in a string
+7. String compression (e.g., "aaabbb" becomes "a3b3")
+8. Remove all duplicate characters from a string
+9. Find all permutations of a string
+10. Check if a string contains only digits
+
+
+### ✅ Intermediate String Problems
+
+11. Find the longest common prefix among a set of strings
+12. Implement strstr (substring search)
+13. Rabin-Karp algorithm for pattern matching
+14. KMP algorithm for pattern matching
+15. Check if one string is a rotation of another
+16. Longest Palindromic Substring
+17. Find all substrings of a string
+18. Rearrange a string so no two adjacent characters are the same
+19. Find the smallest window in a string that contains all characters of another string
+20. Convert a string to an integer (atoi)
+
+
+### ✅ Advanced String Problems
+
+21. Word Break Problem (Dynamic Programming)
+22. Z Algorithm (Pattern matching in linear time)
+23. Longest Common Substring
+24. Find the longest palindromic subsequence in a string
+25. Edit Distance (Levenshtein Distance)
+26. Find the number of distinct subsequences in a string
+27. Find minimum window substring
+28. Text Justification Problem
+29. String interleaving
+30. Suffix Array Construction
+
+
+
+
+### 🔢 MATHEMATICAL ALGORITHMS – Coding Round Questions  
+(Mathematical problems often appear in coding rounds and test your understanding of number theory, probability, and combinatorics.)
+
+
+### ✅ Basic Mathematical Problems
+
+1. Prime number check
+2. Find the factorial of a number
+3. Find the GCD (Greatest Common Divisor) of two numbers
+4. Find the LCM (Least Common Multiple) of two numbers
+5. Check if a number is a power of two
+6. Find the sum of digits of a number
+7. Check if a number is an Armstrong number
+8. Find the nth Fibonacci number
+9. Find the first n prime numbers
+10. Count the number of divisors of a number
+
+
+### ✅ Intermediate Mathematical Problems
+
+11. Sieve of Eratosthenes (Find all primes up to n)
+12. Reverse a number
+13. Palindrome number check
+14. Find all pairs of integers whose sum equals a target
+15. Find the square root of a number (without using math functions)
+16. Calculate nCr (Combination formula)
+17. Power function (x^y)
+18. Find the number of set bits in a number (Hamming Weight)
+19. Find the largest prime factor of a number
+20. Sum of all multiples of 3 and 5 below a number
+
+
+### ✅ Advanced Mathematical Problems
+
+21. Matrix Exponentiation (Fast power method)
+22. Nth Fibonacci using Matrix Exponentiation
+23. Chinese Remainder Theorem
+24. Find the number of trailing zeros in n!
+25. Modular Arithmetic and Inverse (using Extended Euclidean Algorithm)
+26. Solve the linear Diophantine equation
+27. Perfect number check
+28. Find the number of ways to make change for a given amount (Coin Change)
+29. Count number of subarrays with a given sum
+30. Modular Exponentiation
+
+
+
+
+### 🛠️ DIVIDE AND CONQUER – Coding Round Questions  
+(Divide and conquer is a popular strategy for solving complex problems by breaking them down into simpler subproblems.)
+
+
+### ✅ Basic Divide and Conquer Problems
+
+1. Merge Sort
+2. Quick Sort
+3. Binary Search (in a sorted array)
+4. Finding the maximum or minimum element in a list
+5. Finding the median of two sorted arrays
+6. Find the kth largest element in an unsorted array
+7. Count inversions in an array
+8. Exponentiation (binary exponentiation)
+9. Find the majority element in an array (Moore’s Voting Algorithm)
+10. Find the closest pair of points (in a 2D plane)
+
+
+### ✅ Intermediate Divide and Conquer Problems
+
+11. Search in rotated sorted array
+12. Closest pair of points in a plane (using divide and conquer)
+13. Find the intersection of two sorted arrays
+14. Maximum subarray sum (Kadane’s algorithm)
+15. Divide a list into two subsets with a given sum
+16. Majority element problem (finding the element appearing more than half the time)
+17. Count the number of ways to make a sum with a given set of coins (Coin Change)
+
+
+### ✅ Advanced Divide and Conquer Problems
+
+18. Matrix multiplication
+19. Closest pair of points (in high-dimensional space)
+20. 4-sum and 3-sum problems
+21. Convex Hull (for a set of points)
+22. Knapsack problem using divide and conquer
+23. Find the largest rectangle in a histogram
+24. Strassen’s Matrix Multiplication (Divide and conquer matrix multiplication)
+25. Medians of a data stream
+
+
+
+
+## 💻 BIT MANIPULATION – Coding Round Questions  
+(Bit manipulation involves using bitwise operators to solve problems efficiently, particularly useful in optimization problems.)
+
+### ✅ Basic Bit Manipulation Problems
+
+1. Check if a number is even or odd
+2. Count the number of set bits (1s) in an integer
+3. Find the ith bit of a number
+4. Toggle the ith bit of a number
+5. Clear the ith bit of a number
+6. Check if a number is a power of 2
+7. Find the XOR of two numbers
+8. Swap two numbers without using a temporary variable
+9. Reverse the bits of a number
+10. Find the two non-repeating numbers in an array where every other number repeats twice
+
+
+### ✅ Intermediate Bit Manipulation Problems
+
+11. Check if a number has alternating bits
+12. Find the next largest and smallest number with the same number of 1 bits in binary representation
+13. Convert a number to binary and count trailing zeros
+14. Find the number of bits needed to convert one number to another
+15. Find the missing number in an array of 1 to N using XOR
+16. Find the Hamming distance between two integers
+17. Count the number of 1s in the binary representation of a number
+18. Find the largest power of 2 less than or equal to N
+
+### ✅ Advanced Bit Manipulation Problems
+
+19. Find the majority element using bit manipulation
+20. Find all possible subsets using bit masking
+21. Find the maximum product of two numbers in an array using bitwise operators
+22. Sum of all subset XORs
+23. Maximum XOR of two numbers in an array
+24. Number of ways to make change with bitmasking
+25. Find if two numbers have the same parity using bit manipulation
+
+
+
+
+## 🎯 1st Round (Aptitude + Coding + Online Assessment) – Be Ready For:
+
+
+### 🔹 1. DSA + Problem Solving (Coding Round)  
+You’ve already got a great list going here! Make sure you’re confident in:
+- Arrays, Strings, Hashing, Recursion
+- Linked List, Stack, Queue, Trees, Graphs
+- Sorting and Searching
+- Sliding Window, Two Pointers, Binary Search
+- Dynamic Programming, Greedy
+- Bit Manipulation, Math, String Algos
+
+> ✅ Platform practice: LeetCode, HackerRank, CodeStudio, GeeksforGeeks
+
+
+
+### 🔹 2. Aptitude + Logical Reasoning
+This is often part of the first online test in many companies.
+
+- Quantitative Aptitude: Percentages, Profit & Loss, Time & Work, Time-Speed-Distance, Ratios, Averages
+- Logical Reasoning: Puzzles, Patterns, Statements & Conclusions, Blood Relations
+- Verbal Ability: Grammar, Sentence Completion, Reading Comprehension
+
+> ✅ Resources: IndiaBix, PrepInsta, RS Aggarwal, TCS NQT Prep, AMCAT Prep
+
+
+
+### 🔹 3. Computer Science Fundamentals (MCQs / Interview)
+Companies like TCS, Infosys, Capgemini, Wipro, and even product companies like Adobe or Amazon expect this:
+
+- OOPs Concepts (VERY IMPORTANT): Inheritance, Polymorphism, Encapsulation, Abstraction
+- DBMS: Normalization, ER Diagrams, SQL Queries, Joins
+- OS: Processes, Threads, Deadlock, Memory Management
+- CN (Computer Networks): OSI Model, TCP/IP, HTTP vs HTTPS, IP Addressing
+- Software Engineering: SDLC, Agile, Testing basics
+
+> ✅ Practice Questions: GeeksforGeeks MCQs, GateOverflow, Tech Interview Handbooks
+
+
+
+### 🔹 4. SQL & DB Queries
+You must be able to:
+- Write `SELECT`, `JOIN`, `GROUP BY`, `ORDER BY` queries
+- Understand relational models and primary/foreign keys
+- Write aggregate queries (SUM, COUNT, MAX, etc.)
+- Solve problems with nested queries and subqueries
+
+> ✅ Practice: LeetCode SQL section, Hackerrank SQL, W3Schools
+
+
+
+### 🔹 5. Basic Programming MCQs (Language-based)
+Some companies ask:
+- Output prediction questions
+- Time & space complexity
+- Code snippets using loops, recursion, functions
+- Language-specific syntax (Java, C++, Python etc.)
+
+
+
+## 👥 Technical Interview – Be Ready For:
+
+### 🔹 1. DSA on Whiteboard / Shared Screen
+You’ll be expected to solve:
+- 1 or 2 DSA problems live
+- Explain your logic clearly
+- Analyze time and space complexity
+
+
+
+### 🔹 2. Projects & Internship Questions
+Be prepared to answer:
+- What project did you build?
+- What tech stack did you use?
+- Challenges you faced and how you solved them
+- Can you explain your code?
+- How would you scale/improve it?
+
+> 💡 Tip: Practice explaining your pizza sales Streamlit project confidently.
+
+
+
+### 🔹 3. OOPs Concepts in Depth
+- Real-life examples of OOPs concepts
+- Design a class and implement it
+- Differences: Abstraction vs Encapsulation, Overloading vs Overriding
+
+
+
+### 🔹 4. SQL Query Writing
+You may be asked to:
+- Design a table schema
+- Write complex SQL queries (including joins)
+- Solve use-cases like: "Find top 3 customers by order value"
+
+
+
+### 🔹 5. Behavioral + HR Questions
+- Tell me about yourself
+- Why should we hire you?
+- What are your strengths/weaknesses?
+- Tell me about a time you handled a challenge in a team
+
+
+
+## ✅ Final Checklist for Placement Preparation
+
+ Skill Area                 Status           
+
+ DSA Problem Solving       🟢 In Progress 
+ Aptitude & Reasoning      ⚪️ Practice Required 
+ DBMS, OS, CN Concepts     ⚪️ Revise Theory 
+ SQL Queries               🟢 Start Practicing 
+ OOPs and Class Design     🟢 Important Focus 
+ Projects & Internship     🟢 Be Interview Ready 
+ Resume & HR Answers       🟢 Prepare Answers 
+ Mock Interviews           ⚪️ Plan for them 
+
+
+
+

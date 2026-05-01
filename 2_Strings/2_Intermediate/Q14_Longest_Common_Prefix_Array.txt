@@ -1,0 +1,42 @@
+Question Number: 14
+Problem Title: Longest common prefix from an array of strings
+Problem Description:
+Given an array of strings, find the longest common prefix.
+
+Approach / Explanation:
+1) If the array is empty, return empty.
+2) Take the first string as the current prefix.
+3) For each next string, shrink the prefix until it matches.
+4) If prefix becomes empty, stop early.
+5) This compares only needed characters.
+6) Time is linear in total characters.
+7) Output the prefix.
+
+Brute Force Note:
+Checking every prefix length against all strings is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    string prefix; cin >> prefix;
+    for (int i = 1; i < n; ++i) {
+        string s; cin >> s;
+        while (prefix.size() > s.size() || s.substr(0, prefix.size()) != prefix) {
+            prefix.pop_back();
+            if (prefix.empty()) break;
+        }
+        if (prefix.empty()) break;
+    }
+
+    cout << prefix;
+    return 0;
+}
+
+Time Complexity: O(total chars)
+Space Complexity: O(1)

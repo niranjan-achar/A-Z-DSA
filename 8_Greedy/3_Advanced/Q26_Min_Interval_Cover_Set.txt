@@ -1,0 +1,46 @@
+Question Number: 26
+Problem Title: Smallest set of intervals that cover all intervals
+Problem Description:
+Given a set of intervals, find the minimum number of intervals to cover all points.
+
+Approach / Explanation:
+1) Sort intervals by end time.
+2) Choose the earliest finishing interval first.
+3) Count a new interval whenever current start is beyond covered end.
+4) This greedy selection minimizes the number of intervals.
+5) Track the last covered end point.
+6) O(n log n) time for sorting.
+7) Output the minimum count.
+
+Brute Force Note:
+Trying all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Interval { long long s, e; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<Interval> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i].s >> a[i].e;
+    sort(a.begin(), a.end(), [](const Interval& x, const Interval& y){ return x.e < y.e; });
+
+    int count = 0;
+    long long covered = LLONG_MIN;
+    for (const auto& it : a) {
+        if (it.s > covered) {
+            ++count;
+            covered = it.e;
+        }
+    }
+    cout << count;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

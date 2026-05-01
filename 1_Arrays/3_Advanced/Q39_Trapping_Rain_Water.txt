@@ -1,0 +1,49 @@
+Question Number: 39
+Problem Title: Trapping Rain Water
+Problem Description:
+Given elevation heights, compute the total trapped rain water.
+
+Approach / Explanation:
+1) Use two pointers from both ends.
+2) Track the maximum height seen from left and right.
+3) Move the pointer with smaller height.
+4) Water trapped at that side is maxSide - current height.
+5) Accumulate the trapped water.
+6) This avoids extra arrays.
+7) Output the total water.
+
+Brute Force Note:
+Using prefix/suffix max arrays is O(n) but uses O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> h(n);
+    for (int i = 0; i < n; ++i) cin >> h[i];
+
+    int l = 0, r = n - 1;
+    long long leftMax = 0, rightMax = 0, water = 0;
+    while (l <= r) {
+        if (h[l] <= h[r]) {
+            leftMax = max(leftMax, h[l]);
+            water += leftMax - h[l];
+            ++l;
+        } else {
+            rightMax = max(rightMax, h[r]);
+            water += rightMax - h[r];
+            --r;
+        }
+    }
+
+    cout << water;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

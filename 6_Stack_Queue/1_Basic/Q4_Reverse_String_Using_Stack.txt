@@ -1,0 +1,37 @@
+Question Number: 4
+Problem Title: Reverse a string using stack
+Problem Description:
+Reverse a string using stack operations.
+
+Approach / Explanation:
+1) Push all characters onto a stack.
+2) Pop characters to build the reversed string.
+3) Stack gives LIFO order, reversing the input.
+4) Simple and easy to understand.
+5) Uses extra space for stack.
+6) Linear time.
+7) Output the reversed string.
+
+Brute Force Note:
+Two-pointer in-place reverse uses O(1) extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    stack<char> st;
+    for (char c : s) st.push(c);
+    string out; out.reserve(s.size());
+    while (!st.empty()) { out.push_back(st.top()); st.pop(); }
+
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

@@ -1,0 +1,46 @@
+Question Number: 19
+Problem Title: Smallest window containing all characters of another string
+Problem Description:
+Given strings s and t, find the smallest window in s containing all chars of t.
+
+Approach / Explanation:
+1) Use sliding window with frequency counts.
+2) Expand right pointer to include required chars.
+3) When all required met, shrink from left.
+4) Track the minimum length window.
+5) Use a counter for matched characters.
+6) O(n) time with ASCII map.
+7) Output the smallest window or -1.
+
+Brute Force Note:
+Checking all substrings is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, t; if (!(cin >> s >> t)) return 0;
+    vector<int> need(256, 0);
+    for (char c : t) need[(unsigned char)c]++;
+    int required = t.size();
+
+    int l = 0, bestLen = INT_MAX, bestStart = -1;
+    for (int r = 0; r < (int)s.size(); ++r) {
+        if (need[(unsigned char)s[r]]-- > 0) --required;
+        while (required == 0) {
+            if (r - l + 1 < bestLen) { bestLen = r - l + 1; bestStart = l; }
+            if (++need[(unsigned char)s[l]] > 0) ++required;
+            ++l;
+        }
+    }
+
+    if (bestStart == -1) cout << -1; else cout << s.substr(bestStart, bestLen);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

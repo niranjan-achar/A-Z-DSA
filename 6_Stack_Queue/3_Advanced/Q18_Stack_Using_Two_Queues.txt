@@ -1,0 +1,58 @@
+Question Number: 18
+Problem Title: Implement stack using two queues
+Problem Description:
+Implement a stack using two queues with push and pop operations.
+
+Approach / Explanation:
+1) Use two queues q1 and q2.
+2) For push, enqueue into q2, then move all elements from q1 to q2.
+3) Swap q1 and q2 so q1 always has stack order.
+4) Pop from q1.
+5) Top is front of q1.
+6) Push is O(n), pop is O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Using one queue is possible but still O(n) push/pop.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct StackUsingQueues {
+    queue<long long> q1, q2;
+    void push(long long x) {
+        q2.push(x);
+        while (!q1.empty()) { q2.push(q1.front()); q1.pop(); }
+        swap(q1, q2);
+    }
+    bool pop() {
+        if (q1.empty()) return false;
+        q1.pop(); return true;
+    }
+    bool top(long long &out) {
+        if (q1.empty()) return false;
+        out = q1.front(); return true;
+    }
+    bool empty() const { return q1.empty(); }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    StackUsingQueues st;
+    int q; if (!(cin >> q)) return 0;
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") { long long x; cin >> x; st.push(x); cout << "ok\n"; }
+        else if (op == "pop") { cout << (st.pop() ? "ok" : "underflow") << "\n"; }
+        else if (op == "top") { long long v; if (st.top(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "empty") { cout << (st.empty() ? 1 : 0) << "\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: push O(n), pop O(1)
+Space Complexity: O(n)

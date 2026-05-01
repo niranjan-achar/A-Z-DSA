@@ -1,0 +1,58 @@
+Question Number: 11
+Problem Title: Check if a linked list is a palindrome
+Problem Description:
+Given a linked list, determine if its values form a palindrome.
+
+Approach / Explanation:
+1) Find the middle using slow/fast pointers.
+2) Reverse the second half of the list.
+3) Compare values from both halves.
+4) Optionally restore the list.
+5) O(n) time and O(1) extra space.
+6) Works for odd and even lengths.
+7) Output 1 if palindrome, 0 otherwise.
+
+Brute Force Note:
+Copying values into a vector uses O(n) extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+Node* reverseList(Node* head) {
+    Node* prev = nullptr; Node* cur = head;
+    while (cur) { Node* nxt = cur->next; cur->next = prev; prev = cur; cur = nxt; }
+    return prev;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+
+    Node* slow = head; Node* fast = head;
+    while (fast && fast->next) { slow = slow->next; fast = fast->next->next; }
+
+    Node* second = reverseList(slow);
+    Node* p1 = head; Node* p2 = second;
+    bool ok = true;
+    while (p2) {
+        if (p1->val != p2->val) { ok = false; break; }
+        p1 = p1->next; p2 = p2->next;
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

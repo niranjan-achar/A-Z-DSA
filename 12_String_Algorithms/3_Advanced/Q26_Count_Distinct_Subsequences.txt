@@ -1,0 +1,45 @@
+Question Number: 26
+Problem Title: Count distinct subsequences
+Problem Description:
+Given a string, count the number of distinct subsequences.
+
+Approach / Explanation:
+1) Use dp[i] as count of distinct subsequences for prefix length i.
+2) dp[0]=1 for empty subsequence.
+3) dp[i]=2*dp[i-1] for new character.
+4) If char appeared before at position p, subtract dp[p-1].
+5) Use last occurrence map to adjust duplicates.
+6) Works in linear time.
+7) Output dp[n]-1 (excluding empty) if desired.
+
+Brute Force Note:
+Enumerating all subsequences is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    const long long MOD = 1000000007LL;
+    int n = s.size();
+    vector<long long> dp(n + 1, 0);
+    dp[0] = 1;
+    vector<int> last(256, -1);
+    for (int i = 1; i <= n; ++i) {
+        dp[i] = (2 * dp[i-1]) % MOD;
+        int ch = (unsigned char)s[i-1];
+        if (last[ch] != -1) {
+            dp[i] = (dp[i] - dp[last[ch]] + MOD) % MOD;
+        }
+        last[ch] = i - 1;
+    }
+    cout << (dp[n] - 1 + MOD) % MOD;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,52 @@
+Question Number: 22
+Problem Title: Z Algorithm (pattern matching)
+Problem Description:
+Given text and pattern, find all occurrences using Z algorithm.
+
+Approach / Explanation:
+1) Build string pattern + '$' + text.
+2) Compute Z array for longest substring starting at each index.
+3) A match occurs when Z value equals pattern length.
+4) Convert indices to positions in text.
+5) This runs in linear time.
+6) Useful for multiple matches.
+7) Output indices separated by spaces.
+
+Brute Force Note:
+Naive matching is O(n*m).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> buildZ(const string& s) {
+    int n = s.size();
+    vector<int> z(n, 0);
+    int l = 0, r = 0;
+    for (int i = 1; i < n; ++i) {
+        if (i <= r) z[i] = min(r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];
+        if (i + z[i] - 1 > r) { l = i; r = i + z[i] - 1; }
+    }
+    return z;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string text, pat; if (!(cin >> text >> pat)) return 0;
+    if (pat.empty()) { cout << 0; return 0; }
+    string s = pat + "$" + text;
+    vector<int> z = buildZ(s);
+    int m = pat.size();
+    vector<int> ans;
+    for (int i = m + 1; i < (int)s.size(); ++i) if (z[i] == m) ans.push_back(i - m - 1);
+
+    if (ans.empty()) { cout << -1; return 0; }
+    for (int i = 0; i < (int)ans.size(); ++i) { if (i) cout << " "; cout << ans[i]; }
+    return 0;
+}
+
+Time Complexity: O(n+m)
+Space Complexity: O(n+m)

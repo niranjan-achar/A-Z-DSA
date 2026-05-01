@@ -1,0 +1,63 @@
+Question Number: 24
+Problem Title: Print all possible palindromes
+Problem Description:
+Given a string, print all unique palindromic permutations if possible.
+
+Approach / Explanation:
+1) Count character frequencies.
+2) If more than one odd count, no palindromic permutations.
+3) Build half-string from counts/2.
+4) Backtrack to generate unique permutations of half.
+5) Mirror to form full palindrome with middle char if needed.
+6) Use a used array and skip duplicates.
+7) Output each palindrome on a new line.
+
+Brute Force Note:
+Generating all permutations and filtering is wasteful.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(const string& half, vector<int>& used, string& cur, char mid) {
+    if ((int)cur.size() == (int)half.size()) {
+        string rev = cur; reverse(rev.begin(), rev.end());
+        cout << cur << (mid ? string(1, mid) : "") << rev << "\n";
+        return;
+    }
+    for (int i = 0; i < (int)half.size(); ++i) {
+        if (used[i]) continue;
+        if (i > 0 && half[i] == half[i-1] && !used[i-1]) continue;
+        used[i] = 1;
+        cur.push_back(half[i]);
+        dfs(half, used, cur, mid);
+        cur.pop_back();
+        used[i] = 0;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    vector<int> freq(256, 0);
+    for (char c : s) freq[(unsigned char)c]++;
+
+    int odd = 0; char mid = 0;
+    string half;
+    for (int i = 0; i < 256; ++i) {
+        if (freq[i] % 2 == 1) { ++odd; mid = (char)i; }
+        half.append(freq[i] / 2, (char)i);
+    }
+    if (odd > 1) return 0;
+
+    sort(half.begin(), half.end());
+    vector<int> used(half.size(), 0);
+    string cur;
+    dfs(half, used, cur, mid);
+    return 0;
+}
+
+Time Complexity: O((n/2)!)
+Space Complexity: O(n)

@@ -1,0 +1,42 @@
+Question Number: 21
+Problem Title: First non-repeating character in a stream
+Problem Description:
+Given a stream of characters, output the first non-repeating character after each insertion.
+
+Approach / Explanation:
+1) Maintain frequency count for characters.
+2) Use a queue to keep the order of characters seen once.
+3) After each insertion, pop from queue while front has freq > 1.
+4) The front (if any) is the first non-repeating character.
+5) Output the result after each step.
+6) Linear time overall for all characters.
+7) Works for ASCII stream.
+
+Brute Force Note:
+Scanning the whole string after each insert is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string stream; if (!getline(cin >> ws, stream)) return 0;
+    vector<int> freq(256, 0);
+    queue<char> q;
+
+    for (char c : stream) {
+        ++freq[(unsigned char)c];
+        q.push(c);
+        while (!q.empty() && freq[(unsigned char)q.front()] > 1) q.pop();
+        if (q.empty()) cout << -1 << " ";
+        else cout << q.front() << " ";
+    }
+
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

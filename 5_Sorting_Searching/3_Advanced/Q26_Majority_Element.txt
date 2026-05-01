@@ -1,0 +1,44 @@
+Question Number: 26
+Problem Title: Find element that occurs more than n/2 times (Majority Element)
+Problem Description:
+Given an array, find the majority element if it exists.
+
+Approach / Explanation:
+1) Use Boyer-Moore voting to find a candidate.
+2) Count occurrences of the candidate to verify.
+3) If count > n/2, it is the majority.
+4) Linear time and constant space.
+5) Works for any integer values.
+6) Output the majority element or -1.
+7) Requires a verification step.
+
+Brute Force Note:
+Sorting and checking middle element is O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    long long cand = 0; int cnt = 0;
+    for (long long x : a) {
+        if (cnt == 0) { cand = x; cnt = 1; }
+        else if (x == cand) ++cnt; else --cnt;
+    }
+
+    int freq = 0;
+    for (long long x : a) if (x == cand) ++freq;
+
+    cout << (freq > n / 2 ? cand : -1);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

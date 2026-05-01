@@ -1,0 +1,40 @@
+Question Number: 9
+Problem Title: Subset Sum Problem
+Problem Description:
+Given an array and target sum, determine if any subset sums to target.
+
+Approach / Explanation:
+1) Use dp[s] indicating whether sum s is achievable.
+2) Initialize dp[0]=true.
+3) For each value, update dp backward.
+4) dp[s] |= dp[s-value] for s from target to value.
+5) Backward loop prevents reuse.
+6) This is classic subset sum DP.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+Trying all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target; if (!(cin >> n >> target) || n < 0 || target < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    vector<char> dp(target + 1, 0);
+    dp[0] = 1;
+    for (int x : a) {
+        for (int s = target; s >= x; --s) dp[s] = dp[s] || dp[s - x];
+    }
+    cout << (dp[target] ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n*target)
+Space Complexity: O(target)

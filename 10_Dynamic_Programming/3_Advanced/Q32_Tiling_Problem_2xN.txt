@@ -1,0 +1,35 @@
+Question Number: 32
+Problem Title: Tiling Problem (2 x N grid)
+Problem Description:
+Given n, count the number of ways to tile a 2 x n board using 2 x 1 tiles.
+
+Approach / Explanation:
+1) Let dp[n] be the number of ways to tile 2 x n.
+2) dp[0]=1 and dp[1]=1 as base cases.
+3) For n>=2, dp[n]=dp[n-1]+dp[n-2].
+4) This comes from placing vertical or two horizontal tiles.
+5) It matches Fibonacci sequence.
+6) Compute iteratively for efficiency.
+7) Output dp[n].
+
+Brute Force Note:
+Recursive tiling without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<long long> dp(n + 2, 0);
+    dp[0] = 1; dp[1] = 1;
+    for (int i = 2; i <= n; ++i) dp[i] = dp[i-1] + dp[i-2];
+    cout << dp[n];
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

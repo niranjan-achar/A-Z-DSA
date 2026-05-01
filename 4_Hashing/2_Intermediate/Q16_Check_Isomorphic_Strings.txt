@@ -1,0 +1,48 @@
+Question Number: 16
+Problem Title: Check if two strings are isomorphic
+Problem Description:
+Given two strings, check if characters can be mapped one-to-one to make them identical.
+
+Approach / Explanation:
+1) Use two maps: s->t and t->s to enforce bijection.
+2) Scan both strings in parallel.
+3) If a mapping conflicts, return false.
+4) If end reached without conflict, return true.
+5) This ensures one-to-one mapping.
+6) Linear time with constant alphabet.
+7) Output 1 if isomorphic, 0 otherwise.
+
+Brute Force Note:
+Trying all mappings is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, t;
+    if (!getline(cin >> ws, s)) return 0;
+    if (!getline(cin, t)) return 0;
+
+    if (s.size() != t.size()) { cout << 0; return 0; }
+    vector<int> mapST(256, -1), mapTS(256, -1);
+
+    for (int i = 0; i < (int)s.size(); ++i) {
+        unsigned char a = s[i];
+        unsigned char b = t[i];
+        if (mapST[a] == -1 && mapTS[b] == -1) {
+            mapST[a] = b; mapTS[b] = a;
+        } else if (mapST[a] != b || mapTS[b] != a) {
+            cout << 0; return 0;
+        }
+    }
+
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

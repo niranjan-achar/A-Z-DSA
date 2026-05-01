@@ -1,0 +1,51 @@
+Question Number: 20
+Problem Title: Find intersection of two sorted arrays
+Problem Description:
+Given two sorted arrays, output their intersection (unique elements).
+
+Approach / Explanation:
+1) Use two pointers to traverse both arrays.
+2) If elements are equal, add to result and move both.
+3) If not equal, move the pointer with smaller element.
+4) Skip duplicates to keep unique output.
+5) Linear time in combined length.
+6) Works because arrays are sorted.
+7) Output the intersection or -1 if empty.
+
+Brute Force Note:
+Checking each element against the other array costs O(n*m).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<long long> a(n), b(m);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < m; ++i) cin >> b[i];
+
+    int i = 0, j = 0;
+    vector<long long> res;
+    while (i < n && j < m) {
+        if (a[i] == b[j]) {
+            if (res.empty() || res.back() != a[i]) res.push_back(a[i]);
+            ++i; ++j;
+        } else if (a[i] < b[j]) ++i; else ++j;
+    }
+
+    if (res.empty()) cout << -1;
+    else {
+        for (int k = 0; k < (int)res.size(); ++k) {
+            if (k) cout << " ";
+            cout << res[k];
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n+m)
+Space Complexity: O(1) extra

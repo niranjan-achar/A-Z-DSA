@@ -1,0 +1,45 @@
+Question Number: 12
+Problem Title: Ugly Numbers (Nth ugly number)
+Problem Description:
+Find the nth ugly number (only prime factors 2, 3, 5).
+
+Approach / Explanation:
+1) Use dynamic generation with three pointers for 2,3,5.
+2) Next ugly is min(2*x, 3*y, 5*z).
+3) Increment pointer(s) that match the min.
+4) Build sequence up to n.
+5) This avoids checking each integer.
+6) O(n) time and O(n) space.
+7) Output the nth ugly number.
+
+Brute Force Note:
+Checking each number's prime factors is slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> ugly(n);
+    ugly[0] = 1;
+    int i2 = 0, i3 = 0, i5 = 0;
+    for (int i = 1; i < n; ++i) {
+        long long next2 = ugly[i2] * 2;
+        long long next3 = ugly[i3] * 3;
+        long long next5 = ugly[i5] * 5;
+        long long next = min(next2, min(next3, next5));
+        ugly[i] = next;
+        if (next == next2) ++i2;
+        if (next == next3) ++i3;
+        if (next == next5) ++i5;
+    }
+    cout << ugly[n-1];
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

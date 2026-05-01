@@ -1,0 +1,43 @@
+Question Number: 17
+Problem Title: Assign Cookies
+Problem Description:
+Given greed factors and cookie sizes, find maximum children content.
+
+Approach / Explanation:
+1) Sort greed factors and cookie sizes.
+2) Use two pointers to match smallest greed with smallest cookie.
+3) If cookie satisfies greed, count and move both pointers.
+4) Otherwise, move cookie pointer to find a larger cookie.
+5) This greedy matching maximizes content children.
+6) O(n log n) time for sorting.
+7) Output the count.
+
+Brute Force Note:
+Trying all assignments is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<int> g(n), s(m);
+    for (int i = 0; i < n; ++i) cin >> g[i];
+    for (int i = 0; i < m; ++i) cin >> s[i];
+    sort(g.begin(), g.end());
+    sort(s.begin(), s.end());
+
+    int i = 0, j = 0, cnt = 0;
+    while (i < n && j < m) {
+        if (s[j] >= g[i]) { ++cnt; ++i; ++j; }
+        else ++j;
+    }
+    cout << cnt;
+    return 0;
+}
+
+Time Complexity: O(n log n + m log m)
+Space Complexity: O(1) extra

@@ -1,0 +1,43 @@
+Question Number: 9
+Problem Title: Find the intersection point of two linked lists
+Problem Description:
+Given two linked lists, find the node where they intersect.
+
+Approach / Explanation:
+1) Use two pointers p1 and p2.
+2) Move each pointer; when it reaches end, switch to the other list head.
+3) They will meet at intersection or at null.
+4) This aligns path lengths without extra space.
+5) O(n+m) time and O(1) space.
+6) Output the intersecting value or -1.
+7) Works for shared tail intersection.
+
+Brute Force Note:
+Using a hash set of nodes uses O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Input format for intersecting lists is not standardized.
+    // This snippet shows pointer logic only.
+    Node* headA = nullptr; Node* headB = nullptr;
+
+    Node* p1 = headA; Node* p2 = headB;
+    while (p1 != p2) {
+        p1 = p1 ? p1->next : headB;
+        p2 = p2 ? p2->next : headA;
+    }
+
+    if (!p1) cout << -1; else cout << p1->val;
+    return 0;
+}
+
+Time Complexity: O(n+m)
+Space Complexity: O(1)

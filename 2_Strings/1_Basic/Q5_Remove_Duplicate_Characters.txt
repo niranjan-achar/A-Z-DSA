@@ -1,0 +1,38 @@
+Question Number: 5
+Problem Title: Remove duplicate characters from a string
+Problem Description:
+Given a string, remove duplicate characters while keeping the first occurrence order.
+
+Approach / Explanation:
+1) Use a boolean array of size 256 to track seen characters.
+2) Scan the string and append a character if it is not seen.
+3) Mark the character as seen.
+4) This preserves the order of first occurrences.
+5) Works for ASCII inputs.
+6) Single pass gives linear time.
+7) Output the resulting string.
+
+Brute Force Note:
+Checking membership with nested loops costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    vector<bool> seen(256, false);
+    string out;
+    out.reserve(s.size());
+    for (unsigned char c : s) {
+        if (!seen[c]) { seen[c] = true; out.push_back((char)c); }
+    }
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

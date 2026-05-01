@@ -1,0 +1,53 @@
+Question Number: 6
+Problem Title: Find nth node from the end
+Problem Description:
+Given a linked list and n, find the nth node from the end.
+
+Approach / Explanation:
+1) Use two pointers: first and second.
+2) Advance first by n steps.
+3) Move both pointers until first reaches the end.
+4) Second will be at the nth node from the end.
+5) Single pass and O(1) space.
+6) Handle n larger than list size.
+7) Output the value or -1.
+
+Brute Force Note:
+Computing length then traversing again is two passes.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+    int k; cin >> k;
+    if (k <= 0) { cout << -1; return 0; }
+
+    Node* first = head; Node* second = head;
+    for (int i = 0; i < k; ++i) {
+        if (!first) { cout << -1; return 0; }
+        first = first->next;
+    }
+    while (first) {
+        first = first->next;
+        second = second->next;
+    }
+
+    cout << (second ? second->val : -1);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

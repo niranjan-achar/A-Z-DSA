@@ -1,0 +1,50 @@
+Question Number: 24
+Problem Title: Subarray sum divisible by K
+Problem Description:
+Given an array and K, count subarrays whose sum is divisible by K.
+
+Approach / Explanation:
+1) Use prefix sums and compute prefix % K.
+2) If two prefixes have the same remainder, their subarray sum is divisible by K.
+3) Keep frequency of each remainder.
+4) Normalize remainder to be non-negative.
+5) Add freq[rem] to answer for each prefix.
+6) Initialize freq[0] = 1.
+7) Output the count.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long K;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> K;
+    if (K == 0) return 0;
+
+    unordered_map<long long, long long> freq;
+    freq[0] = 1;
+    long long prefix = 0, ans = 0;
+
+    for (long long x : a) {
+        prefix += x;
+        long long rem = prefix % K;
+        if (rem < 0) rem += K;
+        if (freq.count(rem)) ans += freq[rem];
+        ++freq[rem];
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

@@ -1,0 +1,38 @@
+Question Number: 28
+Problem Title: Count and remove adjacent duplicates
+Problem Description:
+Given a string, remove adjacent duplicates repeatedly and output the result.
+
+Approach / Explanation:
+1) Use a stack-like string as a buffer.
+2) For each character, if it matches the buffer end, pop it.
+3) Otherwise, push the character.
+4) This removes adjacent pairs in a single pass.
+5) Repeated removals are naturally handled by the stack behavior.
+6) Linear time and space.
+7) Output the reduced string.
+
+Brute Force Note:
+Repeated scanning and removal is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    string st;
+    for (char c : s) {
+        if (!st.empty() && st.back() == c) st.pop_back();
+        else st.push_back(c);
+    }
+
+    cout << st;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

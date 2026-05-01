@@ -1,0 +1,64 @@
+Question Number: 23
+Problem Title: Reverse alternate k nodes in a linked list
+Problem Description:
+Given a linked list and k, reverse every alternate group of k nodes.
+
+Approach / Explanation:
+1) Reverse the first k nodes.
+2) Skip the next k nodes without reversing.
+3) Recursively process remaining list.
+4) Connect reversed and skipped parts correctly.
+5) Continue until list ends.
+6) O(n) time and O(n/k) recursion depth.
+7) Output the modified list.
+
+Brute Force Note:
+Using arrays to reverse segments uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+Node* reverseAltK(Node* head, int k, bool rev) {
+    if (!head || k <= 1) return head;
+    if (!rev) {
+        Node* cur = head;
+        for (int i = 1; i < k && cur->next; ++i) cur = cur->next;
+        cur->next = reverseAltK(cur->next, k, !rev);
+        return head;
+    }
+    Node* prev = nullptr; Node* cur = head; Node* nxt = nullptr;
+    int cnt = 0;
+    while (cur && cnt < k) {
+        nxt = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = nxt;
+        ++cnt;
+    }
+    head->next = reverseAltK(cur, k, !rev);
+    return prev;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n >> k) || n <= 0 || k <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+
+    head = reverseAltK(head, k, true);
+    Node* cur = head; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n/k) recursion

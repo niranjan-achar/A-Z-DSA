@@ -1,0 +1,46 @@
+Question Number: 6
+Problem Title: Huffman Coding
+Problem Description:
+Given characters and their frequencies, build a Huffman tree and compute total cost.
+
+Approach / Explanation:
+1) Insert all frequencies into a min-heap.
+2) Repeatedly take two smallest frequencies.
+3) Combine them and push their sum back.
+4) The sum of merged weights is the total cost.
+5) This greedy merge is optimal for prefix codes.
+6) O(n log n) time due to heap operations.
+7) Output the total cost.
+
+Brute Force Note:
+Trying all prefix codes is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    priority_queue<long long, vector<long long>, greater<long long>> pq;
+    for (int i = 0; i < n; ++i) {
+        long long f; cin >> f; pq.push(f);
+    }
+
+    long long cost = 0;
+    while (pq.size() > 1) {
+        long long a = pq.top(); pq.pop();
+        long long b = pq.top(); pq.pop();
+        long long s = a + b;
+        cost += s;
+        pq.push(s);
+    }
+
+    cout << cost;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

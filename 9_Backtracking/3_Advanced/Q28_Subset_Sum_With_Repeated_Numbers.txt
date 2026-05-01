@@ -1,0 +1,41 @@
+Question Number: 28
+Problem Title: Subset Sum (with repeated numbers)
+Problem Description:
+Given an array and target, determine if any subset sums to target.
+
+Approach / Explanation:
+1) Use backtracking with index and remaining target.
+2) At each index, choose to include or exclude the element.
+3) If target becomes zero, success.
+4) If index ends or target negative, stop.
+5) This explores all subsets.
+6) Works for small n.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+All subsets may be explored.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int idx, const vector<int>& a, int target) {
+    if (target == 0) return true;
+    if (idx == (int)a.size() || target < 0) return false;
+    if (dfs(idx + 1, a, target - a[idx])) return true;
+    return dfs(idx + 1, a, target);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target; if (!(cin >> n >> target) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cout << (dfs(0, a, target) ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

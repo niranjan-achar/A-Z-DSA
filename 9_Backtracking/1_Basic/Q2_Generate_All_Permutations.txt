@@ -1,0 +1,49 @@
+Question Number: 2
+Problem Title: Generate all permutations of a string
+Problem Description:
+Given a string with distinct characters, print all permutations.
+
+Approach / Explanation:
+1) Use backtracking with a used array and current string.
+2) At each step, try every unused character.
+3) Mark it used, append to current, and recurse.
+4) When current length equals n, output it.
+5) Backtrack by unmarking and removing the character.
+6) Generates all n! permutations.
+7) Output each permutation on a new line.
+
+Brute Force Note:
+All permutations must be listed, so O(n!) outputs are required.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(const string& s, vector<int>& used, string& cur) {
+    if ((int)cur.size() == (int)s.size()) {
+        cout << cur << "\n";
+        return;
+    }
+    for (int i = 0; i < (int)s.size(); ++i) {
+        if (used[i]) continue;
+        used[i] = 1;
+        cur.push_back(s[i]);
+        dfs(s, used, cur);
+        cur.pop_back();
+        used[i] = 0;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    vector<int> used(s.size(), 0);
+    string cur;
+    dfs(s, used, cur);
+    return 0;
+}
+
+Time Complexity: O(n * n!)
+Space Complexity: O(n)

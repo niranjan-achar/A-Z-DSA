@@ -1,0 +1,44 @@
+Question Number: 15
+Problem Title: Sort an array by frequency of elements
+Problem Description:
+Sort the array so that elements with higher frequency come first. Tie-break by value.
+
+Approach / Explanation:
+1) Count frequencies using a hash map.
+2) Sort elements with a custom comparator (freq desc, value asc).
+3) Use stable sorting if you want to preserve order for ties.
+4) Build result by iterating sorted elements.
+5) This is straightforward and reliable.
+6) Complexity depends on sorting.
+7) Output the sorted array.
+
+Brute Force Note:
+Sorting without precomputed frequencies is inefficient.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    unordered_map<long long, int> freq;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; ++freq[a[i]]; }
+
+    stable_sort(a.begin(), a.end(), [&](long long x, long long y) {
+        if (freq[x] != freq[y]) return freq[x] > freq[y];
+        return x < y;
+    });
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

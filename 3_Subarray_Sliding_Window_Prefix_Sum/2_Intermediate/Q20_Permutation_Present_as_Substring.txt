@@ -1,0 +1,60 @@
+Question Number: 20
+Problem Title: Check if permutation of a string is present as a substring
+Problem Description:
+Given strings s and p, check if any substring of s is a permutation of p.
+
+Approach / Explanation:
+1) Use fixed-size sliding window of length |p|.
+2) Maintain frequency counts for p and current window.
+3) If the counts match, a permutation exists.
+4) Slide the window by one each step.
+5) Use a match counter for efficiency.
+6) Linear time with fixed alphabet size.
+7) Output 1 if present, 0 otherwise.
+
+Brute Force Note:
+Sorting each window costs O(n * m log m).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, p;
+    if (!getline(cin >> ws, s)) return 0;
+    if (!getline(cin, p)) return 0;
+
+    int n = (int)s.size(), m = (int)p.size();
+    if (m == 0 || m > n) { cout << 0; return 0; }
+
+    vector<int> need(256, 0), win(256, 0);
+    for (unsigned char c : p) ++need[c];
+
+    int matches = 0;
+    for (int i = 0; i < 256; ++i) if (need[i] == 0) ++matches;
+
+    for (int i = 0; i < n; ++i) {
+        unsigned char c = s[i];
+        ++win[c];
+        if (win[c] == need[c]) ++matches;
+        else if (win[c] == need[c] + 1) --matches;
+
+        if (i >= m) {
+            unsigned char d = s[i - m];
+            --win[d];
+            if (win[d] == need[d]) ++matches;
+            else if (win[d] == need[d] - 1) --matches;
+        }
+
+        if (i >= m - 1 && matches == 256) { cout << 1; return 0; }
+    }
+
+    cout << 0;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,65 @@
+Question Number: 29
+Problem Title: Subsets of strings with no repeating characters
+Problem Description:
+Given a list of strings, find the maximum length of concatenation with unique characters.
+
+Approach / Explanation:
+1) Use backtracking to choose or skip each string.
+2) Track used characters with a bitmask.
+3) If a string has duplicate chars or conflicts, skip it.
+4) Update the best length when including strings.
+5) Recurse to explore all subsets.
+6) This is exponential but prunes invalid cases.
+7) Output the maximum length.
+
+Brute Force Note:
+All subsets are explored in worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int best = 0;
+
+int maskOf(const string& s) {
+    int mask = 0;
+    for (char c : s) {
+        int bit = c - 'a';
+        if (bit < 0 || bit >= 26) return -1;
+        if (mask & (1 << bit)) return -1;
+        mask |= (1 << bit);
+    }
+    return mask;
+}
+
+void dfs(int idx, const vector<int>& masks, const vector<int>& lens, int usedMask, int curLen) {
+    best = max(best, curLen);
+    if (idx == (int)masks.size()) return;
+    for (int i = idx; i < (int)masks.size(); ++i) {
+        if (masks[i] == -1) continue;
+        if (usedMask & masks[i]) continue;
+        dfs(i + 1, masks, lens, usedMask | masks[i], curLen + lens[i]);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<string> arr(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+
+    vector<int> masks(n, -1), lens(n, 0);
+    for (int i = 0; i < n; ++i) {
+        masks[i] = maskOf(arr[i]);
+        lens[i] = (int)arr[i].size();
+    }
+
+    dfs(0, masks, lens, 0, 0);
+    cout << best;
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

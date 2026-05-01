@@ -1,0 +1,43 @@
+Question Number: 12
+Problem Title: Find duplicate characters in a string
+Problem Description:
+Given a string, print characters that appear more than once.
+
+Approach / Explanation:
+1) Count frequencies with an array of size 256.
+2) Scan the frequency array to find counts > 1.
+3) Print each duplicate character once.
+4) This runs in linear time.
+5) Works for ASCII characters.
+6) If none exist, output -1.
+7) Output duplicates in ASCII order.
+
+Brute Force Note:
+Checking each character with nested loops is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    vector<int> freq(256, 0);
+    for (unsigned char c : s) ++freq[c];
+
+    bool any = false;
+    for (int i = 0; i < 256; ++i) {
+        if (freq[i] > 1) {
+            cout << (char)i << " " << freq[i] << "\n";
+            any = true;
+        }
+    }
+
+    if (!any) cout << -1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

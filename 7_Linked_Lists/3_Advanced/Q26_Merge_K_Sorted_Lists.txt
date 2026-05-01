@@ -1,0 +1,62 @@
+Question Number: 26
+Problem Title: Merge k sorted linked lists
+Problem Description:
+Given k sorted linked lists, merge them into one sorted list.
+
+Approach / Explanation:
+1) Use a min-heap of current node values.
+2) Push the head of each list into the heap.
+3) Extract smallest node and append to result.
+4) Push its next node into the heap.
+5) Repeat until heap is empty.
+6) O(N log k) where N is total nodes.
+7) Output the merged list.
+
+Brute Force Note:
+Repeatedly merging two lists one by one is slower overall.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+struct Cmp {
+    bool operator()(Node* a, Node* b) const { return a->val > b->val; }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int k; if (!(cin >> k) || k <= 0) return 0;
+    vector<Node*> lists(k, nullptr);
+    for (int i = 0; i < k; ++i) {
+        int n; cin >> n;
+        Node* head = nullptr; Node* tail = nullptr;
+        for (int j = 0; j < n; ++j) {
+            long long x; cin >> x;
+            Node* node = new Node(x);
+            if (!head) head = tail = node; else { tail->next = node; tail = node; }
+        }
+        lists[i] = head;
+    }
+
+    priority_queue<Node*, vector<Node*>, Cmp> pq;
+    for (Node* h : lists) if (h) pq.push(h);
+
+    Node dummy(0); Node* tail = &dummy;
+    while (!pq.empty()) {
+        Node* node = pq.top(); pq.pop();
+        tail->next = node; tail = node;
+        if (node->next) pq.push(node->next);
+    }
+    tail->next = nullptr;
+
+    Node* cur = dummy.next; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(N log k)
+Space Complexity: O(k)

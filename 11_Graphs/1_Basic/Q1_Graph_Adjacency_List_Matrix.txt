@@ -1,0 +1,45 @@
+Question Number: 1
+Problem Title: Implement a graph using adjacency matrix/list
+Problem Description:
+Given a graph with n nodes and m edges, build adjacency list and matrix.
+
+Approach / Explanation:
+1) Read n, m and edges.
+2) Build adjacency list for efficient traversal.
+3) Build adjacency matrix for O(1) edge checks.
+4) For undirected graph, add edges both ways.
+5) Print adjacency list as proof of construction.
+6) Matrix can be used for quick edge existence.
+7) Output adjacency list lines.
+
+Brute Force Note:
+No brute force; this is a representation task.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    vector<vector<int>> mat(n, vector<int>(n, 0));
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+        mat[u][v] = mat[v][u] = 1;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        cout << i + 1 << ":";
+        for (int v : adj[i]) cout << " " << v + 1;
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n^2) for matrix, O(n+m) for list

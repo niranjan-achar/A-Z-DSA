@@ -1,0 +1,42 @@
+Question Number: 3
+Problem Title: Generate all combinations of a string
+Problem Description:
+Given a string, print all combinations of its characters.
+
+Approach / Explanation:
+1) Use backtracking with a start index and current string.
+2) At each index, either include a character or skip it.
+3) When an include happens, output the current combination.
+4) Move forward to avoid reusing earlier characters.
+5) This generates all non-empty combinations.
+6) Total combinations are 2^n - 1.
+7) Output each combination on a new line.
+
+Brute Force Note:
+All combinations must be listed, so exponential output is expected.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const string& s, string& cur) {
+    for (int i = idx; i < (int)s.size(); ++i) {
+        cur.push_back(s[i]);
+        cout << cur << "\n";
+        dfs(i + 1, s, cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    string cur;
+    dfs(0, s, cur);
+    return 0;
+}
+
+Time Complexity: O(n * 2^n)
+Space Complexity: O(n)

@@ -1,0 +1,47 @@
+Question Number: 20
+Problem Title: Count subarrays with given sum (prefix sum + map)
+Problem Description:
+Given an array and K, count subarrays whose sum equals K.
+
+Approach / Explanation:
+1) Use prefix sums and a frequency map.
+2) If current prefix is P, then a previous prefix of P-K forms a valid subarray.
+3) Add freq[P-K] to the answer.
+4) Insert/update freq[P] as you scan.
+5) Initialize freq[0] = 1 for subarrays starting at index 0.
+6) Works with negative values.
+7) Output the total count.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long K;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> K;
+
+    unordered_map<long long, long long> freq;
+    freq[0] = 1;
+    long long prefix = 0, ans = 0;
+    for (long long x : a) {
+        prefix += x;
+        long long need = prefix - K;
+        if (freq.count(need)) ans += freq[need];
+        ++freq[prefix];
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

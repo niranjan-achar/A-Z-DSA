@@ -1,0 +1,40 @@
+Question Number: 5
+Problem Title: Sort strings in alphabetical order
+Problem Description:
+Given a list of strings, sort them lexicographically.
+
+Approach / Explanation:
+1) Use std::sort on the vector of strings.
+2) C++ string comparison is lexicographical by default.
+3) This gives O(n log n) time.
+4) Works for any ASCII strings.
+5) Stable ordering for equal strings is not guaranteed.
+6) Output the sorted list.
+7) Keep inputs as separate tokens or lines as needed.
+
+Brute Force Note:
+Manual sorting with O(n^2) loops is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<string> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    sort(a.begin(), a.end());
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

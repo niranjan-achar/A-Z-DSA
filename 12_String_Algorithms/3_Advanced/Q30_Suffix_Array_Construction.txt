@@ -1,0 +1,38 @@
+Question Number: 30
+Problem Title: Suffix Array Construction
+Problem Description:
+Given a string, build its suffix array.
+
+Approach / Explanation:
+1) Create suffixes with their starting indices.
+2) Sort suffixes lexicographically.
+3) Extract starting indices as suffix array.
+4) This is a simple O(n^2 log n) approach.
+5) For large n, use doubling algorithm.
+6) Works for small constraints.
+7) Output indices separated by spaces.
+
+Brute Force Note:
+Sorting suffix strings is slower than optimal algorithms.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int n = s.size();
+    vector<pair<string,int>> suf;
+    suf.reserve(n);
+    for (int i = 0; i < n; ++i) suf.push_back({s.substr(i), i});
+    sort(suf.begin(), suf.end(), [](const auto& a, const auto& b){ return a.first < b.first; });
+
+    for (int i = 0; i < n; ++i) { if (i) cout << " "; cout << suf[i].second; }
+    return 0;
+}
+
+Time Complexity: O(n^2 log n)
+Space Complexity: O(n^2)

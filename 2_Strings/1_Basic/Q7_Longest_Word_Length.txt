@@ -1,0 +1,43 @@
+Question Number: 7
+Problem Title: Find length of the longest word in a sentence
+Problem Description:
+Given a sentence, find the length of the longest word.
+
+Approach / Explanation:
+1) Traverse the string and build word lengths.
+2) Use spaces as word separators.
+3) Track the maximum word length seen so far.
+4) Handle multiple spaces by skipping them.
+5) Update max when a word ends.
+6) Single pass provides linear time.
+7) Output the maximum length.
+
+Brute Force Note:
+Splitting into tokens uses extra space but is also linear.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    int best = 0, cur = 0;
+    for (char c : s) {
+        if (c == ' ') {
+            best = max(best, cur);
+            cur = 0;
+        } else {
+            ++cur;
+        }
+    }
+    best = max(best, cur);
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

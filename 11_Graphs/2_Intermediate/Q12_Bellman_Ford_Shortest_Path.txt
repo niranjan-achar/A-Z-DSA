@@ -1,0 +1,61 @@
+Question Number: 12
+Problem Title: Bellman-Ford Algorithm for Shortest Path
+Problem Description:
+Given a weighted graph, find shortest paths from source and detect negative cycles.
+
+Approach / Explanation:
+1) Initialize distances with INF, dist[source]=0.
+2) Relax all edges n-1 times.
+3) If any edge can still be relaxed, a negative cycle exists.
+4) This works with negative weights.
+5) Complexity is O(n*m).
+6) Output distances or -1 for unreachable.
+7) Output 1 if negative cycle exists, else 0.
+
+Brute Force Note:
+Trying all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge { int u, v; long long w; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<Edge> edges(m);
+    for (int i = 0; i < m; ++i) {
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+        --edges[i].u; --edges[i].v;
+    }
+
+    const long long INF = (long long)4e18;
+    vector<long long> dist(n, INF);
+    dist[s] = 0;
+    for (int i = 0; i < n - 1; ++i) {
+        bool changed = false;
+        for (const auto& e : edges) {
+            if (dist[e.u] < INF && dist[e.v] > dist[e.u] + e.w) {
+                dist[e.v] = dist[e.u] + e.w;
+                changed = true;
+            }
+        }
+        if (!changed) break;
+    }
+
+    bool neg = false;
+    for (const auto& e : edges) {
+        if (dist[e.u] < INF && dist[e.v] > dist[e.u] + e.w) { neg = true; break; }
+    }
+
+    for (int i = 0; i < n; ++i) { if (i) cout << " "; cout << (dist[i] >= INF/2 ? -1 : dist[i]); }
+    cout << "\n" << (neg ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n + m)

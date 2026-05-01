@@ -1,0 +1,59 @@
+Question Number: 18
+Problem Title: Strongly connected components (Kosaraju)
+Problem Description:
+Given a directed graph, find the number of strongly connected components.
+
+Approach / Explanation:
+1) Perform DFS and push nodes by finish time.
+2) Reverse the graph.
+3) Pop nodes and DFS on reversed graph.
+4) Each DFS in reversed graph forms one SCC.
+5) Count the SCCs.
+6) Works in O(n+m) time.
+7) Output the count.
+
+Brute Force Note:
+Checking SCCs by reachability is expensive.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs1(int u, const vector<vector<int>>& g, vector<int>& vis, vector<int>& order) {
+    vis[u] = 1;
+    for (int v : g[u]) if (!vis[v]) dfs1(v, g, vis, order);
+    order.push_back(u);
+}
+
+void dfs2(int u, const vector<vector<int>>& gr, vector<int>& vis) {
+    vis[u] = 1;
+    for (int v : gr[u]) if (!vis[v]) dfs2(v, gr, vis);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n), gr(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        gr[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0), order;
+    for (int i = 0; i < n; ++i) if (!vis[i]) dfs1(i, g, vis, order);
+
+    fill(vis.begin(), vis.end(), 0);
+    int scc = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        int v = order[i];
+        if (!vis[v]) { dfs2(v, gr, vis); ++scc; }
+    }
+    cout << scc;
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

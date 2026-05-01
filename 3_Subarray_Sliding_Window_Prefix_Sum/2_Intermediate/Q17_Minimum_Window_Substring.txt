@@ -1,0 +1,59 @@
+Question Number: 17
+Problem Title: Minimum window substring
+Problem Description:
+Given strings s and t, find the smallest window in s that contains all characters of t.
+
+Approach / Explanation:
+1) Use sliding window with frequency counts for t.
+2) Expand right pointer to satisfy all needed characters.
+3) Once valid, shrink from left to minimize length.
+4) Track the smallest valid window found.
+5) Use a counter to know when all requirements are met.
+6) Linear time with fixed alphabet size.
+7) Output the minimum window or empty string.
+
+Brute Force Note:
+Checking all substrings costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, t;
+    if (!getline(cin >> ws, s)) return 0;
+    if (!getline(cin, t)) return 0;
+
+    vector<int> need(256, 0);
+    int required = 0;
+    for (unsigned char c : t) {
+        if (need[c] == 0) ++required;
+        ++need[c];
+    }
+
+    vector<int> window(256, 0);
+    int formed = 0;
+    int l = 0, bestLen = INT_MAX, bestL = 0;
+
+    for (int r = 0; r < (int)s.size(); ++r) {
+        unsigned char c = s[r];
+        ++window[c];
+        if (need[c] > 0 && window[c] == need[c]) ++formed;
+
+        while (l <= r && formed == required) {
+            if (r - l + 1 < bestLen) { bestLen = r - l + 1; bestL = l; }
+            unsigned char cl = s[l++];
+            if (need[cl] > 0 && window[cl] == need[cl]) --formed;
+            --window[cl];
+        }
+    }
+
+    if (bestLen == INT_MAX) cout << ""; else cout << s.substr(bestL, bestLen);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

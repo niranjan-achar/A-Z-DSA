@@ -1,0 +1,54 @@
+Question Number: 6
+Problem Title: Detect a cycle in an undirected graph
+Problem Description:
+Given an undirected graph, determine if it contains a cycle.
+
+Approach / Explanation:
+1) Use DFS with parent tracking.
+2) For each unvisited node, start DFS.
+3) If a visited neighbor is not the parent, cycle exists.
+4) Works for disconnected graphs.
+5) Linear time in edges and vertices.
+6) Uses recursion stack.
+7) Output 1 if cycle exists, else 0.
+
+Brute Force Note:
+Trying all paths is inefficient.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int u, int p, const vector<vector<int>>& adj, vector<int>& vis) {
+    vis[u] = 1;
+    for (int v : adj[u]) {
+        if (!vis[v]) { if (dfs(v, u, adj, vis)) return true; }
+        else if (v != p) return true;
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0);
+    bool hasCycle = false;
+    for (int i = 0; i < n && !hasCycle; ++i) if (!vis[i]) {
+        if (dfs(i, -1, adj, vis)) hasCycle = true;
+    }
+
+    cout << (hasCycle ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

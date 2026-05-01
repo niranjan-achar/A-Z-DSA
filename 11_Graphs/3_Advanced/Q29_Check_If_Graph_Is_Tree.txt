@@ -1,0 +1,48 @@
+Question Number: 29
+Problem Title: Check if a graph is a tree
+Problem Description:
+Given an undirected graph, determine if it is connected and acyclic.
+
+Approach / Explanation:
+1) A tree with n nodes must have exactly n-1 edges.
+2) Use DFS to check connectivity from node 0.
+3) If all nodes visited and edges=n-1, it's a tree.
+4) Otherwise, it has a cycle or is disconnected.
+5) This is linear time.
+6) Works for undirected graphs.
+7) Output 1 if tree, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int u, const vector<vector<int>>& g, vector<int>& vis) {
+    vis[u] = 1;
+    for (int v : g[u]) if (!vis[v]) dfs(v, g, vis);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    if (m != n - 1) { cout << 0; return 0; }
+    vector<int> vis(n, 0);
+    dfs(0, g, vis);
+    for (int i = 0; i < n; ++i) if (!vis[i]) { cout << 0; return 0; }
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

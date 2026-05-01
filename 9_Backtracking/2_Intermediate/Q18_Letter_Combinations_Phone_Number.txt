@@ -1,0 +1,49 @@
+Question Number: 18
+Problem Title: Letter Combinations of a Phone Number
+Problem Description:
+Given a digit string (2-9), print all possible letter combinations.
+
+Approach / Explanation:
+1) Map digits to letter strings.
+2) Use backtracking to build combinations.
+3) For each digit, iterate through its letters.
+4) Append a letter and recurse to next digit.
+5) When index reaches end, output the combination.
+6) This explores all possible mappings.
+7) Output each combination on a new line.
+
+Brute Force Note:
+All combinations must be generated.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> mapd = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+void dfs(const string& digits, int idx, string& cur) {
+    if (idx == (int)digits.size()) {
+        cout << cur << "\n";
+        return;
+    }
+    int d = digits[idx] - '0';
+    for (char c : mapd[d]) {
+        cur.push_back(c);
+        dfs(digits, idx + 1, cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string digits; if (!(cin >> digits)) return 0;
+    if (digits.empty()) return 0;
+    string cur;
+    dfs(digits, 0, cur);
+    return 0;
+}
+
+Time Complexity: O(3^n)
+Space Complexity: O(n)

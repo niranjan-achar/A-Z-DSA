@@ -1,0 +1,57 @@
+Question Number: 30
+Problem Title: Decode an encoded string (e.g., 3[a2[b]] -> abbabbabb)
+Problem Description:
+Decode nested k[encoded_string] patterns where k is a positive integer.
+
+Approach / Explanation:
+1) Use stacks for counts and partial strings.
+2) When reading a number, build the current multiplier.
+3) On '[', push the current string and count, then reset.
+4) On ']', pop and append current string repeated count times.
+5) Letters are appended to the current string.
+6) This handles nested encodings naturally.
+7) Output the decoded string.
+
+Brute Force Note:
+Recursive parsing also works but stack keeps it iterative.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    stack<int> counts;
+    stack<string> parts;
+    string cur;
+    int num = 0;
+
+    for (char ch : s) {
+        if (isdigit((unsigned char)ch)) {
+            num = num * 10 + (ch - '0');
+        } else if (ch == '[') {
+            counts.push(num);
+            parts.push(cur);
+            num = 0;
+            cur.clear();
+        } else if (ch == ']') {
+            int k = counts.top(); counts.pop();
+            string prev = parts.top(); parts.pop();
+            string rep;
+            rep.reserve(cur.size() * k);
+            for (int i = 0; i < k; ++i) rep += cur;
+            cur = prev + rep;
+        } else {
+            cur.push_back(ch);
+        }
+    }
+
+    cout << cur;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

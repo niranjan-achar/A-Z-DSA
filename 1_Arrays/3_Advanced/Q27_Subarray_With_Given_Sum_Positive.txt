@@ -1,0 +1,48 @@
+Question Number: 27
+Problem Title: Find subarray with a given sum (positive numbers)
+Problem Description:
+Given an array of positive integers and a target sum, find any subarray with that sum.
+
+Approach / Explanation:
+1) Use a sliding window with two pointers.
+2) Expand the right pointer and add to current sum.
+3) While current sum > target, shrink from the left.
+4) If current sum equals target, report the window.
+5) This works because all numbers are positive.
+6) Single pass ensures linear time.
+7) Output the start and end indices or -1.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long target;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> target;
+
+    int l = 0; long long sum = 0;
+    int ansL = -1, ansR = -1;
+    for (int r = 0; r < n; ++r) {
+        sum += a[r];
+        while (l <= r && sum > target) {
+            sum -= a[l++];
+        }
+        if (sum == target) { ansL = l; ansR = r; break; }
+    }
+
+    if (ansL == -1) cout << -1;
+    else cout << ansL << " " << ansR;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

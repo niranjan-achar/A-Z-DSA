@@ -1,0 +1,40 @@
+Question Number: 4
+Problem Title: Calculate the sum of array elements
+Problem Description:
+Given an array of integers, compute the sum of all elements.
+
+Approach / Explanation:
+1) Initialize a running sum as 0.
+2) Iterate through the array and add each element.
+3) Use a wider type like long long to avoid overflow.
+4) Single pass keeps the solution simple and fast.
+5) Works for negative and positive values.
+6) No extra memory is needed.
+7) Output the final sum.
+
+Brute Force Note:
+There is no faster alternative than a full scan.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    if (!(cin >> n) || n <= 0) return 0;
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x;
+        cin >> x;
+        sum += x;
+    }
+
+    cout << sum;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

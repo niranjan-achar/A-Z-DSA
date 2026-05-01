@@ -1,0 +1,41 @@
+Question Number: 4
+Problem Title: Count frequency of each character
+Problem Description:
+Given a string, count the frequency of each character.
+
+Approach / Explanation:
+1) Use a frequency array of size 256 for ASCII characters.
+2) Scan the string and increment the count for each character.
+3) Print characters with non-zero frequencies.
+4) This is linear in string length.
+5) Works for any ASCII character including spaces if read accordingly.
+6) Keeps constant extra space.
+7) Output each character and its count.
+
+Brute Force Note:
+Counting each character with nested loops costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s;
+    if (!getline(cin, s)) return 0;
+
+    vector<int> freq(256, 0);
+    for (unsigned char c : s) ++freq[c];
+
+    for (int i = 0; i < 256; ++i) {
+        if (freq[i] > 0) {
+            cout << (char)i << " " << freq[i] << "\n";
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,56 @@
+Question Number: 12
+Problem Title: Find first and last occurrence of an element
+Problem Description:
+Given a sorted array and a target, find the first and last index of the target.
+
+Approach / Explanation:
+1) Use two binary searches: one for first, one for last.
+2) In first search, move left when target found.
+3) In last search, move right when target found.
+4) If target not found, return -1 -1.
+5) Works in O(log n) time.
+6) Requires sorted array.
+7) Output first and last indices.
+
+Brute Force Note:
+Linear scan is O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int firstPos(const vector<long long>& a, long long target) {
+    int l = 0, r = (int)a.size() - 1, ans = -1;
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (a[m] >= target) { if (a[m] == target) ans = m; r = m - 1; }
+        else l = m + 1;
+    }
+    return ans;
+}
+
+int lastPos(const vector<long long>& a, long long target) {
+    int l = 0, r = (int)a.size() - 1, ans = -1;
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (a[m] <= target) { if (a[m] == target) ans = m; l = m + 1; }
+        else r = m - 1;
+    }
+    return ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    long long target; cin >> target;
+
+    cout << firstPos(a, target) << " " << lastPos(a, target);
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)

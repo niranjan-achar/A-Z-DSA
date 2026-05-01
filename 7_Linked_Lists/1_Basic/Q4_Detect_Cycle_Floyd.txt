@@ -1,0 +1,47 @@
+Question Number: 4
+Problem Title: Detect a cycle in a linked list (Floyd's Cycle Detection)
+Problem Description:
+Given a singly linked list, determine if it has a cycle.
+
+Approach / Explanation:
+1) Use two pointers: slow and fast.
+2) Slow moves 1 step, fast moves 2 steps.
+3) If they meet, a cycle exists.
+4) If fast reaches null, no cycle.
+5) O(1) extra space.
+6) Linear time.
+7) Output 1 if cycle exists, 0 otherwise.
+
+Brute Force Note:
+Using a hash set of visited nodes uses O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    long long val; Node* next; Node(long long v): val(v), next(nullptr) {}
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Input format for linked list is not standardized here.
+    // This snippet shows Floyd's cycle detection logic.
+    Node* head = nullptr;
+
+    Node* slow = head; Node* fast = head;
+    bool hasCycle = false;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) { hasCycle = true; break; }
+    }
+
+    cout << (hasCycle ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

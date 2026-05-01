@@ -1,0 +1,40 @@
+Question Number: 10
+Problem Title: Largest sum of non-adjacent numbers
+Problem Description:
+Given an array, find the maximum sum of non-adjacent elements.
+
+Approach / Explanation:
+1) Use two variables: include and exclude.
+2) For each element, newInclude = exclude + value.
+3) newExclude = max(include, exclude).
+4) Update include/exclude iteratively.
+5) This is linear-time and constant space.
+6) Greedy-style rolling choice works for max sum.
+7) Output the maximum sum.
+
+Brute Force Note:
+Checking all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    long long include = 0, exclude = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        long long newInclude = exclude + x;
+        long long newExclude = max(include, exclude);
+        include = newInclude;
+        exclude = newExclude;
+    }
+    cout << max(include, exclude);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

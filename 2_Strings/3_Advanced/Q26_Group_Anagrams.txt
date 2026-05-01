@@ -1,0 +1,48 @@
+Question Number: 26
+Problem Title: Group all anagrams from a list of strings
+Problem Description:
+Given a list of strings, group anagrams together.
+
+Approach / Explanation:
+1) Use a hash map from sorted string to list of originals.
+2) For each string, sort its characters to form the key.
+3) Append the original string to the group for that key.
+4) Sorting characters ensures all anagrams share the same key.
+5) This handles any input order.
+6) Output the groups line by line.
+7) Complexity depends on sorting each string.
+
+Brute Force Note:
+Comparing each pair of strings is O(n^2 * k).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<string> arr(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+
+    unordered_map<string, vector<string>> mp;
+    for (const string &s : arr) {
+        string key = s;
+        sort(key.begin(), key.end());
+        mp[key].push_back(s);
+    }
+
+    for (auto &kv : mp) {
+        for (int i = 0; i < (int)kv.second.size(); ++i) {
+            if (i) cout << " ";
+            cout << kv.second[i];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n * k log k)
+Space Complexity: O(n * k)

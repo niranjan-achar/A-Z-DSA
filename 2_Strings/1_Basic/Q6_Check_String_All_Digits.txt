@@ -1,0 +1,37 @@
+Question Number: 6
+Problem Title: Check if a string contains only digits
+Problem Description:
+Given a string, determine if all characters are digits.
+
+Approach / Explanation:
+1) Scan each character in the string.
+2) If any character is not between '0' and '9', return false.
+3) If all characters are digits, return true.
+4) Single pass ensures linear time.
+5) Works for empty strings (considered true here).
+6) No extra space is used.
+7) Output 1 for true, 0 otherwise.
+
+Brute Force Note:
+No faster alternative than scanning all characters.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    bool ok = true;
+    for (char c : s) {
+        if (c < '0' || c > '9') { ok = false; break; }
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

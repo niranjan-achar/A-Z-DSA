@@ -1,0 +1,51 @@
+Question Number: 17
+Problem Title: Subsets with duplicates (unique subsets)
+Problem Description:
+Given an array that may contain duplicates, generate all unique subsets.
+
+Approach / Explanation:
+1) Sort the array to group duplicates.
+2) Use backtracking with a start index.
+3) At each step, output the current subset.
+4) Skip duplicates at the same recursion level.
+5) Recurse to include each element once.
+6) This ensures unique subsets only.
+7) Output each subset on a new line.
+
+Brute Force Note:
+Filtering duplicates after generation is wasteful.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, vector<int>& cur) {
+    for (int i = 0; i < (int)cur.size(); ++i) {
+        if (i) cout << " ";
+        cout << cur[i];
+    }
+    cout << "\n";
+
+    for (int i = idx; i < (int)a.size(); ++i) {
+        if (i > idx && a[i] == a[i-1]) continue;
+        cur.push_back(a[i]);
+        dfs(i + 1, a, cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    sort(a.begin(), a.end());
+    vector<int> cur;
+    dfs(0, a, cur);
+    return 0;
+}
+
+Time Complexity: O(n * 2^n)
+Space Complexity: O(n)

@@ -1,0 +1,51 @@
+Question Number: 17
+Problem Title: Left rotate / Right rotate an array by k positions
+Problem Description:
+Rotate an array by k positions to the left or right.
+
+Approach / Explanation:
+1) Normalize k by k % n.
+2) For right rotation, reverse the whole array.
+3) Reverse the first k elements and then the remaining n-k elements.
+4) For left rotation, use k = n - k with the same process.
+5) This avoids extra arrays and is in place.
+6) Each reverse is linear, total O(n).
+7) Output the rotated array.
+
+Brute Force Note:
+Rotating one step k times is O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void reverseRange(vector<long long>& a, int l, int r) {
+    while (l < r) swap(a[l++], a[r--]);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    long long k; cin >> k;
+    char dir; cin >> dir; // 'L' or 'R'
+
+    k %= n;
+    if (dir == 'L' || dir == 'l') k = (n - k) % n; // convert to right rotation
+
+    reverseRange(a, 0, n - 1);
+    reverseRange(a, 0, (int)k - 1);
+    reverseRange(a, (int)k, n - 1);
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

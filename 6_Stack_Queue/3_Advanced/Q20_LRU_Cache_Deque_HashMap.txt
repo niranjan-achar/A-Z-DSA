@@ -1,0 +1,75 @@
+Question Number: 20
+Problem Title: LRU Cache (Design using Deque + HashMap)
+Problem Description:
+Design an LRU cache with get and put in O(1) time.
+
+Approach / Explanation:
+1) Use a list (deque-like) to store keys by recency.
+2) Use a hash map from key to list iterator and value.
+3) On get, move key to front.
+4) On put, update if exists; otherwise insert and evict if over capacity.
+5) This ensures O(1) operations.
+6) Uses extra space for cache storage.
+7) Output results for sample operations.
+
+Brute Force Note:
+Using a queue without quick removal is O(n) for updates.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct LRUCache {
+    int cap;
+    list<int> order; // front is most recent
+    unordered_map<int, pair<int, list<int>::iterator>> mp;
+    LRUCache(int c) : cap(c) {}
+
+    int get(int key) {
+        if (!mp.count(key)) return -1;
+        order.erase(mp[key].second);
+        order.push_front(key);
+        mp[key].second = order.begin();
+        return mp[key].first;
+    }
+
+    void put(int key, int value) {
+        if (mp.count(key)) {
+            order.erase(mp[key].second);
+            order.push_front(key);
+            mp[key] = {value, order.begin()};
+            return;
+        }
+        if ((int)mp.size() == cap) {
+            int old = order.back();
+            order.pop_back();
+            mp.erase(old);
+        }
+        order.push_front(key);
+        mp[key] = {value, order.begin()};
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int cap, q; if (!(cin >> cap >> q) || cap <= 0) return 0;
+    LRUCache cache(cap);
+    while (q--) {
+        string op; cin >> op;
+        if (op == "get") {
+            int key; cin >> key;
+            cout << cache.get(key) << "\n";
+        } else if (op == "put") {
+            int key, value; cin >> key >> value;
+            cache.put(key, value);
+            cout << "ok\n";
+        }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(capacity)

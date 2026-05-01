@@ -1,0 +1,54 @@
+Question Number: 5
+Problem Title: Find combinations that sum up to a target (no reuse)
+Problem Description:
+Given an array and a target, find all combinations that sum to the target using each element once.
+
+Approach / Explanation:
+1) Sort the array to enable pruning and handle duplicates.
+2) Use backtracking with a start index and remaining target.
+3) Choose an element, subtract it, and recurse to next index.
+4) Skip duplicates at the same depth to avoid repeats.
+5) If remaining target becomes zero, output current combo.
+6) Stop when remaining target is negative.
+7) Output all valid combinations.
+
+Brute Force Note:
+All subsets must be checked in the worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, int target, vector<int>& cur) {
+    if (target == 0) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << " ";
+            cout << cur[i];
+        }
+        cout << "\n";
+        return;
+    }
+    for (int i = idx; i < (int)a.size(); ++i) {
+        if (i > idx && a[i] == a[i-1]) continue;
+        if (a[i] > target) break;
+        cur.push_back(a[i]);
+        dfs(i + 1, a, target - a[i], cur);
+        cur.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target; if (!(cin >> n >> target) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    sort(a.begin(), a.end());
+    vector<int> cur;
+    dfs(0, a, target, cur);
+    return 0;
+}
+
+Time Complexity: Exponential in n
+Space Complexity: O(n)

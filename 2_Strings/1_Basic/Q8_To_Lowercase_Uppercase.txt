@@ -1,0 +1,37 @@
+Question Number: 8
+Problem Title: Convert string to lowercase/uppercase
+Problem Description:
+Given a string, convert it to lowercase and uppercase.
+
+Approach / Explanation:
+1) Create two copies of the input string.
+2) For lowercase, convert letters using tolower.
+3) For uppercase, convert letters using toupper.
+4) Non-letter characters remain unchanged.
+5) This uses a single pass per conversion.
+6) Outputs both versions.
+7) Keeps code simple and clear.
+
+Brute Force Note:
+Manual ASCII manipulation also works but is error-prone.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    string lower = s, upper = s;
+
+    for (char &c : lower) c = (char)tolower((unsigned char)c);
+    for (char &c : upper) c = (char)toupper((unsigned char)c);
+
+    cout << lower << "\n" << upper;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

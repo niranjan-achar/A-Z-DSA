@@ -1,0 +1,71 @@
+Question Number: 22
+Problem Title: Solve Cryptarithmetic Puzzles
+Problem Description:
+Given two words and a result word, assign digits to letters so sum holds.
+
+Approach / Explanation:
+1) Collect unique letters; if more than 10, no solution.
+2) Use backtracking to assign digits to letters.
+3) Track used digits and disallow leading zeros.
+4) When all letters assigned, check the equation.
+5) Backtrack on conflicts.
+6) This explores assignments efficiently with pruning.
+7) Output 1 if a solution exists, else 0.
+
+Brute Force Note:
+Trying all digit permutations is large but bounded by 10!.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long valueOf(const string& w, const unordered_map<char,int>& mp) {
+    long long val = 0;
+    for (char c : w) val = val * 10 + mp.at(c);
+    return val;
+}
+
+bool dfs(int idx, const vector<char>& letters, vector<int>& used, unordered_map<char,int>& mp,
+         const string& a, const string& b, const string& c, const unordered_set<char>& leading) {
+    if (idx == (int)letters.size()) {
+        long long x = valueOf(a, mp);
+        long long y = valueOf(b, mp);
+        long long z = valueOf(c, mp);
+        return x + y == z;
+    }
+    char ch = letters[idx];
+    for (int d = 0; d <= 9; ++d) {
+        if (used[d]) continue;
+        if (d == 0 && leading.count(ch)) continue;
+        used[d] = 1; mp[ch] = d;
+        if (dfs(idx + 1, letters, used, mp, a, b, c, leading)) return true;
+        used[d] = 0; mp.erase(ch);
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b, c; if (!(cin >> a >> b >> c)) return 0;
+    unordered_set<char> setc;
+    for (char ch : a) setc.insert(ch);
+    for (char ch : b) setc.insert(ch);
+    for (char ch : c) setc.insert(ch);
+    if (setc.size() > 10) { cout << 0; return 0; }
+
+    vector<char> letters(setc.begin(), setc.end());
+    unordered_set<char> leading;
+    if (a.size() > 1) leading.insert(a[0]);
+    if (b.size() > 1) leading.insert(b[0]);
+    if (c.size() > 1) leading.insert(c[0]);
+
+    vector<int> used(10, 0);
+    unordered_map<char,int> mp;
+    cout << (dfs(0, letters, used, mp, a, b, c, leading) ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(10!) worst-case
+Space Complexity: O(1) extra

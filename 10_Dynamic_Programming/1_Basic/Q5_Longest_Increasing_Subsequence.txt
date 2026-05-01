@@ -1,0 +1,41 @@
+Question Number: 5
+Problem Title: Longest Increasing Subsequence
+Problem Description:
+Given an array, find the length of the longest increasing subsequence.
+
+Approach / Explanation:
+1) Use patience sorting with a tails array.
+2) For each value, find its position with lower_bound.
+3) Replace that position in tails.
+4) The length of tails is the LIS length.
+5) This is an optimized DP approach.
+6) Works in O(n log n) time.
+7) Output the LIS length.
+
+Brute Force Note:
+Checking all subsequences is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    vector<long long> tails;
+    for (long long x : a) {
+        auto it = lower_bound(tails.begin(), tails.end(), x);
+        if (it == tails.end()) tails.push_back(x);
+        else *it = x;
+    }
+    cout << (int)tails.size();
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

@@ -1,0 +1,44 @@
+Question Number: 36
+Problem Title: Find k-th smallest/largest element
+Problem Description:
+Given an array and k, find the k-th smallest and k-th largest elements.
+
+Approach / Explanation:
+1) Use nth_element to partially sort in linear average time.
+2) The element at index k-1 is the k-th smallest.
+3) The element at index n-k is the k-th largest.
+4) Copy the array to avoid disturbing the original for the second query.
+5) This avoids full sorting when only one order statistic is needed.
+6) Works for duplicates as per order statistics definition.
+7) Output k-th smallest then k-th largest.
+
+Brute Force Note:
+Sorting the entire array costs O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), b;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> k;
+    if (k < 1 || k > n) return 0;
+
+    b = a;
+    nth_element(a.begin(), a.begin() + (k - 1), a.end());
+    long long kthSmall = a[k - 1];
+
+    nth_element(b.begin(), b.begin() + (n - k), b.end());
+    long long kthLarge = b[n - k];
+
+    cout << kthSmall << " " << kthLarge;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(1) extra

@@ -1,0 +1,48 @@
+Question Number: 31
+Problem Title: Find the smallest positive missing number
+Problem Description:
+Given an unsorted array, find the smallest missing positive integer.
+
+Approach / Explanation:
+1) Place each value x in index x-1 when 1 <= x <= n.
+2) Use cyclic swaps until every valid number is placed.
+3) Then scan for the first index i where a[i] != i+1.
+4) The answer is i+1 for that index.
+5) If all positions match, the answer is n+1.
+6) This is in-place and linear.
+7) Output the smallest missing positive number.
+
+Brute Force Note:
+Using sorting costs O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    for (int i = 0; i < n; ++i) {
+        while (a[i] >= 1 && a[i] <= n && a[a[i] - 1] != a[i]) {
+            swap(a[i], a[a[i] - 1]);
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (a[i] != i + 1) {
+            cout << (i + 1);
+            return 0;
+        }
+    }
+
+    cout << (n + 1);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,46 @@
+Question Number: 23
+Problem Title: Count subarrays with equal number of 1s and 0s
+Problem Description:
+Given a binary array, count subarrays with equal number of 0s and 1s.
+
+Approach / Explanation:
+1) Replace 0 with -1 and 1 with +1.
+2) The task becomes counting subarrays with sum 0.
+3) Use prefix sum frequency map.
+4) For each prefix sum, add its previous frequency to answer.
+5) Initialize freq[0] = 1.
+6) This counts all valid subarrays.
+7) Output the count.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    unordered_map<int, long long> freq;
+    freq[0] = 1;
+    int prefix = 0;
+    long long ans = 0;
+
+    for (int x : a) {
+        prefix += (x == 0 ? -1 : 1);
+        if (freq.count(prefix)) ans += freq[prefix];
+        ++freq[prefix];
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

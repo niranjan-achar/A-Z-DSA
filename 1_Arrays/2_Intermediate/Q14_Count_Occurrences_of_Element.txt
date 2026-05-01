@@ -1,0 +1,39 @@
+Question Number: 14
+Problem Title: Count number of occurrences of a given element
+Problem Description:
+Given an array and a target value, count how many times the target appears.
+
+Approach / Explanation:
+1) Initialize a counter to 0.
+2) Scan the array and compare each element to target.
+3) If equal, increment the counter.
+4) This single pass is optimal for unsorted arrays.
+5) Works regardless of value range.
+6) No extra space is needed.
+7) Output the counter value.
+
+Brute Force Note:
+For sorted arrays, binary search can find counts in O(log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    long long target; cin >> target;
+
+    long long cnt = 0;
+    for (long long x : a) if (x == target) ++cnt;
+
+    cout << cnt;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

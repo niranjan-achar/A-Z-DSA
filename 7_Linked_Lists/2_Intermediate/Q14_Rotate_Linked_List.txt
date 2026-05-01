@@ -1,0 +1,62 @@
+Question Number: 14
+Problem Title: Rotate a linked list
+Problem Description:
+Given a linked list and k, rotate it to the right by k places.
+
+Approach / Explanation:
+1) Compute length and make the list circular.
+2) Normalize k with k % length.
+3) Find new tail at position length - k - 1.
+4) Break the circle to set new head.
+5) This is O(n) time.
+6) Uses O(1) extra space.
+7) Output the rotated list.
+
+Brute Force Note:
+Rotating one step k times costs O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long k;
+    if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+    cin >> k;
+
+    if (!head || k == 0) {
+        Node* cur = head; bool first = true;
+        while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+        return 0;
+    }
+
+    int len = 1;
+    Node* cur = head;
+    while (cur->next) { cur = cur->next; ++len; }
+    cur->next = head; // make circular
+
+    k %= len;
+    int stepsToNewTail = len - k - 1;
+    Node* newTail = head;
+    for (int i = 0; i < stepsToNewTail; ++i) newTail = newTail->next;
+    Node* newHead = newTail->next;
+    newTail->next = nullptr;
+
+    cur = newHead; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

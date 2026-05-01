@@ -1,0 +1,44 @@
+Question Number: 18
+Problem Title: Count vowels and consonants
+Problem Description:
+Given a string, count vowels and consonants (letters only).
+
+Approach / Explanation:
+1) Traverse each character.
+2) If it's a letter, check if it is a vowel (a,e,i,o,u).
+3) Increment vowel or consonant count accordingly.
+4) Ignore non-letter characters.
+5) Convert to lowercase for simpler comparison.
+6) Single pass gives linear time.
+7) Output vowel count and consonant count.
+
+Brute Force Note:
+No faster alternative than a full scan.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isVowel(char c) {
+    c = (char)tolower((unsigned char)c);
+    return c=='a'||c=='e'||c=='i'||c=='o'||c=='u';
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    int v = 0, c = 0;
+    for (char ch : s) {
+        if (isalpha((unsigned char)ch)) {
+            if (isVowel(ch)) ++v; else ++c;
+        }
+    }
+
+    cout << v << " " << c;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

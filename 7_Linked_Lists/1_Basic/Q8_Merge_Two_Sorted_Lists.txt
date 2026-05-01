@@ -1,0 +1,61 @@
+Question Number: 8
+Problem Title: Merge two sorted linked lists
+Problem Description:
+Given two sorted linked lists, merge them into one sorted list.
+
+Approach / Explanation:
+1) Use a dummy head to build the merged list.
+2) Compare current nodes and attach the smaller one.
+3) Advance the chosen list pointer.
+4) Attach remaining nodes after one list ends.
+5) This preserves sorted order.
+6) O(n+m) time and O(1) extra space.
+7) Output the merged list.
+
+Brute Force Note:
+Collecting values, sorting, and rebuilding is slower and uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+Node* buildList(int n) {
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+    return head;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n1, n2; if (!(cin >> n1 >> n2) || n1 < 0 || n2 < 0) return 0;
+    Node* l1 = buildList(n1);
+    Node* l2 = buildList(n2);
+
+    Node dummy(0); Node* tail = &dummy;
+    while (l1 && l2) {
+        if (l1->val <= l2->val) { tail->next = l1; l1 = l1->next; }
+        else { tail->next = l2; l2 = l2->next; }
+        tail = tail->next;
+    }
+    tail->next = l1 ? l1 : l2;
+
+    Node* cur = dummy.next;
+    bool firstOut = true;
+    while (cur) {
+        if (!firstOut) cout << " ";
+        cout << cur->val; firstOut = false;
+        cur = cur->next;
+    }
+    return 0;
+}
+
+Time Complexity: O(n+m)
+Space Complexity: O(1)

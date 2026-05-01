@@ -1,0 +1,57 @@
+Question Number: 38A
+Problem Title: Spiral traversal of a matrix
+Problem Description:
+Given a matrix, print its elements in spiral order.
+
+Approach / Explanation:
+1) Maintain four boundaries: top, bottom, left, right.
+2) Traverse from left to right on the top row, then top++.
+3) Traverse top to bottom on the right column, then right--.
+4) Traverse right to left on the bottom row, then bottom--.
+5) Traverse bottom to top on the left column, then left++.
+6) Repeat until boundaries cross.
+7) Output elements in the visited order.
+
+Brute Force Note:
+Using a visited matrix works but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int r, c; if (!(cin >> r >> c) || r <= 0 || c <= 0) return 0;
+    vector<vector<long long>> a(r, vector<long long>(c));
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) cin >> a[i][j];
+    }
+
+    int top = 0, bottom = r - 1, left = 0, right = c - 1;
+    vector<long long> res;
+    while (top <= bottom && left <= right) {
+        for (int j = left; j <= right; ++j) res.push_back(a[top][j]);
+        ++top;
+        for (int i = top; i <= bottom; ++i) res.push_back(a[i][right]);
+        --right;
+        if (top <= bottom) {
+            for (int j = right; j >= left; --j) res.push_back(a[bottom][j]);
+            --bottom;
+        }
+        if (left <= right) {
+            for (int i = bottom; i >= top; --i) res.push_back(a[i][left]);
+            ++left;
+        }
+    }
+
+    for (int i = 0; i < (int)res.size(); ++i) {
+        if (i) cout << " ";
+        cout << res[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(r*c)
+Space Complexity: O(1) extra

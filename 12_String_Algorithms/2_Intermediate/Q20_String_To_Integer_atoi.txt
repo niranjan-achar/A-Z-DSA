@@ -1,0 +1,40 @@
+Question Number: 20
+Problem Title: Convert a string to an integer (atoi)
+Problem Description:
+Given a numeric string with optional sign, convert it to integer.
+
+Approach / Explanation:
+1) Skip leading whitespace if present.
+2) Read optional '+' or '-' sign.
+3) Accumulate digits into a number.
+4) Stop at first non-digit.
+5) Apply sign to the result.
+6) Works for 32-bit range without overflow checks.
+7) Output the integer.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int i = 0, n = s.size();
+    int sign = 1;
+    if (s[i] == '+' || s[i] == '-') { if (s[i] == '-') sign = -1; ++i; }
+    long long val = 0;
+    while (i < n && s[i] >= '0' && s[i] <= '9') {
+        val = val * 10 + (s[i] - '0');
+        ++i;
+    }
+    cout << (long long)sign * val;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

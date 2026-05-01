@@ -1,0 +1,63 @@
+Question Number: 9
+Problem Title: Word Search in a grid
+Problem Description:
+Given a grid of characters and a word, check if the word exists by adjacent moves.
+
+Approach / Explanation:
+1) Try each cell as a starting point.
+2) Use DFS backtracking to match characters in sequence.
+3) Move up, down, left, right with bounds checks.
+4) Mark visited cells to avoid reuse in the same path.
+5) If all characters match, return true.
+6) Backtrack by unmarking visited cells.
+7) Output 1 if found, else 0.
+
+Brute Force Note:
+All paths may be explored in worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m;
+vector<string> grid;
+vector<vector<int>> vis;
+string word;
+int dr[4] = {1, -1, 0, 0};
+int dc[4] = {0, 0, 1, -1};
+
+bool dfs(int r, int c, int idx) {
+    if (grid[r][c] != word[idx]) return false;
+    if (idx == (int)word.size() - 1) return true;
+    vis[r][c] = 1;
+    for (int k = 0; k < 4; ++k) {
+        int nr = r + dr[k], nc = c + dc[k];
+        if (nr < 0 || nc < 0 || nr >= n || nc >= m) continue;
+        if (vis[nr][nc]) continue;
+        if (dfs(nr, nc, idx + 1)) return true;
+    }
+    vis[r][c] = 0;
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    if (!(cin >> n >> m)) return 0;
+    grid.resize(n);
+    for (int i = 0; i < n; ++i) cin >> grid[i];
+    cin >> word;
+    vis.assign(n, vector<int>(m, 0));
+
+    bool found = false;
+    for (int i = 0; i < n && !found; ++i)
+        for (int j = 0; j < m && !found; ++j)
+            if (dfs(i, j, 0)) found = true;
+
+    cout << (found ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n*m*L)
+Space Complexity: O(n*m)

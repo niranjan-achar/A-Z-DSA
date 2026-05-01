@@ -1,0 +1,44 @@
+Question Number: 25
+Problem Title: Implement strstr() or indexOf() function
+Problem Description:
+Find the first occurrence of a pattern in a text and return its index, or -1.
+
+Approach / Explanation:
+1) Use a simple sliding comparison for each start position.
+2) For each i, compare pattern characters with text from i.
+3) If all match, return i.
+4) If no match, return -1.
+5) This is straightforward and easy to understand.
+6) Works for small inputs.
+7) Output the index or -1.
+
+Brute Force Note:
+KMP can reduce time to O(n+m) for large inputs.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string text, pat;
+    if (!getline(cin, text)) return 0;
+    if (!getline(cin, pat)) return 0;
+
+    if (pat.empty()) { cout << 0; return 0; }
+    if (pat.size() > text.size()) { cout << -1; return 0; }
+
+    for (int i = 0; i + (int)pat.size() <= (int)text.size(); ++i) {
+        int j = 0;
+        while (j < (int)pat.size() && text[i + j] == pat[j]) ++j;
+        if (j == (int)pat.size()) { cout << i; return 0; }
+    }
+
+    cout << -1;
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(1)

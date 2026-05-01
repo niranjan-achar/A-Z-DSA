@@ -1,0 +1,43 @@
+Question Number: 30
+Problem Title: Search in matrix where rows and columns are sorted
+Problem Description:
+Given a matrix with each row and column sorted, search for a target.
+
+Approach / Explanation:
+1) Start from top-right corner.
+2) If current value is greater than target, move left.
+3) If current value is less, move down.
+4) This eliminates a row or column each step.
+5) Runs in O(r+c) time.
+6) No extra space.
+7) Output 1 if found, 0 otherwise.
+
+Brute Force Note:
+Linear search over all elements is O(rc).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int r, c; long long target;
+    if (!(cin >> r >> c) || r <= 0 || c <= 0) return 0;
+    vector<vector<long long>> a(r, vector<long long>(c));
+    for (int i = 0; i < r; ++i) for (int j = 0; j < c; ++j) cin >> a[i][j];
+    cin >> target;
+
+    int i = 0, j = c - 1;
+    while (i < r && j >= 0) {
+        if (a[i][j] == target) { cout << 1; return 0; }
+        if (a[i][j] > target) --j; else ++i;
+    }
+
+    cout << 0;
+    return 0;
+}
+
+Time Complexity: O(r+c)
+Space Complexity: O(1)

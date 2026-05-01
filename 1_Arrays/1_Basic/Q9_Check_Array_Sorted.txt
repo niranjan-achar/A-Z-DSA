@@ -1,0 +1,40 @@
+Question Number: 9
+Problem Title: Check if array is sorted
+Problem Description:
+Given an array, determine if it is sorted in non-decreasing order.
+
+Approach / Explanation:
+1) Scan adjacent pairs in the array.
+2) If any a[i] > a[i+1], the array is not sorted.
+3) If no such pair exists, it is sorted.
+4) Single pass is sufficient.
+5) Works for duplicate elements as non-decreasing order.
+6) No extra memory is needed.
+7) Output true/false as 1/0.
+
+Brute Force Note:
+Sorting a copy and comparing is slower and uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    bool sorted = true;
+    for (int i = 0; i + 1 < n; ++i) {
+        if (a[i] > a[i + 1]) { sorted = false; break; }
+    }
+
+    cout << (sorted ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

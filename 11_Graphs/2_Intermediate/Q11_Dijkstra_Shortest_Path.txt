@@ -1,0 +1,55 @@
+Question Number: 11
+Problem Title: Dijkstra's Algorithm for Shortest Path
+Problem Description:
+Given a weighted graph with non-negative edges, find shortest distances from a source.
+
+Approach / Explanation:
+1) Use a min-heap of (distance, node).
+2) Initialize dist[source]=0 and others to INF.
+3) Pop the closest node and relax its edges.
+4) If a better distance is found, push updated pair.
+5) Ignore outdated heap entries.
+6) Works for non-negative weights.
+7) Output distances.
+
+Brute Force Note:
+Trying all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<vector<pair<int,int>>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v, w; cin >> u >> v >> w; --u; --v;
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    }
+
+    const long long INF = (long long)4e18;
+    vector<long long> dist(n, INF);
+    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<pair<long long,int>>> pq;
+    dist[s] = 0; pq.push({0, s});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+        if (d != dist[u]) continue;
+        for (auto [v, w] : g[u]) {
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for (int i = 0; i < n; ++i) { if (i) cout << " "; cout << (dist[i] >= INF/2 ? -1 : dist[i]); }
+    return 0;
+}
+
+Time Complexity: O((n+m) log n)
+Space Complexity: O(n + m)

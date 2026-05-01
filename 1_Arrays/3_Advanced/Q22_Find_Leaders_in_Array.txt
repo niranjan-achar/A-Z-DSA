@@ -1,0 +1,48 @@
+Question Number: 22
+Problem Title: Find leaders in an array
+Problem Description:
+An element is a leader if it is greater than all elements to its right. Find all leaders.
+
+Approach / Explanation:
+1) Traverse from right to left.
+2) Keep track of the maximum seen so far.
+3) If current element is greater than max, it is a leader.
+4) Update max and store this leader.
+5) Reverse the leaders to restore left-to-right order.
+6) This uses a single pass plus reverse.
+7) Output all leaders.
+
+Brute Force Note:
+Checking each element against all to the right costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    vector<long long> leaders;
+    long long maxRight = LLONG_MIN;
+    for (int i = n - 1; i >= 0; --i) {
+        if (a[i] > maxRight) {
+            leaders.push_back(a[i]);
+            maxRight = a[i];
+        }
+    }
+    reverse(leaders.begin(), leaders.end());
+
+    for (int i = 0; i < (int)leaders.size(); ++i) {
+        if (i) cout << " ";
+        cout << leaders[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(k)

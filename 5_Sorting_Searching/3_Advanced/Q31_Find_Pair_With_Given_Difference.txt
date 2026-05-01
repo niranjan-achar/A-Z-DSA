@@ -1,0 +1,46 @@
+Question Number: 31
+Problem Title: Find pair with given difference using binary search
+Problem Description:
+Given an array and a difference d, check if any pair has absolute difference d.
+
+Approach / Explanation:
+1) Sort the array.
+2) For each element a[i], binary search for a[i] + d.
+3) If found, a pair exists.
+4) Sorting gives O(n log n) time overall.
+5) Works for any integers.
+6) Output 1 if pair exists, 0 otherwise.
+7) Use long long for safety.
+
+Brute Force Note:
+Checking all pairs costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long d;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> d;
+    if (d < 0) d = -d;
+
+    sort(a.begin(), a.end());
+    for (int i = 0; i < n; ++i) {
+        long long target = a[i] + d;
+        if (binary_search(a.begin() + i + 1, a.end(), target)) {
+            cout << 1; return 0;
+        }
+    }
+
+    cout << 0;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1)

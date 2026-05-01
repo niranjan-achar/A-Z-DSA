@@ -1,0 +1,36 @@
+Question Number: 2
+Problem Title: Check if a string is a palindrome
+Problem Description:
+Given a string, determine if it reads the same forwards and backwards.
+
+Approach / Explanation:
+1) Use two pointers from both ends.
+2) Compare characters at left and right.
+3) If any mismatch, not a palindrome.
+4) Move inward until pointers cross.
+5) Works in linear time.
+6) No extra space needed.
+7) Output 1 if palindrome, else 0.
+
+Brute Force Note:
+Reversing the string uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int l = 0, r = (int)s.size() - 1;
+    while (l < r) {
+        if (s[l++] != s[r--]) { cout << 0; return 0; }
+    }
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,43 @@
+Question Number: 25
+Problem Title: Edit Distance (Levenshtein Distance)
+Problem Description:
+Given two strings, compute the minimum edits to convert one into the other.
+
+Approach / Explanation:
+1) Use dp[i][j] for min edits between prefixes.
+2) Base cases: dp[i][0]=i, dp[0][j]=j.
+3) If chars match, dp[i][j]=dp[i-1][j-1].
+4) Else dp[i][j]=1+min(insert, delete, replace).
+5) Fill table row by row.
+6) O(n*m) time.
+7) Output dp[n][m].
+
+Brute Force Note:
+Recursive edit distance without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b; if (!(cin >> a >> b)) return 0;
+    int n = a.size(), m = b.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+    for (int i = 0; i <= n; ++i) dp[i][0] = i;
+    for (int j = 0; j <= m; ++j) dp[0][j] = j;
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (a[i-1] == b[j-1]) dp[i][j] = dp[i-1][j-1];
+            else dp[i][j] = 1 + min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]});
+        }
+    }
+    cout << dp[n][m];
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

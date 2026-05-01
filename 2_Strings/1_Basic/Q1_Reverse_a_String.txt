@@ -1,0 +1,37 @@
+Question Number: 1
+Problem Title: Reverse a string
+Problem Description:
+Given a string, reverse it.
+
+Approach / Explanation:
+1) Use two pointers at the ends of the string.
+2) Swap characters and move inward.
+3) This reverses the string in place.
+4) Works for any printable characters.
+5) Single pass gives linear time.
+6) No extra memory is required.
+7) Output the reversed string.
+
+Brute Force Note:
+Building a new reversed string uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s;
+    if (!getline(cin, s)) return 0;
+    int l = 0, r = (int)s.size() - 1;
+    while (l < r) {
+        swap(s[l++], s[r--]);
+    }
+    cout << s;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

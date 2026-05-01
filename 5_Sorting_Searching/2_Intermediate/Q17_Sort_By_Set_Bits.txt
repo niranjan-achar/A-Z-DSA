@@ -1,0 +1,48 @@
+Question Number: 17
+Problem Title: Sort array based on number of set bits
+Problem Description:
+Sort integers in descending order of set bit count. Tie-break by value.
+
+Approach / Explanation:
+1) Define a function to count set bits (builtin popcount).
+2) Sort with comparator using bit counts.
+3) If counts tie, use value to stabilize order.
+4) This is easy to implement.
+5) Works for any integers.
+6) Complexity dominated by sorting.
+7) Output the sorted array.
+
+Brute Force Note:
+Recomputing counts inside comparator without caching can be slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int bits(long long x) {
+    return __builtin_popcountll((unsigned long long)x);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    stable_sort(a.begin(), a.end(), [&](long long p, long long q) {
+        int bp = bits(p), bq = bits(q);
+        if (bp != bq) return bp > bq;
+        return p < q;
+    });
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

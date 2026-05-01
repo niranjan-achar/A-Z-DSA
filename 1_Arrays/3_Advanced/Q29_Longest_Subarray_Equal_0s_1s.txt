@@ -1,0 +1,49 @@
+Question Number: 29
+Problem Title: Longest subarray with equal number of 0s and 1s
+Problem Description:
+Given a binary array, find the length of the longest subarray with equal 0s and 1s.
+
+Approach / Explanation:
+1) Convert 0 to -1 and 1 to +1.
+2) The problem becomes longest subarray with sum 0.
+3) Use a map to store the first index of each prefix sum.
+4) If a prefix sum repeats, the subarray between indices sums to 0.
+5) Track the maximum length across all repeats.
+6) Initialize prefix sum 0 at index -1.
+7) Output the maximum length.
+
+Brute Force Note:
+Checking all subarrays is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    unordered_map<int, int> firstIdx;
+    int prefix = 0, best = 0;
+    firstIdx[0] = -1;
+
+    for (int i = 0; i < n; ++i) {
+        int val = (a[i] == 0 ? -1 : 1);
+        prefix += val;
+        if (firstIdx.count(prefix)) {
+            best = max(best, i - firstIdx[prefix]);
+        } else {
+            firstIdx[prefix] = i;
+        }
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

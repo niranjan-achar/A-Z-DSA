@@ -1,0 +1,48 @@
+Question Number: 30
+Problem Title: Count All Possible Paths in a Maze
+Problem Description:
+Given a grid with 1 as open and 0 as blocked, count paths from top-left to bottom-right.
+
+Approach / Explanation:
+1) Use dp[i][j] as number of ways to reach cell (i,j).
+2) If a cell is blocked, dp[i][j]=0.
+3) dp[0][0]=1 if start is open.
+4) Transition from top and left neighbors.
+5) Fill dp row by row.
+6) This counts all valid paths.
+7) Output dp[n-1][m-1].
+
+Brute Force Note:
+Exploring all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0 || m <= 0) return 0;
+    vector<vector<int>> grid(n, vector<int>(m));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) cin >> grid[i][j];
+
+    vector<vector<long long>> dp(n, vector<long long>(m, 0));
+    if (grid[0][0] == 1) dp[0][0] = 1;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (grid[i][j] == 0) { dp[i][j] = 0; continue; }
+            if (i == 0 && j == 0) continue;
+            long long ways = 0;
+            if (i > 0) ways += dp[i-1][j];
+            if (j > 0) ways += dp[i][j-1];
+            dp[i][j] = ways;
+        }
+    }
+
+    cout << dp[n-1][m-1];
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

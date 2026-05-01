@@ -1,0 +1,51 @@
+Question Number: 5
+Problem Title: Check if a graph is bipartite
+Problem Description:
+Given a graph, determine if it can be colored with two colors.
+
+Approach / Explanation:
+1) Use BFS/DFS coloring with colors 0/1.
+2) For each component, assign a color to a start node.
+3) Assign opposite colors to neighbors.
+4) If a conflict occurs, graph is not bipartite.
+5) Works for disconnected graphs.
+6) O(n+m) time.
+7) Output 1 if bipartite, else 0.
+
+Brute Force Note:
+Trying all colorings is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> color(n, -1);
+    bool ok = true;
+    for (int i = 0; i < n && ok; ++i) if (color[i] == -1) {
+        queue<int> q; q.push(i); color[i] = 0;
+        while (!q.empty() && ok) {
+            int u = q.front(); q.pop();
+            for (int v : adj[u]) {
+                if (color[v] == -1) { color[v] = color[u] ^ 1; q.push(v); }
+                else if (color[v] == color[u]) { ok = false; break; }
+            }
+        }
+    }
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

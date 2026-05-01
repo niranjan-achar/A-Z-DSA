@@ -1,0 +1,44 @@
+Question Number: 6
+Problem Title: Sort even and odd numbers separately
+Problem Description:
+Given an array, sort evens in ascending order and odds in descending order.
+
+Approach / Explanation:
+1) Split elements into even and odd vectors.
+2) Sort evens ascending and odds descending.
+3) Concatenate evens then odds (or as required).
+4) This keeps sorting logic simple.
+5) Complexity dominated by sorting.
+6) Works for negative values too.
+7) Output the combined array.
+
+Brute Force Note:
+Sorting the whole array and rearranging is less direct.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), even, odd;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        if (a[i] % 2 == 0) even.push_back(a[i]);
+        else odd.push_back(a[i]);
+    }
+
+    sort(even.begin(), even.end());
+    sort(odd.begin(), odd.end(), greater<long long>());
+
+    bool first = true;
+    for (long long x : even) { if (!first) cout << " "; cout << x; first = false; }
+    for (long long x : odd) { if (!first) cout << " "; cout << x; first = false; }
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

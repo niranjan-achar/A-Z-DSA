@@ -1,0 +1,57 @@
+Question Number: 10
+Problem Title: Binary Search on sorted array (Iterative + Recursive)
+Problem Description:
+Given a sorted array and a target, find its index using binary search.
+
+Approach / Explanation:
+1) Use two pointers low and high.
+2) Compare mid element with target.
+3) Narrow the search range accordingly.
+4) Repeat until found or range is empty.
+5) Recursive version uses the same logic with function calls.
+6) Works only on sorted arrays.
+7) Output the index or -1.
+
+Brute Force Note:
+Linear search is O(n) but simpler.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int binarySearchIter(const vector<long long>& a, long long target) {
+    int l = 0, r = (int)a.size() - 1;
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (a[m] == target) return m;
+        if (a[m] < target) l = m + 1; else r = m - 1;
+    }
+    return -1;
+}
+
+int binarySearchRec(const vector<long long>& a, int l, int r, long long target) {
+    if (l > r) return -1;
+    int m = l + (r - l) / 2;
+    if (a[m] == target) return m;
+    if (a[m] < target) return binarySearchRec(a, m + 1, r, target);
+    return binarySearchRec(a, l, m - 1, target);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    long long target; cin >> target;
+
+    int idxIter = binarySearchIter(a, target);
+    int idxRec = binarySearchRec(a, 0, n - 1, target);
+
+    cout << idxIter << " " << idxRec;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1) iterative, O(log n) recursive

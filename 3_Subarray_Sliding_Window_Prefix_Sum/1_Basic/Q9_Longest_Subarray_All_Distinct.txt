@@ -1,0 +1,45 @@
+Question Number: 9
+Problem Title: Longest subarray with all distinct elements
+Problem Description:
+Given an array, find the length of the longest subarray with all unique elements.
+
+Approach / Explanation:
+1) Use sliding window with a map of last seen indices.
+2) Expand right pointer and update last seen.
+3) If a repeat occurs inside the window, move left past the previous index.
+4) Update the best length at each step.
+5) This keeps the window valid.
+6) Works for any integers.
+7) Output the maximum length.
+
+Brute Force Note:
+Checking all subarrays for uniqueness costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    unordered_map<long long, int> last;
+    int left = 0, best = 0;
+    for (int i = 0; i < n; ++i) {
+        if (last.count(a[i]) && last[a[i]] >= left) {
+            left = last[a[i]] + 1;
+        }
+        last[a[i]] = i;
+        best = max(best, i - left + 1);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

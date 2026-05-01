@@ -1,0 +1,51 @@
+Question Number: 16
+Problem Title: Count Distinct Substrings
+Problem Description:
+Given a string, count the number of distinct substrings.
+
+Approach / Explanation:
+1) Use a rolling hash to represent substrings.
+2) For each start index, extend to all end indices.
+3) Insert each hash into a set.
+4) The set size is the count of distinct substrings.
+5) This avoids storing full substrings.
+6) O(n^2) time for all substrings.
+7) Output the count.
+
+Brute Force Note:
+Storing all substrings as strings is heavy.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    const long long MOD = 1000000007LL;
+    const long long BASE = 911382323LL;
+    int n = (int)s.size();
+    vector<long long> powb(n + 1, 1), pref(n + 1, 0);
+    for (int i = 1; i <= n; ++i) powb[i] = (powb[i-1] * BASE) % MOD;
+    for (int i = 0; i < n; ++i) pref[i+1] = (pref[i] * BASE + (unsigned char)s[i] + 1) % MOD;
+
+    auto getHash = [&](int l, int r) {
+        long long res = (pref[r] - (pref[l] * powb[r-l]) % MOD + MOD) % MOD;
+        return res;
+    };
+
+    unordered_set<long long> seen;
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j <= n; ++j) {
+            seen.insert(getHash(i, j));
+        }
+    }
+
+    cout << (long long)seen.size();
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)

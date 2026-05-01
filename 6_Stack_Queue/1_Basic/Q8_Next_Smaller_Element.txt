@@ -1,0 +1,47 @@
+Question Number: 8
+Problem Title: Next Smaller Element
+Problem Description:
+Given an array, find the next smaller element to the right for each element.
+
+Approach / Explanation:
+1) Use a stack of indices with increasing order.
+2) For each element, pop indices with larger values.
+3) Current element becomes next smaller for those indices.
+4) Push current index to stack.
+5) Remaining elements get -1.
+6) Single pass gives linear time.
+7) Output the next smaller array.
+
+Brute Force Note:
+Checking each element's right side costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), ns(n, -1);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    stack<int> st;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && a[i] < a[st.top()]) {
+            ns[st.top()] = a[i];
+            st.pop();
+        }
+        st.push(i);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << ns[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

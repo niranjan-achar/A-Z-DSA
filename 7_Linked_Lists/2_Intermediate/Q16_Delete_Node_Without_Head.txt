@@ -1,0 +1,44 @@
+Question Number: 16
+Problem Title: Delete a node in the middle of the linked list (without head pointer)
+Problem Description:
+Given only a pointer to a node in a singly linked list, delete the node.
+
+Approach / Explanation:
+1) Copy the value of next node into current node.
+2) Bypass the next node by adjusting the link.
+3) Delete the next node.
+4) This effectively removes the current node.
+5) Cannot be used for the last node.
+6) O(1) time and space.
+7) Output the updated list (if applicable).
+
+Brute Force Note:
+You cannot delete the last node with this method.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+void deleteNode(Node* node) {
+    if (!node || !node->next) return;
+    Node* temp = node->next;
+    node->val = temp->val;
+    node->next = temp->next;
+    delete temp;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Input format for direct node deletion is not standardized.
+    // This snippet shows the deletion logic.
+    Node* node = nullptr;
+    deleteNode(node);
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)

@@ -1,0 +1,47 @@
+Question Number: 7
+Problem Title: Next Greater Element (NGE)
+Problem Description:
+Given an array, find the next greater element to the right for each element.
+
+Approach / Explanation:
+1) Use a stack to keep indices of decreasing elements.
+2) For each element, pop until current is greater than stack top.
+3) The current element is NGE for all popped indices.
+4) Push current index to stack.
+5) Remaining elements have NGE = -1.
+6) Single pass gives linear time.
+7) Output NGE array.
+
+Brute Force Note:
+Checking each element's right side costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), nge(n, -1);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    stack<int> st;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && a[i] > a[st.top()]) {
+            nge[st.top()] = a[i];
+            st.pop();
+        }
+        st.push(i);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << nge[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

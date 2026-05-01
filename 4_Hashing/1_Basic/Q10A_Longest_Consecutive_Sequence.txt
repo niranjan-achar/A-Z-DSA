@@ -1,0 +1,46 @@
+Question Number: 10A
+Problem Title: Longest consecutive sequence
+Problem Description:
+Given an array, find the length of the longest consecutive sequence of integers.
+
+Approach / Explanation:
+1) Insert all elements into a hash set.
+2) For each element, start a sequence only if (x - 1) is not in the set.
+3) Extend the sequence while (x + 1) exists.
+4) Track the maximum length across sequences.
+5) Each element is visited at most twice.
+6) Average linear time using hashing.
+7) Output the maximum length.
+
+Brute Force Note:
+Sorting and scanning works in O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    unordered_set<long long> st;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; st.insert(a[i]); }
+
+    int best = 0;
+    for (long long x : a) {
+        if (!st.count(x - 1)) {
+            int len = 1;
+            long long cur = x;
+            while (st.count(cur + 1)) { ++cur; ++len; }
+            best = max(best, len);
+        }
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

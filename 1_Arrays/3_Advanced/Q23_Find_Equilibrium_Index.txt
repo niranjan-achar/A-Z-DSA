@@ -1,0 +1,44 @@
+Question Number: 23
+Problem Title: Find equilibrium index
+Problem Description:
+An equilibrium index is where the sum of elements on the left equals the sum on the right.
+
+Approach / Explanation:
+1) Compute total sum of the array.
+2) Initialize left sum to 0.
+3) For each index i, right sum is total - left - a[i].
+4) If left sum equals right sum, i is an equilibrium index.
+5) Update left sum by adding a[i] each step.
+6) Single pass after computing total.
+7) Output the first equilibrium index or -1.
+
+Brute Force Note:
+Computing sums for each index separately is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    long long total = 0;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; total += a[i]; }
+
+    long long left = 0;
+    int ans = -1;
+    for (int i = 0; i < n; ++i) {
+        long long right = total - left - a[i];
+        if (left == right) { ans = i; break; }
+        left += a[i];
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

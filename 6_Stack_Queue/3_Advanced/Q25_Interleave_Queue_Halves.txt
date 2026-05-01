@@ -1,0 +1,50 @@
+Question Number: 25
+Problem Title: Interleave the first half of queue with second half
+Problem Description:
+Given a queue of even size, interleave its first and second halves.
+
+Approach / Explanation:
+1) Split the queue into two halves using a stack or another queue.
+2) Reverse the first half using a stack.
+3) Merge by alternately taking from first half and second half.
+4) This ensures interleaving order.
+5) Uses O(n) extra space.
+6) Linear time.
+7) Output the interleaved queue.
+
+Brute Force Note:
+In-place without extra structure is complex.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0 || n % 2 != 0) return 0;
+    queue<long long> q;
+    for (int i = 0; i < n; ++i) { long long x; cin >> x; q.push(x); }
+
+    int half = n / 2;
+    stack<long long> st;
+    for (int i = 0; i < half; ++i) { st.push(q.front()); q.pop(); }
+    while (!st.empty()) { q.push(st.top()); st.pop(); }
+    for (int i = 0; i < half; ++i) { q.push(q.front()); q.pop(); }
+    for (int i = 0; i < half; ++i) { st.push(q.front()); q.pop(); }
+
+    while (!st.empty()) {
+        q.push(st.top()); st.pop();
+        q.push(q.front()); q.pop();
+    }
+
+    for (int i = 0; i < n; ++i) {
+        cout << q.front(); q.pop();
+        if (i + 1 < n) cout << " ";
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

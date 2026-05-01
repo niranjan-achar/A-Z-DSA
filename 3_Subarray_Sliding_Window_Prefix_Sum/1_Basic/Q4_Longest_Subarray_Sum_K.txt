@@ -1,0 +1,49 @@
+Question Number: 4
+Problem Title: Find longest subarray with sum = K
+Problem Description:
+Given an array (can include negatives) and K, find the longest subarray length with sum K.
+
+Approach / Explanation:
+1) Use prefix sum and a map of first index for each prefix.
+2) If prefix - K exists, subarray length is i - firstIndex.
+3) Record first occurrence to maximize length.
+4) Works with negative numbers.
+5) Single pass gives linear time.
+6) If no match, length is 0.
+7) Output the maximum length.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long K;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> K;
+
+    unordered_map<long long, int> first;
+    first[0] = -1;
+    long long prefix = 0;
+    int best = 0;
+
+    for (int i = 0; i < n; ++i) {
+        prefix += a[i];
+        if (!first.count(prefix)) first[prefix] = i;
+        long long need = prefix - K;
+        if (first.count(need)) best = max(best, i - first[need]);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

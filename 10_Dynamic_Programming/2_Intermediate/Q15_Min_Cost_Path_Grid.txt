@@ -1,0 +1,43 @@
+Question Number: 15
+Problem Title: Min Cost Path in a grid
+Problem Description:
+Given a grid of costs, find the minimum cost path from top-left to bottom-right.
+
+Approach / Explanation:
+1) Use dp[i][j] = min cost to reach cell (i,j).
+2) dp[0][0] = grid[0][0].
+3) First row/column only come from left/up.
+4) For others, dp[i][j] = grid[i][j] + min(top, left).
+5) Fill row by row.
+6) This builds optimal substructure.
+7) Output dp[n-1][m-1].
+
+Brute Force Note:
+Exploring all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0 || m <= 0) return 0;
+    vector<vector<long long>> a(n, vector<long long>(m));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) cin >> a[i][j];
+
+    vector<vector<long long>> dp(n, vector<long long>(m, 0));
+    dp[0][0] = a[0][0];
+    for (int i = 1; i < n; ++i) dp[i][0] = dp[i-1][0] + a[i][0];
+    for (int j = 1; j < m; ++j) dp[0][j] = dp[0][j-1] + a[0][j];
+    for (int i = 1; i < n; ++i)
+        for (int j = 1; j < m; ++j)
+            dp[i][j] = a[i][j] + min(dp[i-1][j], dp[i][j-1]);
+
+    cout << dp[n-1][m-1];
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

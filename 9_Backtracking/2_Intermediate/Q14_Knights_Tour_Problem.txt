@@ -1,0 +1,60 @@
+Question Number: 14
+Problem Title: Knight's Tour Problem
+Problem Description:
+Find a knight's tour on an n x n chessboard visiting every square exactly once.
+
+Approach / Explanation:
+1) Use backtracking from a starting cell.
+2) Try all 8 knight moves from the current position.
+3) Move only to unvisited cells within bounds.
+4) Mark the move index and recurse.
+5) If all n*n cells are visited, a tour is found.
+6) Backtrack on dead ends.
+7) Output the tour grid.
+
+Brute Force Note:
+The search space is huge; backtracking prunes invalid paths.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+vector<vector<int>> board;
+int dr[8] = {2,1,-1,-2,-2,-1,1,2};
+int dc[8] = {1,2,2,1,-1,-2,-2,-1};
+
+bool dfs(int r, int c, int step) {
+    if (step == n * n) return true;
+    for (int k = 0; k < 8; ++k) {
+        int nr = r + dr[k], nc = c + dc[k];
+        if (nr < 0 || nc < 0 || nr >= n || nc >= n) continue;
+        if (board[nr][nc] != -1) continue;
+        board[nr][nc] = step;
+        if (dfs(nr, nc, step + 1)) return true;
+        board[nr][nc] = -1;
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    if (!(cin >> n) || n <= 0) return 0;
+    board.assign(n, vector<int>(n, -1));
+    board[0][0] = 0;
+    dfs(0, 0, 1);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (j) cout << " ";
+            cout << board[i][j];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n^2)

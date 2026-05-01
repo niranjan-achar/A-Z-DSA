@@ -1,0 +1,49 @@
+Question Number: 32
+Problem Title: Minimum number of platforms needed (Interval sort)
+Problem Description:
+Given arrival and departure times of trains, find minimum platforms required.
+
+Approach / Explanation:
+1) Sort arrival and departure arrays.
+2) Use two pointers to process events in time order.
+3) If next arrival is before or equal to next departure, need a platform.
+4) Otherwise a platform is freed.
+5) Track the maximum platforms needed.
+6) This runs in O(n log n) time.
+7) Output the minimum platforms.
+
+Brute Force Note:
+Checking overlaps for each train costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> arr(n), dep(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+    for (int i = 0; i < n; ++i) cin >> dep[i];
+
+    sort(arr.begin(), arr.end());
+    sort(dep.begin(), dep.end());
+
+    int i = 0, j = 0, platforms = 0, best = 0;
+    while (i < n && j < n) {
+        if (arr[i] <= dep[j]) {
+            ++platforms; ++i;
+            best = max(best, platforms);
+        } else {
+            --platforms; ++j;
+        }
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1)

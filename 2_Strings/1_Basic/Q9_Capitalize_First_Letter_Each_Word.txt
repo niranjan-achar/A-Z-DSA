@@ -1,0 +1,44 @@
+Question Number: 9
+Problem Title: Capitalize first letter of every word in a sentence
+Problem Description:
+Given a sentence, capitalize the first letter of each word.
+
+Approach / Explanation:
+1) Traverse the string and detect word boundaries.
+2) A word starts at index 0 or after a space.
+3) If the current character is a letter at word start, capitalize it.
+4) Leave other characters unchanged.
+5) Handles multiple spaces safely.
+6) Single pass gives linear time.
+7) Output the updated string.
+
+Brute Force Note:
+Tokenizing and rebuilding also works but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    bool newWord = true;
+    for (char &c : s) {
+        if (c == ' ') {
+            newWord = true;
+        } else {
+            if (newWord && isalpha((unsigned char)c)) {
+                c = (char)toupper((unsigned char)c);
+            }
+            newWord = false;
+        }
+    }
+
+    cout << s;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

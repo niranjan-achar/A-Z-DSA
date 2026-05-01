@@ -1,0 +1,42 @@
+Question Number: 16
+Problem Title: Check if a string is a pangram
+Problem Description:
+Given a string, check if it contains all 26 letters of the English alphabet.
+
+Approach / Explanation:
+1) Track letters in a boolean array of size 26.
+2) Convert each letter to lowercase and mark it.
+3) Ignore non-letter characters.
+4) After scanning, ensure all 26 flags are true.
+5) This is linear in string length.
+6) Works with mixed case.
+7) Output 1 if pangram, 0 otherwise.
+
+Brute Force Note:
+Checking each letter separately costs O(26n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    vector<bool> seen(26, false);
+    for (char c : s) {
+        if (isalpha((unsigned char)c)) {
+            c = (char)tolower((unsigned char)c);
+            seen[c - 'a'] = true;
+        }
+    }
+
+    bool ok = true;
+    for (bool v : seen) if (!v) { ok = false; break; }
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

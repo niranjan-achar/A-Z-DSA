@@ -1,0 +1,40 @@
+Question Number: 7
+Problem Title: String compression
+Problem Description:
+Given a string, compress it as character followed by count of repeats.
+
+Approach / Explanation:
+1) Traverse the string with a pointer.
+2) Count consecutive equal characters.
+3) Append character and count to output.
+4) Move to the next new character.
+5) Works for any ASCII string.
+6) Linear time.
+7) Output the compressed string.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    string out;
+    for (int i = 0; i < (int)s.size(); ) {
+        int j = i;
+        while (j < (int)s.size() && s[j] == s[i]) ++j;
+        out.push_back(s[i]);
+        out += to_string(j - i);
+        i = j;
+    }
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

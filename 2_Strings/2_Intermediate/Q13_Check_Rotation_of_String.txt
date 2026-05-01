@@ -1,0 +1,37 @@
+Question Number: 13
+Problem Title: Check if rotation of another string
+Problem Description:
+Given two strings, check if one is a rotation of the other.
+
+Approach / Explanation:
+1) If lengths differ, they cannot be rotations.
+2) Concatenate the first string with itself.
+3) Check if the second string is a substring of the concatenated string.
+4) This works because any rotation appears in the doubled string.
+5) Use find for simplicity.
+6) Time is linear on average.
+7) Output 1 if rotation, 0 otherwise.
+
+Brute Force Note:
+Checking all rotations explicitly is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b;
+    if (!getline(cin, a)) return 0;
+    if (!getline(cin, b)) return 0;
+
+    if (a.size() != b.size()) { cout << 0; return 0; }
+    string doubled = a + a;
+    cout << (doubled.find(b) != string::npos ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

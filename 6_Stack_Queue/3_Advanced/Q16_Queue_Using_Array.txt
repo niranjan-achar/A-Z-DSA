@@ -1,0 +1,59 @@
+Question Number: 16
+Problem Title: Implement queue using array
+Problem Description:
+Implement a queue with enqueue, dequeue, front, and isEmpty using an array.
+
+Approach / Explanation:
+1) Use a circular array with head, tail, and size.
+2) Enqueue inserts at tail and advances tail.
+3) Dequeue removes from head and advances head.
+4) Use modulo to wrap indices.
+5) isEmpty checks size == 0.
+6) All operations are O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Shifting elements on dequeue is O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct QueueArray {
+    vector<long long> a;
+    int head, tail, sz;
+    QueueArray(int cap) : a(cap), head(0), tail(0), sz(0) {}
+    bool isEmpty() const { return sz == 0; }
+    bool enqueue(long long x) {
+        if (sz == (int)a.size()) return false;
+        a[tail] = x; tail = (tail + 1) % a.size(); ++sz; return true;
+    }
+    bool dequeue() {
+        if (isEmpty()) return false;
+        head = (head + 1) % a.size(); --sz; return true;
+    }
+    bool front(long long &out) const {
+        if (isEmpty()) return false;
+        out = a[head]; return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int cap, q; if (!(cin >> cap >> q) || cap <= 0) return 0;
+    QueueArray qu(cap);
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") { long long x; cin >> x; cout << (qu.enqueue(x) ? "ok" : "overflow") << "\n"; }
+        else if (op == "pop") { cout << (qu.dequeue() ? "ok" : "underflow") << "\n"; }
+        else if (op == "front") { long long v; if (qu.front(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "empty") { cout << (qu.isEmpty() ? 1 : 0) << "\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n)

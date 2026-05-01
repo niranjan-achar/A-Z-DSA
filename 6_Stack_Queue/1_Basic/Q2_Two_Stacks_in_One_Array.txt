@@ -1,0 +1,54 @@
+Question Number: 2
+Problem Title: Implement two stacks in one array
+Problem Description:
+Implement two stacks that share a single array of fixed size.
+
+Approach / Explanation:
+1) Use one array and two top pointers: top1 from left, top2 from right.
+2) Push to stack1 increments top1; push to stack2 decrements top2.
+3) Overflow occurs when top1 + 1 == top2.
+4) Pop operations move the corresponding top pointer.
+5) This uses space efficiently.
+6) Each operation is O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Using two separate arrays wastes space if one stack is small.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TwoStacks {
+    vector<long long> a;
+    int top1, top2;
+    TwoStacks(int n) : a(n), top1(-1), top2(n) {}
+    bool push1(long long x) { if (top1 + 1 == top2) return false; a[++top1] = x; return true; }
+    bool push2(long long x) { if (top1 + 1 == top2) return false; a[--top2] = x; return true; }
+    bool pop1() { if (top1 < 0) return false; --top1; return true; }
+    bool pop2() { if (top2 >= (int)a.size()) return false; ++top2; return true; }
+    bool peek1(long long &out) { if (top1 < 0) return false; out = a[top1]; return true; }
+    bool peek2(long long &out) { if (top2 >= (int)a.size()) return false; out = a[top2]; return true; }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, q; if (!(cin >> n >> q) || n <= 0) return 0;
+    TwoStacks st(n);
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push1") { long long x; cin >> x; cout << (st.push1(x) ? "ok" : "overflow") << "\n"; }
+        else if (op == "push2") { long long x; cin >> x; cout << (st.push2(x) ? "ok" : "overflow") << "\n"; }
+        else if (op == "pop1") { cout << (st.pop1() ? "ok" : "underflow") << "\n"; }
+        else if (op == "pop2") { cout << (st.pop2() ? "ok" : "underflow") << "\n"; }
+        else if (op == "top1") { long long v; if (st.peek1(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "top2") { long long v; if (st.peek2(v)) cout << v << "\n"; else cout << "empty\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n)

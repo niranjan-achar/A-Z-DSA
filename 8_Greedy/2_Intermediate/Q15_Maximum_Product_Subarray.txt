@@ -1,0 +1,41 @@
+Question Number: 15
+Problem Title: Maximum Product Subarray
+Problem Description:
+Given an array, find the contiguous subarray with the maximum product.
+
+Approach / Explanation:
+1) Track max and min product ending at each position.
+2) Negative numbers can flip max and min.
+3) Update maxProd = max(x, x*maxPrev, x*minPrev).
+4) Update minProd similarly.
+5) Keep global maximum over all positions.
+6) O(n) time with O(1) space.
+7) Output the maximum product.
+
+Brute Force Note:
+Checking all subarrays is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    long long x; cin >> x;
+    long long maxProd = x, minProd = x, ans = x;
+    for (int i = 1; i < n; ++i) {
+        cin >> x;
+        if (x < 0) swap(maxProd, minProd);
+        maxProd = max(x, maxProd * x);
+        minProd = min(x, minProd * x);
+        ans = max(ans, maxProd);
+    }
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

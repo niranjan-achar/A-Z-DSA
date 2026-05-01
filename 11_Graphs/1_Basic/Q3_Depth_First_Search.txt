@@ -1,0 +1,49 @@
+Question Number: 3
+Problem Title: Depth-First Search (DFS)
+Problem Description:
+Given a graph and a source, print DFS traversal order.
+
+Approach / Explanation:
+1) Use recursion or an explicit stack.
+2) Mark source as visited.
+3) Visit each unvisited neighbor recursively.
+4) This explores a path deeply before backtracking.
+5) DFS is useful for connectivity and cycle detection.
+6) Works for unweighted graphs.
+7) Output traversal order.
+
+Brute Force Note:
+No brute force; DFS is linear.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int u, const vector<vector<int>>& adj, vector<int>& vis, bool& first) {
+    vis[u] = 1;
+    if (!first) cout << " ";
+    cout << u + 1; first = false;
+    for (int v : adj[u]) if (!vis[v]) dfs(v, adj, vis, first);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0);
+    bool first = true;
+    dfs(s, adj, vis, first);
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

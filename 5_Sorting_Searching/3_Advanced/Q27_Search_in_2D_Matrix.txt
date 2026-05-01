@@ -1,0 +1,45 @@
+Question Number: 27
+Problem Title: Search for a number in 2D matrix
+Problem Description:
+Given a matrix where rows are sorted and first of each row > last of previous, search for a target.
+
+Approach / Explanation:
+1) Treat the matrix as a flattened sorted array.
+2) Map mid index to row = mid / cols and col = mid % cols.
+3) Use binary search over the range [0, rows*cols-1].
+4) Compare matrix value with target.
+5) O(log(rc)) time.
+6) No extra space.
+7) Output 1 if found, 0 otherwise.
+
+Brute Force Note:
+Linear search over all elements is O(rc).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int r, c; long long target;
+    if (!(cin >> r >> c) || r <= 0 || c <= 0) return 0;
+    vector<vector<long long>> a(r, vector<long long>(c));
+    for (int i = 0; i < r; ++i) for (int j = 0; j < c; ++j) cin >> a[i][j];
+    cin >> target;
+
+    int l = 0, rgt = r * c - 1;
+    while (l <= rgt) {
+        int m = l + (rgt - l) / 2;
+        int i = m / c, j = m % c;
+        if (a[i][j] == target) { cout << 1; return 0; }
+        if (a[i][j] < target) l = m + 1; else rgt = m - 1;
+    }
+
+    cout << 0;
+    return 0;
+}
+
+Time Complexity: O(log(rc))
+Space Complexity: O(1)

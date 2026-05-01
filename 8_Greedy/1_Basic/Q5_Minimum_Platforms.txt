@@ -1,0 +1,46 @@
+Question Number: 5
+Problem Title: Minimum number of platforms required
+Problem Description:
+Given arrival and departure times of trains, find the minimum platforms needed.
+
+Approach / Explanation:
+1) Sort arrival times and departure times separately.
+2) Use two pointers to walk through both arrays.
+3) If an arrival is before the next departure, need a new platform.
+4) Otherwise, a train departs and frees a platform.
+5) Track the maximum platforms used at any time.
+6) This greedy scan is optimal.
+7) Output the minimum platforms.
+
+Brute Force Note:
+Checking every time point is inefficient.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> arr(n), dep(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+    for (int i = 0; i < n; ++i) cin >> dep[i];
+    sort(arr.begin(), arr.end());
+    sort(dep.begin(), dep.end());
+
+    int i = 0, j = 0, cur = 0, ans = 0;
+    while (i < n && j < n) {
+        if (arr[i] <= dep[j]) {
+            ++cur; ++i; ans = max(ans, cur);
+        } else {
+            --cur; ++j;
+        }
+    }
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

@@ -1,0 +1,59 @@
+Question Number: 23
+Problem Title: Graph coloring (minimum colors)
+Problem Description:
+Given a graph, find the minimum number of colors needed to color it.
+
+Approach / Explanation:
+1) Try k from 1 to n.
+2) Use backtracking to assign colors with k colors.
+3) Check neighbor colors to maintain validity.
+4) If all vertices colored, k is sufficient.
+5) The smallest k found is the answer.
+6) Exponential in worst case.
+7) Output the minimum k.
+
+Brute Force Note:
+Checking all colorings is k^n.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool safe(int v, int c, const vector<vector<int>>& g, const vector<int>& color) {
+    for (int u : g[v]) if (color[u] == c) return false;
+    return true;
+}
+
+bool dfs(int v, int k, const vector<vector<int>>& g, vector<int>& color) {
+    if (v == (int)g.size()) return true;
+    for (int c = 1; c <= k; ++c) {
+        if (!safe(v, c, g, color)) continue;
+        color[v] = c;
+        if (dfs(v + 1, k, g, color)) return true;
+        color[v] = 0;
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    for (int k = 1; k <= n; ++k) {
+        vector<int> color(n, 0);
+        if (dfs(0, k, g, color)) { cout << k; return 0; }
+    }
+    cout << n;
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n + m)

@@ -1,0 +1,74 @@
+Question Number: 30
+Problem Title: Implement k queues in a single array
+Problem Description:
+Implement k queues using one array of size n.
+
+Approach / Explanation:
+1) Use arrays for next indices, front and rear of each queue.
+2) Maintain a free list of available indices.
+3) Enqueue takes an index from free list and appends it to queue.
+4) Dequeue removes from front and returns index to free list.
+5) This uses space efficiently for multiple queues.
+6) All operations are O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Using k separate arrays wastes space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct KQueues {
+    int n, k;
+    vector<long long> arr;
+    vector<int> nextIdx, front, rear;
+    int freeHead;
+    KQueues(int n_, int k_) : n(n_), k(k_), arr(n_), nextIdx(n_), front(k_, -1), rear(k_, -1), freeHead(0) {
+        for (int i = 0; i < n - 1; ++i) nextIdx[i] = i + 1;
+        nextIdx[n - 1] = -1;
+    }
+    bool enqueue(int qi, long long x) {
+        if (freeHead == -1) return false;
+        int idx = freeHead;
+        freeHead = nextIdx[idx];
+        arr[idx] = x;
+        nextIdx[idx] = -1;
+        if (front[qi] == -1) front[qi] = rear[qi] = idx;
+        else { nextIdx[rear[qi]] = idx; rear[qi] = idx; }
+        return true;
+    }
+    bool dequeue(int qi, long long &out) {
+        if (front[qi] == -1) return false;
+        int idx = front[qi];
+        out = arr[idx];
+        front[qi] = nextIdx[idx];
+        if (front[qi] == -1) rear[qi] = -1;
+        nextIdx[idx] = freeHead;
+        freeHead = idx;
+        return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k, q; if (!(cin >> n >> k >> q) || n <= 0 || k <= 0) return 0;
+    KQueues ks(n, k);
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") {
+            int qi; long long x; cin >> qi >> x;
+            cout << (ks.enqueue(qi, x) ? "ok" : "overflow") << "\n";
+        } else if (op == "pop") {
+            int qi; cin >> qi; long long v;
+            if (ks.dequeue(qi, v)) cout << v << "\n"; else cout << "underflow\n";
+        }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n + k)

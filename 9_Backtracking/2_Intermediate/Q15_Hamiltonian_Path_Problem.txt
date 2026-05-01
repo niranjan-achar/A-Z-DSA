@@ -1,0 +1,56 @@
+Question Number: 15
+Problem Title: Hamiltonian Path Problem
+Problem Description:
+Given a graph, determine if there exists a Hamiltonian path visiting every vertex exactly once.
+
+Approach / Explanation:
+1) Use backtracking to build a path vertex by vertex.
+2) Start from each vertex as a potential start.
+3) Try adding unvisited neighbors to the path.
+4) If path length reaches n, success.
+5) Backtrack on dead ends.
+6) Works for small graphs due to exponential nature.
+7) Output 1 if a path exists, else 0.
+
+Brute Force Note:
+Checking all permutations is factorial.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int u, int n, vector<vector<int>>& g, vector<int>& vis, int cnt) {
+    if (cnt == n) return true;
+    for (int v : g[u]) {
+        if (vis[v]) continue;
+        vis[v] = 1;
+        if (dfs(v, n, g, vis, cnt + 1)) return true;
+        vis[v] = 0;
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    bool ok = false;
+    for (int s = 0; s < n && !ok; ++s) {
+        vector<int> vis(n, 0);
+        vis[s] = 1;
+        if (dfs(s, n, g, vis, 1)) ok = true;
+    }
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n + m)

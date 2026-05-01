@@ -1,0 +1,50 @@
+Question Number: 19
+Problem Title: Find all possible subsets of a given array (allowing duplicates)
+Problem Description:
+Given an array with duplicates, list all subsets (including duplicate subsets if input has duplicates).
+
+Approach / Explanation:
+1) Use backtracking with index and current subset.
+2) At each index, either include or exclude the element.
+3) This generates 2^n subsets regardless of duplicates.
+4) Output each subset on a new line.
+5) No duplicate filtering is applied.
+6) Useful when duplicates are treated as distinct positions.
+7) Output all subsets.
+
+Brute Force Note:
+All subsets must be generated.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, vector<int>& cur) {
+    if (idx == (int)a.size()) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << " ";
+            cout << cur[i];
+        }
+        cout << "\n";
+        return;
+    }
+    dfs(idx + 1, a, cur);
+    cur.push_back(a[idx]);
+    dfs(idx + 1, a, cur);
+    cur.pop_back();
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    vector<int> cur;
+    dfs(0, a, cur);
+    return 0;
+}
+
+Time Complexity: O(n * 2^n)
+Space Complexity: O(n)

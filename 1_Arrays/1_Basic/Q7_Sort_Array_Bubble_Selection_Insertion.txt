@@ -1,0 +1,81 @@
+Question Number: 7
+Problem Title: Sort the array (bubble, selection, insertion)
+Problem Description:
+Sort an array using basic comparison-based sorting algorithms.
+
+Approach / Explanation:
+1) Implement bubble, selection, and insertion sort functions.
+2) Each algorithm is O(n^2) but easy to understand and implement.
+3) Choose one to run depending on practice needs.
+4) All three sort in place using swaps/shifts.
+5) These are stable for insertion and bubble, not necessarily for selection.
+6) Best used for small input sizes.
+7) Output the sorted array.
+
+Brute Force Note:
+These are the brute-force sorts; faster sorts use divide and conquer.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void bubbleSort(vector<long long>& a) {
+    int n = (int)a.size();
+    for (int i = 0; i < n; ++i) {
+        bool swapped = false;
+        for (int j = 0; j + 1 < n - i; ++j) {
+            if (a[j] > a[j + 1]) {
+                swap(a[j], a[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break;
+    }
+}
+
+void selectionSort(vector<long long>& a) {
+    int n = (int)a.size();
+    for (int i = 0; i < n; ++i) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (a[j] < a[minIdx]) minIdx = j;
+        }
+        swap(a[i], a[minIdx]);
+    }
+}
+
+void insertionSort(vector<long long>& a) {
+    int n = (int)a.size();
+    for (int i = 1; i < n; ++i) {
+        long long key = a[i];
+        int j = i - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            --j;
+        }
+        a[j + 1] = key;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    // Choose one for practice
+    bubbleSort(a);
+    // selectionSort(a);
+    // insertionSort(a);
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)

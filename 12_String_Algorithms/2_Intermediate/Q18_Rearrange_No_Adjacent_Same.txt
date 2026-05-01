@@ -1,0 +1,48 @@
+Question Number: 18
+Problem Title: Rearrange a string so no two adjacent characters are the same
+Problem Description:
+Given a string, rearrange characters so no adjacent duplicates remain.
+
+Approach / Explanation:
+1) Count frequencies.
+2) Use a max-heap by frequency.
+3) Pop the most frequent char, append it, and hold as previous.
+4) Push previous back if it still has remaining count.
+5) If heap empties while previous has count, not possible.
+6) Greedy ensures valid arrangement when possible.
+7) Output rearranged string or -1.
+
+Brute Force Note:
+Checking all permutations is factorial.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    unordered_map<char,int> freq;
+    for (char c : s) ++freq[c];
+
+    priority_queue<pair<int,char>> pq;
+    for (auto &kv : freq) pq.push({kv.second, kv.first});
+
+    string res;
+    pair<int,char> prev = {0, '#'};
+    while (!pq.empty()) {
+        auto cur = pq.top(); pq.pop();
+        res.push_back(cur.second);
+        cur.first--;
+        if (prev.first > 0) pq.push(prev);
+        prev = cur;
+    }
+
+    if ((int)res.size() != (int)s.size()) cout << -1; else cout << res;
+    return 0;
+}
+
+Time Complexity: O(n log k)
+Space Complexity: O(k)

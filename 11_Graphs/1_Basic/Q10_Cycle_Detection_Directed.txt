@@ -1,0 +1,53 @@
+Question Number: 10
+Problem Title: Detect a cycle in a directed graph (DFS)
+Problem Description:
+Given a directed graph, determine if it contains a cycle.
+
+Approach / Explanation:
+1) Use DFS with a recursion stack array.
+2) Mark node as visiting when DFS starts.
+3) If we reach a visiting node, a cycle exists.
+4) Mark node as visited when DFS finishes.
+5) Check all components.
+6) O(n+m) time.
+7) Output 1 if cycle exists, else 0.
+
+Brute Force Note:
+Trying all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool dfs(int u, const vector<vector<int>>& adj, vector<int>& vis, vector<int>& inStack) {
+    vis[u] = 1; inStack[u] = 1;
+    for (int v : adj[u]) {
+        if (!vis[v] && dfs(v, adj, vis, inStack)) return true;
+        if (inStack[v]) return true;
+    }
+    inStack[u] = 0;
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+    }
+
+    vector<int> vis(n, 0), inStack(n, 0);
+    bool hasCycle = false;
+    for (int i = 0; i < n && !hasCycle; ++i) if (!vis[i]) {
+        if (dfs(i, adj, vis, inStack)) hasCycle = true;
+    }
+    cout << (hasCycle ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

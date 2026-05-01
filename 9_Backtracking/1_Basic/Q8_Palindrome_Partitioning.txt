@@ -1,0 +1,48 @@
+Question Number: 8
+Problem Title: Palindrome Partitioning
+Problem Description:
+Given a string, partition it into all possible palindrome substrings.
+
+Approach / Explanation:
+1) Use backtracking with a start index.
+2) For each end index, check if substring is palindrome.
+3) If yes, add it to current partition and recurse.
+4) When start reaches end, count one valid partition.
+5) Backtrack by removing last substring.
+6) Precomputing palindrome checks can optimize.
+7) Output the number of partitions.
+
+Brute Force Note:
+All partitions are exponential in count.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPal(const string& s, int l, int r) {
+    while (l < r) if (s[l++] != s[r--]) return false;
+    return true;
+}
+
+long long countParts = 0;
+
+void dfs(int idx, const string& s) {
+    if (idx == (int)s.size()) { ++countParts; return; }
+    for (int end = idx; end < (int)s.size(); ++end) {
+        if (!isPal(s, idx, end)) continue;
+        dfs(end + 1, s);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    dfs(0, s);
+    cout << countParts;
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

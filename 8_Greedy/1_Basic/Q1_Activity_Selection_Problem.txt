@@ -1,0 +1,46 @@
+Question Number: 1
+Problem Title: Activity Selection Problem
+Problem Description:
+Given start and end times of activities, select the maximum number of non-overlapping activities.
+
+Approach / Explanation:
+1) Sort activities by their finish times.
+2) Always pick the earliest finishing activity first.
+3) For each next activity, accept it if its start is >= last selected finish.
+4) This greedy choice leaves maximum room for future activities.
+5) Track the count of selected activities.
+6) Sorting dominates the time cost.
+7) Output the maximum count.
+
+Brute Force Note:
+Trying all subsets is exponential and not feasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Act { long long s, e; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<Act> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i].s >> a[i].e;
+    sort(a.begin(), a.end(), [](const Act& x, const Act& y){ return x.e < y.e; });
+
+    long long lastEnd = LLONG_MIN;
+    int count = 0;
+    for (const auto& act : a) {
+        if (act.s >= lastEnd) {
+            ++count;
+            lastEnd = act.e;
+        }
+    }
+    cout << count;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

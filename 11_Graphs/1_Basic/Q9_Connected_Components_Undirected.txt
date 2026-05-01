@@ -1,0 +1,47 @@
+Question Number: 9
+Problem Title: Connected components in an undirected graph
+Problem Description:
+Given an undirected graph, count the number of connected components.
+
+Approach / Explanation:
+1) Use DFS or BFS over all nodes.
+2) Start a traversal for each unvisited node.
+3) Each traversal marks a full component.
+4) Count how many traversals are started.
+5) Works for disconnected graphs.
+6) O(n+m) time.
+7) Output the component count.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int u, const vector<vector<int>>& adj, vector<int>& vis) {
+    vis[u] = 1;
+    for (int v : adj[u]) if (!vis[v]) dfs(v, adj, vis);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0);
+    int comps = 0;
+    for (int i = 0; i < n; ++i) if (!vis[i]) { dfs(i, adj, vis); ++comps; }
+    cout << comps;
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

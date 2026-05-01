@@ -1,0 +1,43 @@
+Question Number: 39A
+Problem Title: Container with most water
+Problem Description:
+Given heights of vertical lines, find the maximum area of water a container can store.
+
+Approach / Explanation:
+1) Use two pointers at the ends.
+2) Compute area as min(height[l], height[r]) * (r - l).
+3) Move the pointer with the smaller height inward.
+4) This keeps the possibility of a taller boundary.
+5) Track the maximum area encountered.
+6) Two pointers give linear time.
+7) Output the maximum area.
+
+Brute Force Note:
+Checking all pairs costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> h(n);
+    for (int i = 0; i < n; ++i) cin >> h[i];
+
+    int l = 0, r = n - 1;
+    long long best = 0;
+    while (l < r) {
+        long long area = min(h[l], h[r]) * (r - l);
+        best = max(best, area);
+        if (h[l] < h[r]) ++l; else --r;
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

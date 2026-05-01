@@ -1,0 +1,39 @@
+Question Number: 24
+Problem Title: Find square root of number using binary search
+Problem Description:
+Given a non-negative integer n, compute floor(sqrt(n)).
+
+Approach / Explanation:
+1) Use binary search between 0 and n.
+2) Check mid * mid against n, avoid overflow with long long.
+3) If mid^2 <= n, move right and record answer.
+4) Otherwise move left.
+5) This finds the floor of sqrt(n).
+6) Time is O(log n).
+7) Output the integer square root.
+
+Brute Force Note:
+Linear search from 0..n is O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long l = 0, r = n, ans = 0;
+    while (l <= r) {
+        long long m = l + (r - l) / 2;
+        if (m <= n / m) { ans = m; l = m + 1; }
+        else r = m - 1;
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)

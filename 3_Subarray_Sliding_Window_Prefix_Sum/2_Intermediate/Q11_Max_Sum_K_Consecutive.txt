@@ -1,0 +1,46 @@
+Question Number: 11
+Problem Title: Maximum sum of k consecutive elements
+Problem Description:
+Given an array and k, find the maximum sum of any subarray of size k.
+
+Approach / Explanation:
+1) Compute the sum of the first k elements.
+2) Slide the window by adding next element and removing the leftmost.
+3) Track the maximum sum seen so far.
+4) This avoids recomputing sums from scratch.
+5) Works for negative values as well.
+6) Linear time with constant space.
+7) Output the maximum sum.
+
+Brute Force Note:
+Computing each window sum independently costs O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> k;
+    if (k <= 0 || k > n) return 0;
+
+    long long sum = 0;
+    for (int i = 0; i < k; ++i) sum += a[i];
+    long long best = sum;
+
+    for (int i = k; i < n; ++i) {
+        sum += a[i] - a[i - k];
+        best = max(best, sum);
+    }
+
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

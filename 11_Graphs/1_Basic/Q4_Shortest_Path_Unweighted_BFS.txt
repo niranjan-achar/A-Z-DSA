@@ -1,0 +1,54 @@
+Question Number: 4
+Problem Title: Shortest path in an unweighted graph (BFS)
+Problem Description:
+Given an unweighted graph and source, compute shortest distance to all nodes.
+
+Approach / Explanation:
+1) Use BFS starting from source.
+2) Initialize distances to -1.
+3) When visiting a neighbor, set dist[v]=dist[u]+1.
+4) BFS ensures first visit is shortest.
+5) Works for unweighted graphs.
+6) O(n+m) time.
+7) Output distances.
+
+Brute Force Note:
+Trying all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> dist(n, -1);
+    queue<int> q;
+    dist[s] = 0; q.push(s);
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (int v : adj[u]) if (dist[v] == -1) {
+            dist[v] = dist[u] + 1;
+            q.push(v);
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << dist[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

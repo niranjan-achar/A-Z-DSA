@@ -1,0 +1,56 @@
+Question Number: 6
+Problem Title: Sort a stack using recursion
+Problem Description:
+Sort a stack in ascending order using only recursion.
+
+Approach / Explanation:
+1) Pop the top element recursively until stack is empty.
+2) Insert each element back in sorted order using a helper.
+3) The helper pops larger elements, inserts, then restores them.
+4) Uses only recursion, no extra stack data structures.
+5) Time is O(n^2) due to insert operations.
+6) Uses O(n) recursion stack space.
+7) Output the sorted stack contents.
+
+Brute Force Note:
+Using an auxiliary stack yields O(n) time with extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void sortedInsert(stack<long long>& st, long long x) {
+    if (st.empty() || st.top() <= x) { st.push(x); return; }
+    long long t = st.top(); st.pop();
+    sortedInsert(st, x);
+    st.push(t);
+}
+
+void sortStack(stack<long long>& st) {
+    if (st.empty()) return;
+    long long x = st.top(); st.pop();
+    sortStack(st);
+    sortedInsert(st, x);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    stack<long long> st;
+    for (int i = 0; i < n; ++i) { long long x; cin >> x; st.push(x); }
+
+    sortStack(st);
+
+    vector<long long> out;
+    while (!st.empty()) { out.push_back(st.top()); st.pop(); }
+    for (int i = 0; i < (int)out.size(); ++i) {
+        if (i) cout << " ";
+        cout << out[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n) recursion

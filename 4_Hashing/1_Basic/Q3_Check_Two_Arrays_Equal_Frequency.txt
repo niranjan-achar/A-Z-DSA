@@ -1,0 +1,44 @@
+Question Number: 3
+Problem Title: Check if two arrays are equal using frequency count
+Problem Description:
+Given two arrays, determine if they contain the same elements with the same frequencies.
+
+Approach / Explanation:
+1) If sizes differ, arrays cannot be equal.
+2) Count frequencies of elements from the first array.
+3) Decrement counts while scanning the second array.
+4) If any count goes negative, arrays differ.
+5) Finally, all counts must be zero.
+6) Hash map supports any integer values.
+7) Output 1 if equal, 0 otherwise.
+
+Brute Force Note:
+Sorting both arrays is O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<long long> a(n), b(m);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < m; ++i) cin >> b[i];
+
+    if (n != m) { cout << 0; return 0; }
+
+    unordered_map<long long, int> freq;
+    for (long long x : a) ++freq[x];
+    for (long long x : b) {
+        if (--freq[x] < 0) { cout << 0; return 0; }
+    }
+
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

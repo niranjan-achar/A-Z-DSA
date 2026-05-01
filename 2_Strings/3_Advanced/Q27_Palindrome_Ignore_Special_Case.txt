@@ -1,0 +1,45 @@
+Question Number: 27
+Problem Title: Check if string is palindrome ignoring special characters and cases
+Problem Description:
+Determine if a string is a palindrome ignoring non-alphanumeric characters and case.
+
+Approach / Explanation:
+1) Use two pointers from both ends.
+2) Skip non-alphanumeric characters.
+3) Compare lowercase versions of letters and digits.
+4) If any mismatch, not a palindrome.
+5) Continue until pointers cross.
+6) This is linear and in-place.
+7) Output 1 for palindrome, 0 otherwise.
+
+Brute Force Note:
+Filtering into a new string also works but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    int l = 0, r = (int)s.size() - 1;
+    bool ok = true;
+    while (l < r) {
+        while (l < r && !isalnum((unsigned char)s[l])) ++l;
+        while (l < r && !isalnum((unsigned char)s[r])) --r;
+        if (l < r) {
+            char a = (char)tolower((unsigned char)s[l]);
+            char b = (char)tolower((unsigned char)s[r]);
+            if (a != b) { ok = false; break; }
+            ++l; --r;
+        }
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

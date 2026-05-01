@@ -1,0 +1,42 @@
+Question Number: 6
+Problem Title: 0/1 Knapsack Problem
+Problem Description:
+Given weights, values, and capacity W, maximize value without repeating items.
+
+Approach / Explanation:
+1) Use dp[w] for max value at capacity w.
+2) Initialize dp with zeros.
+3) For each item, iterate w from W down to weight.
+4) dp[w]=max(dp[w], dp[w-weight]+value).
+5) Backward iteration prevents reuse.
+6) This is classic 0/1 knapsack DP.
+7) Output dp[W].
+
+Brute Force Note:
+Checking all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, W; if (!(cin >> n >> W) || n < 0 || W < 0) return 0;
+    vector<int> wt(n), val(n);
+    for (int i = 0; i < n; ++i) cin >> wt[i];
+    for (int i = 0; i < n; ++i) cin >> val[i];
+
+    vector<long long> dp(W + 1, 0);
+    for (int i = 0; i < n; ++i) {
+        for (int w = W; w >= wt[i]; --w) {
+            dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);
+        }
+    }
+    cout << dp[W];
+    return 0;
+}
+
+Time Complexity: O(n*W)
+Space Complexity: O(W)

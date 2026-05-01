@@ -1,0 +1,41 @@
+Question Number: 17
+Problem Title: Check if one string is a subsequence of another
+Problem Description:
+Given two strings s and t, check if s is a subsequence of t.
+
+Approach / Explanation:
+1) Use two pointers i for s and j for t.
+2) If s[i] == t[j], advance i and j.
+3) Otherwise, advance j only.
+4) If i reaches s length, s is a subsequence.
+5) This is linear in t length.
+6) No extra space is used.
+7) Output 1 if true, 0 otherwise.
+
+Brute Force Note:
+Checking all subsequences is exponential and impractical.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, t;
+    if (!getline(cin, s)) return 0;
+    if (!getline(cin, t)) return 0;
+
+    int i = 0, j = 0;
+    while (i < (int)s.size() && j < (int)t.size()) {
+        if (s[i] == t[j]) ++i;
+        ++j;
+    }
+
+    cout << (i == (int)s.size() ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

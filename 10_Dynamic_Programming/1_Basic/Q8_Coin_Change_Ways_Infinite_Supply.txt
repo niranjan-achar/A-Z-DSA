@@ -1,0 +1,40 @@
+Question Number: 8
+Problem Title: Coin Change (infinite supply)
+Problem Description:
+Given coin denominations and an amount, count the number of ways to make the amount.
+
+Approach / Explanation:
+1) Use dp[i] = number of ways to make sum i.
+2) Initialize dp[0]=1.
+3) For each coin, update dp forward from coin to amount.
+4) dp[i] += dp[i-coin] counts ways using this coin.
+5) Order by coins avoids permutations.
+6) This is unbounded coin change counting.
+7) Output dp[amount].
+
+Brute Force Note:
+Enumerating all combinations is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, amount; if (!(cin >> n >> amount) || n < 0 || amount < 0) return 0;
+    vector<int> coins(n);
+    for (int i = 0; i < n; ++i) cin >> coins[i];
+
+    vector<long long> dp(amount + 1, 0);
+    dp[0] = 1;
+    for (int c : coins) {
+        for (int i = c; i <= amount; ++i) dp[i] += dp[i - c];
+    }
+    cout << dp[amount];
+    return 0;
+}
+
+Time Complexity: O(n*amount)
+Space Complexity: O(amount)

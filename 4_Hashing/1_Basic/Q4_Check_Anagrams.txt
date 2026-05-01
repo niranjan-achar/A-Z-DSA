@@ -1,0 +1,42 @@
+Question Number: 4
+Problem Title: Check if two strings are anagrams
+Problem Description:
+Given two strings, determine if they are anagrams of each other.
+
+Approach / Explanation:
+1) If lengths differ, they cannot be anagrams.
+2) Count character frequencies for the first string.
+3) Decrement counts for the second string.
+4) If any count becomes negative, not an anagram.
+5) ASCII array of size 256 is enough.
+6) Linear time with constant space.
+7) Output 1 if anagram, 0 otherwise.
+
+Brute Force Note:
+Sorting both strings costs O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b;
+    if (!getline(cin >> ws, a)) return 0;
+    if (!getline(cin, b)) return 0;
+
+    if (a.size() != b.size()) { cout << 0; return 0; }
+    vector<int> freq(256, 0);
+    for (unsigned char c : a) ++freq[c];
+    for (unsigned char c : b) {
+        if (--freq[c] < 0) { cout << 0; return 0; }
+    }
+
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

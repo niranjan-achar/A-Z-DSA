@@ -1,0 +1,44 @@
+Question Number: 22
+Problem Title: Range sum queries using prefix sum
+Problem Description:
+Given an array and multiple queries [l, r], answer each range sum.
+
+Approach / Explanation:
+1) Build prefix sum array where pref[i] = sum of a[0..i].
+2) Sum of range [l, r] is pref[r] - pref[l-1].
+3) Handle l = 0 as a special case.
+4) Preprocessing is O(n), each query is O(1).
+5) Use long long for safety.
+6) Output each query result.
+7) Works for any integer values.
+
+Brute Force Note:
+Answering each query by summing elements costs O(n) per query.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), pref(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) { sum += a[i]; pref[i] = sum; }
+
+    int q; cin >> q;
+    while (q--) {
+        int l, r; cin >> l >> r;
+        long long ans = pref[r] - (l > 0 ? pref[l - 1] : 0LL);
+        cout << ans;
+        if (q) cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n + q)
+Space Complexity: O(n)

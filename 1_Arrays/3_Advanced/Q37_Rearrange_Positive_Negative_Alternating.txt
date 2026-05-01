@@ -1,0 +1,51 @@
+Question Number: 37
+Problem Title: Rearrange array in alternating positive and negative
+Problem Description:
+Rearrange elements so positives and negatives alternate, preserving relative order when possible.
+
+Approach / Explanation:
+1) Separate positives and negatives into two lists.
+2) Merge them by alternating elements from each list.
+3) If one list is longer, append the remaining elements.
+4) This keeps relative order within each sign group.
+5) Uses extra space to keep ordering stable.
+6) Linear scan makes it efficient.
+7) Output the rearranged array.
+
+Brute Force Note:
+In-place swaps are possible but more complex and may break order.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n), pos, neg;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        if (a[i] >= 0) pos.push_back(a[i]);
+        else neg.push_back(a[i]);
+    }
+
+    vector<long long> res;
+    int i = 0, j = 0;
+    while (i < (int)pos.size() && j < (int)neg.size()) {
+        res.push_back(pos[i++]);
+        res.push_back(neg[j++]);
+    }
+    while (i < (int)pos.size()) res.push_back(pos[i++]);
+    while (j < (int)neg.size()) res.push_back(neg[j++]);
+
+    for (int k = 0; k < (int)res.size(); ++k) {
+        if (k) cout << " ";
+        cout << res[k];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

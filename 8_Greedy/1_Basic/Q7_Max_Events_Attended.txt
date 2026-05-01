@@ -1,0 +1,47 @@
+Question Number: 7
+Problem Title: Maximum number of events that can be attended
+Problem Description:
+Given events with start and end days, attend the maximum number of events (one per day).
+
+Approach / Explanation:
+1) Sort events by start day.
+2) Use a min-heap of event end days.
+3) Move day by day, adding events that start today.
+4) Attend the event with smallest end day.
+5) Remove expired events each day.
+6) Greedy choice keeps future flexibility.
+7) Output the maximum count.
+
+Brute Force Note:
+Trying all schedules is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Event { int s, e; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<Event> ev(n);
+    for (int i = 0; i < n; ++i) cin >> ev[i].s >> ev[i].e;
+    sort(ev.begin(), ev.end(), [](const Event& a, const Event& b){ return a.s < b.s; });
+
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int i = 0, day = 0, ans = 0;
+    while (i < n || !pq.empty()) {
+        if (pq.empty()) day = max(day, ev[i].s);
+        while (i < n && ev[i].s <= day) { pq.push(ev[i].e); ++i; }
+        while (!pq.empty() && pq.top() < day) pq.pop();
+        if (!pq.empty()) { pq.pop(); ++ans; ++day; }
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

@@ -1,0 +1,42 @@
+Question Number: 7
+Problem Title: Sort array of 0s and 1s
+Problem Description:
+Given a binary array, sort it so that all 0s come before 1s.
+
+Approach / Explanation:
+1) Count number of zeros.
+2) Fill the first count positions with 0 and the rest with 1.
+3) This is linear and simple.
+4) Alternatively, use two pointers.
+5) Works for any binary array.
+6) In-place update.
+7) Output the sorted array.
+
+Brute Force Note:
+General sorting is O(n log n) and unnecessary.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    int zeros = 0;
+    for (int x : a) if (x == 0) ++zeros;
+    for (int i = 0; i < n; ++i) a[i] = (i < zeros ? 0 : 1);
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

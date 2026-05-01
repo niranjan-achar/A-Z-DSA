@@ -1,0 +1,42 @@
+Question Number: 24
+Problem Title: Find peak element
+Problem Description:
+A peak element is greater than or equal to its neighbors. Find any peak index.
+
+Approach / Explanation:
+1) Use binary search on the array.
+2) If mid is less than its right neighbor, peak lies to the right.
+3) Otherwise, peak lies to the left including mid.
+4) This works because the array has at least one peak.
+5) Use boundaries as -inf to simplify comparisons.
+6) Binary search reduces time to O(log n).
+7) Output any peak index.
+
+Brute Force Note:
+Linear scan to find a peak costs O(n) and is simpler.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    int l = 0, r = n - 1;
+    while (l < r) {
+        int m = l + (r - l) / 2;
+        if (a[m] < a[m + 1]) l = m + 1;
+        else r = m;
+    }
+
+    cout << l;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)

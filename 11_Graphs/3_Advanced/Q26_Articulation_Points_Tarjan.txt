@@ -1,0 +1,66 @@
+Question Number: 26
+Problem Title: Find articulation points in a graph
+Problem Description:
+Given an undirected graph, find all articulation points.
+
+Approach / Explanation:
+1) Use DFS with discovery time and low values.
+2) A root is articulation if it has more than one child.
+3) A non-root is articulation if low[child] >= disc[u].
+4) Track parent to ignore trivial back edges.
+5) This is Tarjan's algorithm.
+6) O(n+m) time.
+7) Output articulation points.
+
+Brute Force Note:
+Removing each vertex and testing connectivity is expensive.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int timer = 0;
+vector<int> disc, low, isAP;
+
+void dfs(int u, int p, const vector<vector<int>>& g) {
+    disc[u] = low[u] = ++timer;
+    int children = 0;
+    for (int v : g[u]) {
+        if (v == p) continue;
+        if (!disc[v]) {
+            ++children;
+            dfs(v, u, g);
+            low[u] = min(low[u], low[v]);
+            if (p != -1 && low[v] >= disc[u]) isAP[u] = 1;
+        } else {
+            low[u] = min(low[u], disc[v]);
+        }
+    }
+    if (p == -1 && children > 1) isAP[u] = 1;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    disc.assign(n, 0); low.assign(n, 0); isAP.assign(n, 0);
+    for (int i = 0; i < n; ++i) if (!disc[i]) dfs(i, -1, g);
+
+    bool first = true;
+    for (int i = 0; i < n; ++i) if (isAP[i]) {
+        if (!first) cout << " ";
+        cout << i + 1; first = false;
+    }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

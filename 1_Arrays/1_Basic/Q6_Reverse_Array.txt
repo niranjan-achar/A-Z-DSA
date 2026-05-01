@@ -1,0 +1,44 @@
+Question Number: 6
+Problem Title: Reverse the array
+Problem Description:
+Given an array, reverse it in place.
+
+Approach / Explanation:
+1) Use two pointers: left at 0, right at n-1.
+2) Swap elements at left and right.
+3) Move left forward and right backward.
+4) Continue until left >= right.
+5) This performs an in-place reverse.
+6) Works for any data type supporting swap.
+7) Output the reversed array.
+
+Brute Force Note:
+Using an extra array is simpler but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    int l = 0, r = n - 1;
+    while (l < r) {
+        swap(a[l], a[r]);
+        ++l; --r;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

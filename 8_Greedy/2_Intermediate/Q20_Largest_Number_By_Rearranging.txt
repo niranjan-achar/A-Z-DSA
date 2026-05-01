@@ -1,0 +1,40 @@
+Question Number: 20
+Problem Title: Largest Number (rearranging digits)
+Problem Description:
+Given a list of non-negative integers, arrange them to form the largest number.
+
+Approach / Explanation:
+1) Convert numbers to strings for concatenation comparison.
+2) Sort strings by custom order: a+b > b+a.
+3) Concatenate sorted strings to form the result.
+4) Handle all-zero case by returning 0.
+5) Greedy ordering yields the maximum lexicographic concatenation.
+6) O(n log n) sorting time.
+7) Output the largest formed number.
+
+Brute Force Note:
+Checking all permutations is factorial time.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<string> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    sort(a.begin(), a.end(), [](const string& x, const string& y){ return x + y > y + x; });
+    if (a[0] == "0") { cout << 0; return 0; }
+
+    string res;
+    for (const auto& s : a) res += s;
+    cout << res;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

@@ -1,0 +1,54 @@
+Question Number: 33
+Problem Title: Minimum swaps to sort an array
+Problem Description:
+Find the minimum number of swaps needed to sort the array.
+
+Approach / Explanation:
+1) Pair each value with its original index.
+2) Sort the pairs by value to know final positions.
+3) The permutation decomposes into cycles.
+4) A cycle of length L needs L-1 swaps.
+5) Sum swaps across all cycles.
+6) This computes the minimum swaps directly.
+7) Output the total swaps.
+
+Brute Force Note:
+Simulating swaps by selection costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<pair<long long, int>> v(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> v[i].first;
+        v[i].second = i;
+    }
+
+    sort(v.begin(), v.end());
+    vector<bool> vis(n, false);
+    long long swaps = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (vis[i] || v[i].second == i) continue;
+        int cycleLen = 0;
+        int j = i;
+        while (!vis[j]) {
+            vis[j] = true;
+            j = v[j].second;
+            ++cycleLen;
+        }
+        if (cycleLen > 1) swaps += (cycleLen - 1);
+    }
+
+    cout << swaps;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

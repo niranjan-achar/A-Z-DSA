@@ -1,0 +1,61 @@
+Question Number: 18
+Problem Title: Count occurrences of anagrams in a string
+Problem Description:
+Given a text and a pattern, count how many substrings are anagrams of the pattern.
+
+Approach / Explanation:
+1) Use fixed-size sliding window of length m.
+2) Maintain frequency counts for pattern and current window.
+3) Compare counts to detect an anagram.
+4) Slide by removing left char and adding right char.
+5) Use a match counter to optimize comparisons.
+6) Linear time with fixed alphabet size.
+7) Output the count.
+
+Brute Force Note:
+Sorting each window costs O(n * m log m).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s, p;
+    if (!getline(cin >> ws, s)) return 0;
+    if (!getline(cin, p)) return 0;
+
+    int n = (int)s.size(), m = (int)p.size();
+    if (m == 0 || m > n) { cout << 0; return 0; }
+
+    vector<int> need(256, 0), win(256, 0);
+    for (unsigned char c : p) ++need[c];
+
+    int matches = 0;
+    for (int i = 0; i < 256; ++i) if (need[i] == 0) ++matches;
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        unsigned char c = s[i];
+        ++win[c];
+        if (win[c] == need[c]) ++matches;
+        else if (win[c] == need[c] + 1) --matches;
+
+        if (i >= m) {
+            unsigned char d = s[i - m];
+            --win[d];
+            if (win[d] == need[d]) ++matches;
+            else if (win[d] == need[d] - 1) --matches;
+        }
+
+        if (i >= m - 1 && matches == 256) ++ans;
+    }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

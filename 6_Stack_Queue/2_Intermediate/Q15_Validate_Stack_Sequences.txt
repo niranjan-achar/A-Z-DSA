@@ -1,0 +1,46 @@
+Question Number: 15
+Problem Title: Validate stack sequences
+Problem Description:
+Given push and pop sequences, determine if they are valid for a stack.
+
+Approach / Explanation:
+1) Simulate the push sequence using a stack.
+2) After each push, pop while top matches the next element in pop sequence.
+3) At the end, if all pops matched, the sequence is valid.
+4) This is a direct simulation.
+5) Linear time and space.
+6) Works for distinct elements.
+7) Output 1 if valid, 0 otherwise.
+
+Brute Force Note:
+Trying all possible sequences is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<int> pushSeq(n), popSeq(n);
+    for (int i = 0; i < n; ++i) cin >> pushSeq[i];
+    for (int i = 0; i < n; ++i) cin >> popSeq[i];
+
+    stack<int> st;
+    int j = 0;
+    for (int x : pushSeq) {
+        st.push(x);
+        while (!st.empty() && j < n && st.top() == popSeq[j]) {
+            st.pop();
+            ++j;
+        }
+    }
+
+    cout << (j == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

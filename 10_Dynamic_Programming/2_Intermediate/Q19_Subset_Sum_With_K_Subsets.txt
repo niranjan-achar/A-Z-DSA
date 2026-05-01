@@ -1,0 +1,46 @@
+Question Number: 19
+Problem Title: Subset Sum (with restriction on subset count)
+Problem Description:
+Given an array, target sum, and k, count subsets of size k that sum to target.
+
+Approach / Explanation:
+1) Use dp[i][s][c] for first i elements, sum s, count c.
+2) Initialize dp[0][0][0]=1.
+3) For each element, either take or skip it.
+4) Transition from dp[i-1] to dp[i].
+5) This counts subsets with exact size and sum.
+6) Complexity depends on target and k.
+7) Output dp[n][target][k].
+
+Brute Force Note:
+Checking all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, target, k; if (!(cin >> n >> target >> k) || n < 0 || target < 0 || k < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    vector<vector<vector<long long>>> dp(n + 1,
+        vector<vector<long long>>(target + 1, vector<long long>(k + 1, 0)));
+    dp[0][0][0] = 1;
+    for (int i = 1; i <= n; ++i) {
+        for (int s = 0; s <= target; ++s) {
+            for (int c = 0; c <= k; ++c) {
+                dp[i][s][c] = dp[i-1][s][c];
+                if (c > 0 && s >= a[i-1]) dp[i][s][c] += dp[i-1][s - a[i-1]][c - 1];
+            }
+        }
+    }
+    cout << dp[n][target][k];
+    return 0;
+}
+
+Time Complexity: O(n*target*k)
+Space Complexity: O(n*target*k)

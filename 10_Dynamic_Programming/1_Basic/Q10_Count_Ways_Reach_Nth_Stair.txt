@@ -1,0 +1,42 @@
+Question Number: 10
+Problem Title: Count ways to reach the nth stair (different steps)
+Problem Description:
+Given n and step sizes, count ways to reach step n.
+
+Approach / Explanation:
+1) Use dp[i] as number of ways to reach step i.
+2) dp[0]=1 base case.
+3) For i from 1 to n, sum dp[i-step] for each step size.
+4) Skip steps that go below zero.
+5) Build answers bottom-up for all i.
+6) Works for any step set.
+7) Output dp[n].
+
+Brute Force Note:
+Naive recursion repeats subproblems exponentially.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<int> steps(m);
+    for (int i = 0; i < m; ++i) cin >> steps[i];
+
+    vector<long long> dp(n + 1, 0);
+    dp[0] = 1;
+    for (int i = 1; i <= n; ++i) {
+        long long ways = 0;
+        for (int s : steps) if (i - s >= 0) ways += dp[i - s];
+        dp[i] = ways;
+    }
+    cout << dp[n];
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n)

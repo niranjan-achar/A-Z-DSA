@@ -1,0 +1,34 @@
+Question Number: 6
+Problem Title: Count occurrences of a character in a string
+Problem Description:
+Given a string and a character, count its occurrences.
+
+Approach / Explanation:
+1) Read the string and target character.
+2) Iterate through the string.
+3) Increment count when character matches.
+4) Output the count.
+5) Linear time.
+6) Constant extra space.
+7) Works for ASCII characters.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; char ch; if (!(cin >> s >> ch)) return 0;
+    int cnt = 0;
+    for (char c : s) if (c == ch) ++cnt;
+    cout << cnt;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

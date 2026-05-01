@@ -1,0 +1,95 @@
+Question Number: 1
+Problem Title: Implement a singly linked list (insert, delete, search)
+Problem Description:
+Implement a singly linked list with insert at head/tail, delete by value, and search.
+
+Approach / Explanation:
+1) Use a Node struct with value and next pointer.
+2) Insert at head updates head pointer.
+3) Insert at tail traverses to the end and attaches node.
+4) Delete by value adjusts links; handle head deletion.
+5) Search traverses until value is found or list ends.
+6) Operations are O(n) except head insert O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Array-based list is simpler but has fixed size.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    long long val;
+    Node* next;
+    Node(long long v) : val(v), next(nullptr) {}
+};
+
+struct LinkedList {
+    Node* head = nullptr;
+
+    void insertHead(long long x) {
+        Node* n = new Node(x);
+        n->next = head;
+        head = n;
+    }
+
+    void insertTail(long long x) {
+        Node* n = new Node(x);
+        if (!head) { head = n; return; }
+        Node* cur = head;
+        while (cur->next) cur = cur->next;
+        cur->next = n;
+    }
+
+    bool search(long long x) const {
+        Node* cur = head;
+        while (cur) {
+            if (cur->val == x) return true;
+            cur = cur->next;
+        }
+        return false;
+    }
+
+    bool deleteValue(long long x) {
+        if (!head) return false;
+        if (head->val == x) {
+            Node* t = head; head = head->next; delete t; return true;
+        }
+        Node* cur = head;
+        while (cur->next && cur->next->val != x) cur = cur->next;
+        if (!cur->next) return false;
+        Node* t = cur->next; cur->next = cur->next->next; delete t; return true;
+    }
+
+    void print() const {
+        Node* cur = head;
+        bool first = true;
+        while (cur) {
+            if (!first) cout << " ";
+            cout << cur->val;
+            first = false;
+            cur = cur->next;
+        }
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    LinkedList ll;
+    int q; if (!(cin >> q)) return 0;
+    while (q--) {
+        string op; cin >> op;
+        if (op == "pushHead") { long long x; cin >> x; ll.insertHead(x); }
+        else if (op == "pushTail") { long long x; cin >> x; ll.insertTail(x); }
+        else if (op == "search") { long long x; cin >> x; cout << (ll.search(x) ? 1 : 0) << "\n"; }
+        else if (op == "delete") { long long x; cin >> x; cout << (ll.deleteValue(x) ? "ok" : "notfound") << "\n"; }
+    }
+    ll.print();
+    return 0;
+}
+
+Time Complexity: O(n) per search/delete/insertTail
+Space Complexity: O(n)

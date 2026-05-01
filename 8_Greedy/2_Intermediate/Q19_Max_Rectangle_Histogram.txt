@@ -1,0 +1,48 @@
+Question Number: 19
+Problem Title: Maximum Area of a Rectangle in a Histogram
+Problem Description:
+Given bar heights, find the largest rectangle area in the histogram.
+
+Approach / Explanation:
+1) Use a monotonic increasing stack of indices.
+2) When a lower height appears, pop and compute area.
+3) The popped bar is the smallest in that rectangle.
+4) Width is between current index and new stack top.
+5) Process remaining bars after scan.
+6) O(n) time using stack.
+7) Output the maximum area.
+
+Brute Force Note:
+Checking all pairs of bars is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> h(n);
+    for (int i = 0; i < n; ++i) cin >> h[i];
+
+    stack<int> st;
+    long long best = 0;
+    for (int i = 0; i <= n; ++i) {
+        long long cur = (i == n ? 0 : h[i]);
+        while (!st.empty() && h[st.top()] > cur) {
+            int top = st.top(); st.pop();
+            long long height = h[top];
+            int left = st.empty() ? -1 : st.top();
+            long long width = i - left - 1;
+            best = max(best, height * width);
+        }
+        st.push(i);
+    }
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

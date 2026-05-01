@@ -1,0 +1,59 @@
+Question Number: 25
+Problem Title: Find bridges in a graph
+Problem Description:
+Given an undirected graph, find all bridges (critical edges).
+
+Approach / Explanation:
+1) Use DFS with discovery time and low-link values.
+2) For each edge (u,v), if low[v] > disc[u], it's a bridge.
+3) Track parent to avoid trivial back edge.
+4) This is Tarjan's algorithm.
+5) Runs in O(n+m) time.
+6) Output all bridges.
+7) Print each bridge as u v.
+
+Brute Force Note:
+Removing each edge and testing connectivity is expensive.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int timer = 0;
+vector<int> disc, low;
+vector<pair<int,int>> bridges;
+
+void dfs(int u, int p, const vector<vector<int>>& g) {
+    disc[u] = low[u] = ++timer;
+    for (int v : g[u]) {
+        if (v == p) continue;
+        if (!disc[v]) {
+            dfs(v, u, g);
+            low[u] = min(low[u], low[v]);
+            if (low[v] > disc[u]) bridges.push_back({u, v});
+        } else {
+            low[u] = min(low[u], disc[v]);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> g(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    disc.assign(n, 0); low.assign(n, 0);
+    for (int i = 0; i < n; ++i) if (!disc[i]) dfs(i, -1, g);
+    for (auto &e : bridges) cout << e.first + 1 << " " << e.second + 1 << "\n";
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

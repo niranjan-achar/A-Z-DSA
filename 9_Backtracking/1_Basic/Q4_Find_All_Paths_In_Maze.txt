@@ -1,0 +1,54 @@
+Question Number: 4
+Problem Title: Find all paths in a maze
+Problem Description:
+Given a grid with 1 as open and 0 as blocked, count all paths from top-left to bottom-right.
+
+Approach / Explanation:
+1) Use DFS backtracking from (0,0).
+2) Move in four directions (D, L, R, U) within bounds.
+3) Mark a cell as visited before exploring neighbors.
+4) If destination is reached, increment count.
+5) Unmark on backtrack to allow other paths.
+6) This explores all possible paths.
+7) Output the total number of paths.
+
+Brute Force Note:
+All paths must be explored to count them.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m;
+vector<vector<int>> grid, vis;
+long long ways = 0;
+int dr[4] = {1, 0, 0, -1};
+int dc[4] = {0, -1, 1, 0};
+
+void dfs(int r, int c) {
+    if (r == n - 1 && c == m - 1) { ++ways; return; }
+    vis[r][c] = 1;
+    for (int k = 0; k < 4; ++k) {
+        int nr = r + dr[k], nc = c + dc[k];
+        if (nr < 0 || nc < 0 || nr >= n || nc >= m) continue;
+        if (grid[nr][nc] == 0 || vis[nr][nc]) continue;
+        dfs(nr, nc);
+    }
+    vis[r][c] = 0;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    if (!(cin >> n >> m) || n <= 0 || m <= 0) return 0;
+    grid.assign(n, vector<int>(m, 0));
+    vis.assign(n, vector<int>(m, 0));
+    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) cin >> grid[i][j];
+    if (grid[0][0] == 1 && grid[n-1][m-1] == 1) dfs(0, 0);
+    cout << ways;
+    return 0;
+}
+
+Time Complexity: Exponential in number of open cells
+Space Complexity: O(n*m)

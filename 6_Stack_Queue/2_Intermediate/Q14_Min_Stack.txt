@@ -1,0 +1,61 @@
+Question Number: 14
+Problem Title: Min Stack (getMin in O(1) time)
+Problem Description:
+Design a stack that supports push, pop, top, and getMin in O(1) time.
+
+Approach / Explanation:
+1) Use two stacks: one for values and one for current minimums.
+2) Push value to value stack.
+3) Push min(value, currentMin) to min stack.
+4) Pop from both stacks together.
+5) getMin returns top of min stack.
+6) All operations are O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Scanning for min on each query costs O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct MinStack {
+    stack<long long> st, mn;
+    void push(long long x) {
+        st.push(x);
+        if (mn.empty()) mn.push(x);
+        else mn.push(min(x, mn.top()));
+    }
+    bool pop() {
+        if (st.empty()) return false;
+        st.pop(); mn.pop(); return true;
+    }
+    bool top(long long &out) {
+        if (st.empty()) return false;
+        out = st.top(); return true;
+    }
+    bool getMin(long long &out) {
+        if (mn.empty()) return false;
+        out = mn.top(); return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int q; if (!(cin >> q)) return 0;
+    MinStack ms;
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") { long long x; cin >> x; ms.push(x); cout << "ok\n"; }
+        else if (op == "pop") { cout << (ms.pop() ? "ok" : "underflow") << "\n"; }
+        else if (op == "top") { long long v; if (ms.top(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "min") { long long v; if (ms.getMin(v)) cout << v << "\n"; else cout << "empty\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n)

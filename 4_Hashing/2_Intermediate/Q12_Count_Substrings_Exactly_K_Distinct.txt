@@ -1,0 +1,51 @@
+Question Number: 12
+Problem Title: Count all substrings with exactly k distinct characters
+Problem Description:
+Given a string and k, count substrings that contain exactly k distinct characters.
+
+Approach / Explanation:
+1) Use the formula: exactlyK = atMostK(k) - atMostK(k-1).
+2) Implement atMostK using sliding window and frequency map.
+3) Expand right pointer; shrink while distinct count > k.
+4) Add window length to answer at each step.
+5) Works for all ASCII strings.
+6) Linear time for each atMostK pass.
+7) Output the count.
+
+Brute Force Note:
+Checking all substrings costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long atMostK(const string& s, int k) {
+    if (k < 0) return 0;
+    unordered_map<char, int> freq;
+    long long ans = 0;
+    int left = 0;
+    for (int right = 0; right < (int)s.size(); ++right) {
+        ++freq[s[right]];
+        while ((int)freq.size() > k) {
+            char c = s[left++];
+            if (--freq[c] == 0) freq.erase(c);
+        }
+        ans += (right - left + 1);
+    }
+    return ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    int k; if (!(cin >> k)) return 0;
+
+    long long ans = atMostK(s, k) - atMostK(s, k - 1);
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(k)

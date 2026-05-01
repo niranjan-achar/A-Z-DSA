@@ -1,0 +1,50 @@
+Question Number: 1
+Problem Title: Generate all subsets of a set
+Problem Description:
+Given an array of distinct integers, print all possible subsets.
+
+Approach / Explanation:
+1) Use backtracking with an index and a current subset.
+2) At each index, choose to include or exclude the element.
+3) Recurse to the next index for both choices.
+4) When index reaches end, output the current subset.
+5) This explores all 2^n subsets.
+6) Backtracking naturally builds subsets in DFS order.
+7) Output each subset on a new line.
+
+Brute Force Note:
+All subsets must be generated, so O(2^n) outputs are required.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int idx, const vector<int>& a, vector<int>& cur) {
+    if (idx == (int)a.size()) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << " ";
+            cout << cur[i];
+        }
+        cout << "\n";
+        return;
+    }
+    dfs(idx + 1, a, cur);
+    cur.push_back(a[idx]);
+    dfs(idx + 1, a, cur);
+    cur.pop_back();
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    vector<int> cur;
+    dfs(0, a, cur);
+    return 0;
+}
+
+Time Complexity: O(n * 2^n)
+Space Complexity: O(n)

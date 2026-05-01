@@ -1,0 +1,38 @@
+Question Number: 17
+Problem Title: Find Maximum Profit in Stock Buy/Sell Problem
+Problem Description:
+Given stock prices, find the maximum profit with at most one transaction.
+
+Approach / Explanation:
+1) Track the minimum price seen so far.
+2) For each price, compute profit if sold today.
+3) Update max profit when current profit is larger.
+4) This is a DP-like running minimum.
+5) Single pass and O(1) space.
+6) If prices are decreasing, profit is 0.
+7) Output the maximum profit.
+
+Brute Force Note:
+Checking all buy/sell pairs is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    long long minPrice = LLONG_MAX, best = 0;
+    for (int i = 0; i < n; ++i) {
+        long long p; cin >> p;
+        minPrice = min(minPrice, p);
+        best = max(best, p - minPrice);
+    }
+    cout << best;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

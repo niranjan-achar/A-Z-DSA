@@ -1,0 +1,39 @@
+Question Number: 10
+Problem Title: Replace all spaces with %20 (URLify)
+Problem Description:
+Given a string, replace every space with %20.
+
+Approach / Explanation:
+1) Build a new string result.
+2) For each character, if it is a space, append "%20".
+3) Otherwise append the character itself.
+4) This preserves the original order.
+5) Linear scan is optimal.
+6) Uses extra space for the output.
+7) Output the transformed string.
+
+Brute Force Note:
+In-place replacement is possible with extra buffer, but more complex.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    string out;
+    out.reserve(s.size());
+    for (char c : s) {
+        if (c == ' ') out += "%20";
+        else out.push_back(c);
+    }
+
+    cout << out;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

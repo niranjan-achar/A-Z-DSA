@@ -1,0 +1,47 @@
+Question Number: 26
+Problem Title: Sliding Window Maximum (optimized using deque)
+Problem Description:
+Given an array and k, find maximum in each window using a deque.
+
+Approach / Explanation:
+1) Maintain a deque of indices with decreasing values.
+2) Remove indices out of the current window.
+3) Remove smaller values from the back before adding current index.
+4) The front is the maximum for the window.
+5) Each index enters and leaves once.
+6) Linear time with O(k) space.
+7) Output the max for each window.
+
+Brute Force Note:
+Scanning each window costs O(nk).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> k;
+    if (k <= 0 || k > n) return 0;
+
+    deque<int> dq;
+    for (int i = 0; i < n; ++i) {
+        while (!dq.empty() && dq.front() <= i - k) dq.pop_front();
+        while (!dq.empty() && a[dq.back()] <= a[i]) dq.pop_back();
+        dq.push_back(i);
+        if (i >= k - 1) {
+            if (i > k - 1) cout << " ";
+            cout << a[dq.front()];
+        }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(k)

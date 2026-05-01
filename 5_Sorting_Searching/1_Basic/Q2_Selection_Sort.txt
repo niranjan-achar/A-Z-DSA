@@ -1,0 +1,51 @@
+Question Number: 2
+Problem Title: Implement Selection Sort
+Problem Description:
+Given an array, sort it using Selection Sort.
+
+Approach / Explanation:
+1) For each position i, find the minimum element in [i..n-1].
+2) Swap it with element at i.
+3) Repeat until the array is sorted.
+4) In-place and easy to implement.
+5) Not stable in general.
+6) Works well for small inputs.
+7) Output the sorted array.
+
+Brute Force Note:
+Selection sort itself is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void selectionSort(vector<long long>& a) {
+    int n = (int)a.size();
+    for (int i = 0; i < n; ++i) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (a[j] < a[minIdx]) minIdx = j;
+        }
+        swap(a[i], a[minIdx]);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    selectionSort(a);
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)

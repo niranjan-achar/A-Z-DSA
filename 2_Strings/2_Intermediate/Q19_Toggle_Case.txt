@@ -1,0 +1,37 @@
+Question Number: 19
+Problem Title: Toggle characters (upper to lower and vice versa)
+Problem Description:
+Given a string, toggle the case of each letter.
+
+Approach / Explanation:
+1) Traverse each character.
+2) If it's lowercase, convert to uppercase.
+3) If it's uppercase, convert to lowercase.
+4) Leave non-letters unchanged.
+5) Use ctype functions for correctness.
+6) Single pass gives linear time.
+7) Output the toggled string.
+
+Brute Force Note:
+Manual ASCII arithmetic also works but is less readable.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    for (char &c : s) {
+        if (islower((unsigned char)c)) c = (char)toupper((unsigned char)c);
+        else if (isupper((unsigned char)c)) c = (char)tolower((unsigned char)c);
+    }
+
+    cout << s;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

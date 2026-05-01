@@ -1,0 +1,72 @@
+Question Number: 19
+Problem Title: Merge two sorted arrays without extra space
+Problem Description:
+Given two sorted arrays, merge them in sorted order without using extra space.
+
+Approach / Explanation:
+1) Use the gap method (Shell sort style) over the combined length.
+2) Start with gap = ceil((n+m)/2) and reduce gap each round.
+3) Compare and swap elements gap apart across both arrays.
+4) Treat both arrays as a single virtual array.
+5) Continue until gap becomes 0.
+6) This is in-place and works for any sizes.
+7) Output both arrays after merging.
+
+Brute Force Note:
+Using a third array is simpler but uses O(n+m) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int nextGap(int gap) {
+    if (gap <= 1) return 0;
+    return (gap / 2) + (gap % 2);
+}
+
+long long getVal(const vector<long long>& a, const vector<long long>& b, int idx) {
+    if (idx < (int)a.size()) return a[idx];
+    return b[idx - (int)a.size()];
+}
+
+void setVal(vector<long long>& a, vector<long long>& b, int idx, long long val) {
+    if (idx < (int)a.size()) a[idx] = val;
+    else b[idx - (int)a.size()] = val;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<long long> a(n), b(m);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < m; ++i) cin >> b[i];
+
+    int total = n + m;
+    for (int gap = nextGap(total); gap > 0; gap = nextGap(gap)) {
+        for (int i = 0; i + gap < total; ++i) {
+            int j = i + gap;
+            long long vi = getVal(a, b, i);
+            long long vj = getVal(a, b, j);
+            if (vi > vj) {
+                setVal(a, b, i, vj);
+                setVal(a, b, j, vi);
+            }
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    cout << "\n";
+    for (int i = 0; i < m; ++i) {
+        if (i) cout << " ";
+        cout << b[i];
+    }
+    return 0;
+}
+
+Time Complexity: O((n+m) log(n+m))
+Space Complexity: O(1)

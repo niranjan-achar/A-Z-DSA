@@ -1,0 +1,62 @@
+Question Number: 7
+Problem Title: Remove the nth node from the end
+Problem Description:
+Given a linked list, remove the nth node from the end and output the list.
+
+Approach / Explanation:
+1) Use a dummy node before head.
+2) Move first pointer n steps ahead.
+3) Move first and second together until first reaches end.
+4) Second->next is the node to delete.
+5) Adjust links and delete the node.
+6) Single pass and O(1) space.
+7) Output the updated list.
+
+Brute Force Note:
+Computing length then deleting is two passes.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        Node* node = new Node(x);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+    int k; cin >> k;
+    if (k <= 0) return 0;
+
+    Node dummy(0); dummy.next = head;
+    Node* first = &dummy; Node* second = &dummy;
+    for (int i = 0; i < k; ++i) {
+        if (!first->next) { cout << -1; return 0; }
+        first = first->next;
+    }
+    while (first->next) { first = first->next; second = second->next; }
+
+    Node* toDelete = second->next;
+    second->next = second->next->next;
+    delete toDelete;
+
+    Node* cur = dummy.next;
+    bool firstOut = true;
+    while (cur) {
+        if (!firstOut) cout << " ";
+        cout << cur->val;
+        firstOut = false;
+        cur = cur->next;
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

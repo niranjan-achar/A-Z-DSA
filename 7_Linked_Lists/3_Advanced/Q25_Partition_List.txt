@@ -1,0 +1,54 @@
+Question Number: 25
+Problem Title: Partition a linked list around a value x
+Problem Description:
+Given a linked list and value x, partition nodes so those less than x come before others.
+
+Approach / Explanation:
+1) Use two dummy lists: one for < x and one for >= x.
+2) Traverse and append nodes accordingly.
+3) Link the two lists at the end.
+4) Ensure the last node points to null.
+5) Preserves original relative order.
+6) O(n) time and O(1) space.
+7) Output the partitioned list.
+
+Brute Force Note:
+Rebuilding a new list from arrays uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long x; if (!(cin >> n) || n <= 0) return 0;
+    Node* head = nullptr; Node* tail = nullptr;
+    for (int i = 0; i < n; ++i) {
+        long long v; cin >> v;
+        Node* node = new Node(v);
+        if (!head) head = tail = node; else { tail->next = node; tail = node; }
+    }
+    cin >> x;
+
+    Node lessDummy(0), geDummy(0);
+    Node* lt = &lessDummy; Node* ge = &geDummy;
+    Node* cur = head;
+    while (cur) {
+        if (cur->val < x) { lt->next = cur; lt = cur; }
+        else { ge->next = cur; ge = cur; }
+        cur = cur->next;
+    }
+    lt->next = geDummy.next;
+    ge->next = nullptr;
+
+    cur = lessDummy.next; bool first = true;
+    while (cur) { if (!first) cout << " "; cout << cur->val; first = false; cur = cur->next; }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,52 @@
+Question Number: 2
+Problem Title: Find all subarrays with a given sum (including negative numbers)
+Problem Description:
+Given an array (may include negatives) and a target sum, list all subarrays with that sum.
+
+Approach / Explanation:
+1) Use prefix sums and a map from prefix sum to indices.
+2) If prefix[j] - prefix[i] = target, then subarray (i+1..j) matches.
+3) For each prefix sum, check if (prefix - target) exists.
+4) Store all indices to report multiple subarrays.
+5) Initialize map with prefix sum 0 at index -1.
+6) This handles negative values correctly.
+7) Output count and each pair of indices.
+
+Brute Force Note:
+Checking all subarrays is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long target;
+    if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> target;
+
+    unordered_map<long long, vector<int>> pos;
+    pos[0].push_back(-1);
+
+    long long prefix = 0;
+    vector<pair<int,int>> ans;
+    for (int i = 0; i < n; ++i) {
+        prefix += a[i];
+        long long need = prefix - target;
+        if (pos.count(need)) {
+            for (int start : pos[need]) ans.push_back({start + 1, i});
+        }
+        pos[prefix].push_back(i);
+    }
+
+    cout << ans.size() << "\n";
+    for (auto &p : ans) cout << p.first << " " << p.second << "\n";
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n)

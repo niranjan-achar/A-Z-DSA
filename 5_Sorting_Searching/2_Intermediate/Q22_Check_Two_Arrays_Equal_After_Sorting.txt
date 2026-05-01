@@ -1,0 +1,40 @@
+Question Number: 22
+Problem Title: Check if two arrays are equal (after sorting)
+Problem Description:
+Given two arrays, check if they contain the same elements with same frequencies.
+
+Approach / Explanation:
+1) If sizes differ, arrays are not equal.
+2) Sort both arrays.
+3) Compare elements pairwise.
+4) Sorting ensures equal elements align.
+5) Works for any comparable type.
+6) Time dominated by sorting.
+7) Output 1 if equal, 0 otherwise.
+
+Brute Force Note:
+Using a frequency map avoids sorting but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n < 0 || m < 0) return 0;
+    vector<long long> a(n), b(m);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < m; ++i) cin >> b[i];
+    if (n != m) { cout << 0; return 0; }
+
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    cout << (a == b ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

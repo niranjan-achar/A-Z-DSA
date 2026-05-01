@@ -1,0 +1,39 @@
+Question Number: 12
+Problem Title: Implement strstr (substring search)
+Problem Description:
+Given text and pattern, find the first index of pattern in text.
+
+Approach / Explanation:
+1) Use a sliding window over the text.
+2) For each position, compare pattern characters.
+3) If all match, return index.
+4) If no match found, return -1.
+5) Simple brute force approach.
+6) Works for small constraints.
+7) Output the index.
+
+Brute Force Note:
+This is the brute force approach itself.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string text, pat; if (!(cin >> text >> pat)) return 0;
+    int n = text.size(), m = pat.size();
+    if (m == 0) { cout << 0; return 0; }
+    for (int i = 0; i + m <= n; ++i) {
+        int j = 0;
+        while (j < m && text[i + j] == pat[j]) ++j;
+        if (j == m) { cout << i; return 0; }
+    }
+    cout << -1;
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(1)

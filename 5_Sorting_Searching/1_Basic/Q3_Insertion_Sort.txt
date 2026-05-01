@@ -1,0 +1,53 @@
+Question Number: 3
+Problem Title: Implement Insertion Sort
+Problem Description:
+Given an array, sort it using Insertion Sort.
+
+Approach / Explanation:
+1) Build a sorted prefix from left to right.
+2) Take the next element and shift larger elements right.
+3) Insert the element into its correct position.
+4) Stable and in-place.
+5) Efficient for nearly sorted arrays.
+6) Simple to implement.
+7) Output the sorted array.
+
+Brute Force Note:
+Insertion sort is O(n^2) in worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+void insertionSort(vector<long long>& a) {
+    int n = (int)a.size();
+    for (int i = 1; i < n; ++i) {
+        long long key = a[i];
+        int j = i - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            --j;
+        }
+        a[j + 1] = key;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    insertionSort(a);
+
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)

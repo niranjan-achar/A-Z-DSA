@@ -1,0 +1,50 @@
+Question Number: 5
+Problem Title: Find the starting point of a loop in a linked list
+Problem Description:
+Given a linked list with a cycle, find the node where the cycle begins.
+
+Approach / Explanation:
+1) Use Floyd's cycle detection to find meeting point.
+2) Move one pointer to head while keeping the other at meeting point.
+3) Advance both one step at a time.
+4) The node where they meet is the cycle start.
+5) O(1) extra space.
+6) Linear time.
+7) Output the value at cycle start (or -1 if no cycle).
+
+Brute Force Note:
+Using a hash set to track nodes uses O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Input format for linked list is not standardized here.
+    // This snippet shows logic to find loop start.
+    Node* head = nullptr;
+
+    Node* slow = head; Node* fast = head;
+    bool hasCycle = false;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) { hasCycle = true; break; }
+    }
+
+    if (!hasCycle) { cout << -1; return 0; }
+
+    slow = head;
+    while (slow != fast) { slow = slow->next; fast = fast->next; }
+
+    cout << slow->val;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

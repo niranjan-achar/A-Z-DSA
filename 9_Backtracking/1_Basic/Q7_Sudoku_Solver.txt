@@ -1,0 +1,65 @@
+Question Number: 7
+Problem Title: Sudoku Solver
+Problem Description:
+Given a 9x9 Sudoku grid with 0 as empty, fill it with a valid solution.
+
+Approach / Explanation:
+1) Use backtracking to fill empty cells one by one.
+2) For each empty cell, try digits 1 to 9.
+3) Check row, column, and 3x3 box constraints.
+4) If valid, place digit and recurse to next cell.
+5) If later conflict occurs, backtrack and try another digit.
+6) This guarantees finding a solution if one exists.
+7) Output the solved grid.
+
+Brute Force Note:
+Trying all assignments without pruning is too slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isSafe(vector<vector<int>>& g, int r, int c, int v) {
+    for (int i = 0; i < 9; ++i) {
+        if (g[r][i] == v || g[i][c] == v) return false;
+    }
+    int br = (r/3)*3, bc = (c/3)*3;
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            if (g[br+i][bc+j] == v) return false;
+    return true;
+}
+
+bool solve(vector<vector<int>>& g, int idx) {
+    if (idx == 81) return true;
+    int r = idx / 9, c = idx % 9;
+    if (g[r][c] != 0) return solve(g, idx + 1);
+    for (int v = 1; v <= 9; ++v) {
+        if (isSafe(g, r, c, v)) {
+            g[r][c] = v;
+            if (solve(g, idx + 1)) return true;
+            g[r][c] = 0;
+        }
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    vector<vector<int>> g(9, vector<int>(9));
+    for (int i = 0; i < 9; ++i) for (int j = 0; j < 9; ++j) cin >> g[i][j];
+    solve(g, 0);
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (j) cout << " ";
+            cout << g[i][j];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(1) extra (recursion stack)

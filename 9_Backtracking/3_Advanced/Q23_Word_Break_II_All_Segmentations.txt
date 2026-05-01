@@ -1,0 +1,58 @@
+Question Number: 23
+Problem Title: Word Break II (all valid segmentations)
+Problem Description:
+Given a string and a dictionary, print all valid segmentations.
+
+Approach / Explanation:
+1) Use backtracking to split the string into words.
+2) At each index, try all dictionary words that match prefix.
+3) Recurse on the remaining suffix.
+4) Use memoization to avoid recomputation.
+5) Build sentences with spaces.
+6) Output all valid sentences.
+7) If none, output nothing.
+
+Brute Force Note:
+Without memoization, repeated subproblems explode.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> dfs(int idx, const string& s, const unordered_set<string>& dict,
+                   unordered_map<int, vector<string>>& memo) {
+    if (memo.count(idx)) return memo[idx];
+    vector<string> res;
+    if (idx == (int)s.size()) { res.push_back(""); return memo[idx] = res; }
+
+    string cur;
+    for (int i = idx; i < (int)s.size(); ++i) {
+        cur.push_back(s[i]);
+        if (!dict.count(cur)) continue;
+        auto tails = dfs(i + 1, s, dict, memo);
+        for (const string& t : tails) {
+            res.push_back(cur + (t.empty() ? "" : " ") + t);
+        }
+    }
+    return memo[idx] = res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int n; cin >> n;
+    unordered_set<string> dict;
+    for (int i = 0; i < n; ++i) {
+        string w; cin >> w; dict.insert(w);
+    }
+
+    unordered_map<int, vector<string>> memo;
+    vector<string> res = dfs(0, s, dict, memo);
+    for (const auto& line : res) if (!line.empty()) cout << line << "\n";
+    return 0;
+}
+
+Time Complexity: Exponential in worst case
+Space Complexity: O(n * k)

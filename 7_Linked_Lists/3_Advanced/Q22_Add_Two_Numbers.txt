@@ -1,0 +1,57 @@
+Question Number: 22
+Problem Title: Add two numbers represented by linked lists
+Problem Description:
+Given two linked lists of digits (least significant first), add them.
+
+Approach / Explanation:
+1) Traverse both lists while tracking carry.
+2) Sum corresponding digits and carry.
+3) Create new nodes for each digit.
+4) Continue until both lists and carry are exhausted.
+5) This simulates grade-school addition.
+6) O(n+m) time and O(1) extra space.
+7) Output the resulting list.
+
+Brute Force Note:
+Converting to numbers can overflow and is not needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { int val; Node* next; Node(int v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n1, n2; if (!(cin >> n1 >> n2) || n1 < 0 || n2 < 0) return 0;
+    Node* a = nullptr; Node* b = nullptr; Node* tail = nullptr;
+    Node* headA = nullptr; Node* headB = nullptr;
+    for (int i = 0; i < n1; ++i) {
+        int x; cin >> x; Node* node = new Node(x);
+        if (!headA) headA = node, tail = node; else { tail->next = node; tail = node; }
+    }
+    for (int i = 0; i < n2; ++i) {
+        int x; cin >> x; Node* node = new Node(x);
+        if (!headB) headB = node, tail = node; else { tail->next = node; tail = node; }
+    }
+
+    Node dummy(0); Node* cur = &dummy; int carry = 0;
+    Node* p = headA; Node* q = headB;
+    while (p || q || carry) {
+        int sum = carry;
+        if (p) { sum += p->val; p = p->next; }
+        if (q) { sum += q->val; q = q->next; }
+        cur->next = new Node(sum % 10);
+        carry = sum / 10;
+        cur = cur->next;
+    }
+
+    Node* res = dummy.next; bool first = true;
+    while (res) { if (!first) cout << " "; cout << res->val; first = false; res = res->next; }
+    return 0;
+}
+
+Time Complexity: O(n+m)
+Space Complexity: O(1) extra

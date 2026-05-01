@@ -1,0 +1,48 @@
+Question Number: 2
+Problem Title: Fractional Knapsack Problem
+Problem Description:
+Given items with value and weight, maximize total value for capacity W. Fractions allowed.
+
+Approach / Explanation:
+1) Compute value-to-weight ratio for each item.
+2) Sort items in descending ratio.
+3) Take as much as possible from the best ratio item.
+4) Reduce remaining capacity and continue.
+5) If capacity becomes zero, stop.
+6) This greedy choice is optimal for fractional items.
+7) Output the maximum value.
+
+Brute Force Note:
+Checking all combinations is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Item { double v, w; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; double W; if (!(cin >> n >> W) || n <= 0) return 0;
+    vector<Item> items(n);
+    for (int i = 0; i < n; ++i) cin >> items[i].v >> items[i].w;
+    sort(items.begin(), items.end(), [](const Item& a, const Item& b){
+        return (a.v / a.w) > (b.v / b.w);
+    });
+
+    double total = 0.0;
+    for (const auto& it : items) {
+        if (W <= 0) break;
+        double take = min(W, it.w);
+        total += take * (it.v / it.w);
+        W -= take;
+    }
+
+    cout.setf(ios::fixed); cout << setprecision(6) << total;
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(1) extra

@@ -1,0 +1,58 @@
+Question Number: 21
+Problem Title: Longest path in a DAG
+Problem Description:
+Given a DAG and a source, find longest distances to all nodes.
+
+Approach / Explanation:
+1) Compute topological order of the DAG.
+2) Initialize distances to -INF; dist[source]=0.
+3) Process nodes in topological order.
+4) Relax outgoing edges with max operation.
+5) This uses DAG DP.
+6) O(n+m) time.
+7) Output distances.
+
+Brute Force Note:
+Trying all paths is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<vector<pair<int,int>>> g(n);
+    vector<int> indeg(n, 0);
+    for (int i = 0; i < m; ++i) {
+        int u, v, w; cin >> u >> v >> w; --u; --v;
+        g[u].push_back({v, w});
+        indeg[v]++;
+    }
+
+    queue<int> q;
+    for (int i = 0; i < n; ++i) if (indeg[i] == 0) q.push(i);
+    vector<int> order;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        order.push_back(u);
+        for (auto [v, w] : g[u]) if (--indeg[v] == 0) q.push(v);
+    }
+
+    const long long NEG = (long long)-4e18;
+    vector<long long> dist(n, NEG);
+    dist[s] = 0;
+    for (int u : order) {
+        if (dist[u] == NEG) continue;
+        for (auto [v, w] : g[u]) dist[v] = max(dist[v], dist[u] + w);
+    }
+
+    for (int i = 0; i < n; ++i) { if (i) cout << " "; cout << (dist[i] == NEG ? -1 : dist[i]); }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

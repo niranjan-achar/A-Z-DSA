@@ -1,0 +1,43 @@
+Question Number: 15
+Problem Title: Find the highest occurring character
+Problem Description:
+Given a string, find the character with the maximum frequency.
+
+Approach / Explanation:
+1) Use a frequency array of size 256.
+2) Count occurrences of each character.
+3) Track the maximum frequency and corresponding character.
+4) In case of ties, keep the first by ASCII order.
+5) This is linear in string length.
+6) Works for ASCII characters.
+7) Output the character.
+
+Brute Force Note:
+Checking frequency for each character repeatedly is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin, s)) return 0;
+    vector<int> freq(256, 0);
+    for (unsigned char c : s) ++freq[c];
+
+    int best = -1; char ans = 0;
+    for (int i = 0; i < 256; ++i) {
+        if (freq[i] > best) {
+            best = freq[i];
+            ans = (char)i;
+        }
+    }
+
+    if (best <= 0) cout << -1; else cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

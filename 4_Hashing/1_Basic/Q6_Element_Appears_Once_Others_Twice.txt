@@ -1,0 +1,35 @@
+Question Number: 6
+Problem Title: Find the element that appears once, all others appear twice
+Problem Description:
+Given an array where every element appears twice except one, find the unique element.
+
+Approach / Explanation:
+1) XOR all elements together.
+2) x ^ x = 0 and x ^ 0 = x, so pairs cancel out.
+3) The remaining XOR value is the unique element.
+4) This uses constant space.
+5) Works for negative numbers.
+6) Single pass yields linear time.
+7) Output the unique element.
+
+Brute Force Note:
+Counting frequencies with a map is O(n) but uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    long long ans = 0, x;
+    for (int i = 0; i < n; ++i) { cin >> x; ans ^= x; }
+
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

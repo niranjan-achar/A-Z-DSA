@@ -1,0 +1,52 @@
+Question Number: 13
+Problem Title: Floyd-Warshall All-Pairs Shortest Path
+Problem Description:
+Given a weighted graph, compute shortest paths between all pairs.
+
+Approach / Explanation:
+1) Initialize dist matrix with edge weights.
+2) Set dist[i][i]=0.
+3) Use k as intermediate node.
+4) Update dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]).
+5) This considers all intermediate nodes.
+6) Works with negative edges without cycles.
+7) Output the distance matrix.
+
+Brute Force Note:
+Trying all paths for each pair is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    const long long INF = (long long)4e18;
+    vector<vector<long long>> dist(n, vector<long long>(n, INF));
+    for (int i = 0; i < n; ++i) dist[i][i] = 0;
+    for (int i = 0; i < m; ++i) {
+        int u, v; long long w; cin >> u >> v >> w; --u; --v;
+        dist[u][v] = min(dist[u][v], w);
+    }
+
+    for (int k = 0; k < n; ++k)
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < n; ++j)
+                if (dist[i][k] < INF && dist[k][j] < INF)
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (j) cout << " ";
+            cout << (dist[i][j] >= INF/2 ? -1 : dist[i][j]);
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n^3)
+Space Complexity: O(n^2)

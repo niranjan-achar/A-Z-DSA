@@ -1,0 +1,40 @@
+Question Number: 10
+Problem Title: Find frequency of each element
+Problem Description:
+Given an array, print the frequency of each distinct element.
+
+Approach / Explanation:
+1) Use a hash map to count occurrences.
+2) Scan the array once and increment counts.
+3) Hashing provides average O(1) insert and lookup.
+4) This keeps the original array unchanged.
+5) The number of output lines equals distinct elements.
+6) Order can be arbitrary unless specified.
+7) Output each element and its count.
+
+Brute Force Note:
+Nested loops to count each element cost O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    unordered_map<long long, int> freq;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        ++freq[x];
+    }
+
+    for (const auto& kv : freq) {
+        cout << kv.first << " " << kv.second << "\n";
+    }
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

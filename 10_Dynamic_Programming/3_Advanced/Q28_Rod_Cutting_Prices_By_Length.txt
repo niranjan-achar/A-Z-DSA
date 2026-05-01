@@ -1,0 +1,41 @@
+Question Number: 28
+Problem Title: Rod Cutting (prices for different lengths)
+Problem Description:
+Given prices for each length, compute maximum revenue for a rod of length n.
+
+Approach / Explanation:
+1) Use dp[i] as max revenue for length i.
+2) dp[0]=0 as base case.
+3) For each length i, try all first cuts j.
+4) dp[i]=max(dp[i], price[j]+dp[i-j]).
+5) This explores all split points.
+6) Bottom-up DP ensures optimal results.
+7) Output dp[n].
+
+Brute Force Note:
+Trying all cut combinations is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    vector<long long> price(n + 1, 0);
+    for (int i = 1; i <= n; ++i) cin >> price[i];
+
+    vector<long long> dp(n + 1, 0);
+    for (int i = 1; i <= n; ++i) {
+        long long best = 0;
+        for (int j = 1; j <= i; ++j) best = max(best, price[j] + dp[i - j]);
+        dp[i] = best;
+    }
+    cout << dp[n];
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n)

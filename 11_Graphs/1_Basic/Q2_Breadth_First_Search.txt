@@ -1,0 +1,49 @@
+Question Number: 2
+Problem Title: Breadth-First Search (BFS)
+Problem Description:
+Given a graph and a source, print BFS traversal order.
+
+Approach / Explanation:
+1) Use a queue starting from the source.
+2) Mark source visited and push it.
+3) Pop from queue, visit neighbors not yet visited.
+4) Repeat until queue is empty.
+5) BFS explores level by level.
+6) Works for unweighted graphs.
+7) Output traversal order.
+
+Brute Force Note:
+No brute force; BFS is linear.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, s; if (!(cin >> n >> m >> s) || n <= 0) return 0;
+    --s;
+    vector<vector<int>> adj(n);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> vis(n, 0);
+    queue<int> q;
+    q.push(s); vis[s] = 1;
+    bool first = true;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        if (!first) cout << " ";
+        cout << u + 1; first = false;
+        for (int v : adj[u]) if (!vis[v]) { vis[v] = 1; q.push(v); }
+    }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

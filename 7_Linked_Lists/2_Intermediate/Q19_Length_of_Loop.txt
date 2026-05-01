@@ -1,0 +1,45 @@
+Question Number: 19
+Problem Title: Find the length of the loop in a linked list
+Problem Description:
+Given a linked list with a cycle, find the cycle length.
+
+Approach / Explanation:
+1) Use Floyd's cycle detection to find a meeting point.
+2) If no meeting point, length is 0.
+3) From meeting point, move one pointer until it returns.
+4) Count steps taken; that is the loop length.
+5) O(n) time and O(1) space.
+6) Works for any cycle length.
+7) Output the length.
+
+Brute Force Note:
+Using a hash map to store step indices uses O(n) space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node { long long val; Node* next; Node(long long v): val(v), next(nullptr) {} };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Node* head = nullptr;
+    Node* slow = head; Node* fast = head;
+    bool hasCycle = false;
+    while (fast && fast->next) {
+        slow = slow->next; fast = fast->next->next;
+        if (slow == fast) { hasCycle = true; break; }
+    }
+    if (!hasCycle) { cout << 0; return 0; }
+
+    int len = 1;
+    fast = fast->next;
+    while (fast != slow) { fast = fast->next; ++len; }
+    cout << len;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

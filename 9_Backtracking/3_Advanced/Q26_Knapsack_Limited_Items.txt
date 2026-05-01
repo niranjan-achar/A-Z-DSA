@@ -1,0 +1,46 @@
+Question Number: 26
+Problem Title: Knapsack with restriction on number of items used
+Problem Description:
+Given items with weight and value, choose at most k items with weight limit W to maximize value.
+
+Approach / Explanation:
+1) Use backtracking with index, remaining weight, and remaining count.
+2) At each item, choose to take or skip it.
+3) If weight or count runs out, stop.
+4) Track the maximum value found.
+5) This explores all feasible subsets.
+6) Works for small n and k.
+7) Output the maximum value.
+
+Brute Force Note:
+All subsets are explored in the worst case.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long best = 0;
+
+void dfs(int idx, const vector<int>& w, const vector<int>& v, int remW, int remK, long long cur) {
+    if (idx == (int)w.size() || remW <= 0 || remK == 0) {
+        best = max(best, cur);
+        return;
+    }
+    dfs(idx + 1, w, v, remW, remK, cur);
+    if (w[idx] <= remW) dfs(idx + 1, w, v, remW - w[idx], remK - 1, cur + v[idx]);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, W, k; if (!(cin >> n >> W >> k) || n < 0) return 0;
+    vector<int> w(n), v(n);
+    for (int i = 0; i < n; ++i) cin >> w[i] >> v[i];
+    dfs(0, w, v, W, k, 0);
+    cout << best;
+    return 0;
+}
+
+Time Complexity: Exponential
+Space Complexity: O(n)

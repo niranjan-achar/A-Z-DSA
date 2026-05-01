@@ -1,0 +1,60 @@
+Question Number: 17
+Problem Title: Implement circular queue
+Problem Description:
+Implement a circular queue with fixed capacity.
+
+Approach / Explanation:
+1) Use an array with head, tail, and size.
+2) Enqueue at tail, dequeue at head.
+3) Wrap indices using modulo.
+4) Full when size == capacity.
+5) Empty when size == 0.
+6) All operations are O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Shifting on dequeue is O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct CircularQueue {
+    vector<long long> a;
+    int head, tail, sz;
+    CircularQueue(int cap) : a(cap), head(0), tail(0), sz(0) {}
+    bool isEmpty() const { return sz == 0; }
+    bool isFull() const { return sz == (int)a.size(); }
+    bool enqueue(long long x) {
+        if (isFull()) return false;
+        a[tail] = x; tail = (tail + 1) % a.size(); ++sz; return true;
+    }
+    bool dequeue() {
+        if (isEmpty()) return false;
+        head = (head + 1) % a.size(); --sz; return true;
+    }
+    bool front(long long &out) const {
+        if (isEmpty()) return false;
+        out = a[head]; return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int cap, q; if (!(cin >> cap >> q) || cap <= 0) return 0;
+    CircularQueue qu(cap);
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") { long long x; cin >> x; cout << (qu.enqueue(x) ? "ok" : "overflow") << "\n"; }
+        else if (op == "pop") { cout << (qu.dequeue() ? "ok" : "underflow") << "\n"; }
+        else if (op == "front") { long long v; if (qu.front(v)) cout << v << "\n"; else cout << "empty\n"; }
+        else if (op == "empty") { cout << (qu.isEmpty() ? 1 : 0) << "\n"; }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n)

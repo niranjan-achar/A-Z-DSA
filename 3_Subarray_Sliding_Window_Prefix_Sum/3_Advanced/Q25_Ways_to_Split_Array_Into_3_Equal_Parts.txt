@@ -1,0 +1,47 @@
+Question Number: 25
+Problem Title: Number of ways to split an array into 3 equal parts
+Problem Description:
+Given an array, count ways to split it into three contiguous parts with equal sum.
+
+Approach / Explanation:
+1) Compute total sum; if not divisible by 3, answer is 0.
+2) Let each part sum be target = total/3.
+3) Scan from left to right and count positions where prefix sum == target.
+4) When prefix sum == 2*target, add count of earlier target positions.
+5) This ensures three non-empty parts.
+6) Single pass gives linear time.
+7) Output the number of ways.
+
+Brute Force Note:
+Trying all split pairs costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 2) return 0;
+    vector<long long> a(n);
+    long long total = 0;
+    for (int i = 0; i < n; ++i) { cin >> a[i]; total += a[i]; }
+
+    if (total % 3 != 0) { cout << 0; return 0; }
+    long long target = total / 3;
+
+    long long prefix = 0;
+    long long countTarget = 0, ways = 0;
+    for (int i = 0; i < n - 1; ++i) {
+        prefix += a[i];
+        if (prefix == 2 * target) ways += countTarget;
+        if (prefix == target) ++countTarget;
+    }
+
+    cout << ways;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

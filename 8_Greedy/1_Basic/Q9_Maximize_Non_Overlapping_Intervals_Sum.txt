@@ -1,0 +1,49 @@
+Question Number: 9
+Problem Title: Maximize sum of selected non-overlapping intervals
+Problem Description:
+Given intervals with start, end, and value, choose non-overlapping intervals with maximum total value.
+
+Approach / Explanation:
+1) Sort intervals by end time.
+2) Use DP with binary search for previous non-overlapping interval.
+3) dp[i] = max(dp[i-1], value[i] + dp[prev]).
+4) Greedy ordering by finish helps transitions.
+5) Binary search makes it efficient.
+6) O(n log n) time.
+7) Output the maximum sum.
+
+Brute Force Note:
+Trying all subsets is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Interval { long long s, e, v; };
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    vector<Interval> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i].s >> a[i].e >> a[i].v;
+    sort(a.begin(), a.end(), [](const Interval& x, const Interval& y){ return x.e < y.e; });
+
+    vector<long long> ends(n);
+    for (int i = 0; i < n; ++i) ends[i] = a[i].e;
+
+    vector<long long> dp(n, 0);
+    for (int i = 0; i < n; ++i) {
+        long long take = a[i].v;
+        int j = upper_bound(ends.begin(), ends.end(), a[i].s - 1) - ends.begin() - 1;
+        if (j >= 0) take += dp[j];
+        long long skip = (i > 0 ? dp[i-1] : 0);
+        dp[i] = max(skip, take);
+    }
+    cout << dp[n-1];
+    return 0;
+}
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)

@@ -1,0 +1,42 @@
+Question Number: 29
+Problem Title: String interleaving
+Problem Description:
+Given s1, s2, and s3, determine if s3 is an interleaving of s1 and s2.
+
+Approach / Explanation:
+1) If lengths do not add up, return false.
+2) Use dp[i][j] for prefixes of s1 and s2.
+3) Transition if s1[i-1] matches s3[i+j-1].
+4) Or if s2[j-1] matches s3[i+j-1].
+5) Fill table bottom-up.
+6) O(n*m) time.
+7) Output 1 if possible, else 0.
+
+Brute Force Note:
+Trying all interleavings is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s1, s2, s3; if (!(cin >> s1 >> s2 >> s3)) return 0;
+    int n = s1.size(), m = s2.size();
+    if ((int)s3.size() != n + m) { cout << 0; return 0; }
+    vector<vector<char>> dp(n + 1, vector<char>(m + 1, 0));
+    dp[0][0] = 1;
+    for (int i = 0; i <= n; ++i) {
+        for (int j = 0; j <= m; ++j) {
+            if (i > 0 && s1[i-1] == s3[i+j-1]) dp[i][j] = dp[i][j] || dp[i-1][j];
+            if (j > 0 && s2[j-1] == s3[i+j-1]) dp[i][j] = dp[i][j] || dp[i][j-1];
+        }
+    }
+    cout << (dp[n][m] ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

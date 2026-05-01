@@ -1,0 +1,52 @@
+Question Number: 8
+Problem Title: Topological Sorting (DAG)
+Problem Description:
+Given a directed acyclic graph, output a topological ordering.
+
+Approach / Explanation:
+1) Compute indegree for each node.
+2) Push all nodes with indegree 0 into a queue.
+3) Pop nodes, add to order, and reduce indegree of neighbors.
+4) If neighbor indegree becomes 0, push it.
+5) This is Kahn's algorithm.
+6) Works for DAGs.
+7) Output the ordering.
+
+Brute Force Note:
+Trying all orderings is factorial.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m; if (!(cin >> n >> m) || n <= 0) return 0;
+    vector<vector<int>> adj(n);
+    vector<int> indeg(n, 0);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v; --u; --v;
+        adj[u].push_back(v);
+        indeg[v]++;
+    }
+
+    queue<int> q;
+    for (int i = 0; i < n; ++i) if (indeg[i] == 0) q.push(i);
+    vector<int> order;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        order.push_back(u);
+        for (int v : adj[u]) if (--indeg[v] == 0) q.push(v);
+    }
+
+    for (int i = 0; i < (int)order.size(); ++i) {
+        if (i) cout << " ";
+        cout << order[i] + 1;
+    }
+    return 0;
+}
+
+Time Complexity: O(n + m)
+Space Complexity: O(n + m)

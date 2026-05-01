@@ -1,0 +1,50 @@
+Question Number: 28
+Problem Title: Find elements that occur more than n/k times
+Problem Description:
+Given an array and k, find all elements that appear more than n/k times.
+
+Approach / Explanation:
+1) Count frequencies using a hash map.
+2) Compute threshold = n / k.
+3) Collect elements with count > threshold.
+4) This is simple and reliable.
+5) Works for any integer values.
+6) Linear time on average.
+7) Output elements or -1 if none.
+
+Brute Force Note:
+Checking each element frequency with nested loops costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n >> k) || n <= 0 || k <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    unordered_map<long long, int> freq;
+    for (long long x : a) ++freq[x];
+    int threshold = n / k;
+
+    vector<long long> res;
+    for (const auto& kv : freq) {
+        if (kv.second > threshold) res.push_back(kv.first);
+    }
+
+    if (res.empty()) cout << -1;
+    else {
+        for (int i = 0; i < (int)res.size(); ++i) {
+            if (i) cout << " ";
+            cout << res[i];
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

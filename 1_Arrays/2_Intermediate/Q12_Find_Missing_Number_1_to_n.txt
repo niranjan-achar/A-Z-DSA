@@ -1,0 +1,38 @@
+Question Number: 12
+Problem Title: Find missing number in array (1 to n)
+Problem Description:
+Given an array of size n-1 containing numbers from 1 to n with one missing, find the missing number.
+
+Approach / Explanation:
+1) The sum of 1..n is n*(n+1)/2.
+2) Compute the actual sum of the array elements.
+3) The difference gives the missing number.
+4) Use long long to avoid overflow for large n.
+5) Single pass makes it efficient.
+6) Works when exactly one number is missing.
+7) Output the missing value.
+
+Brute Force Note:
+Checking each number's presence with a scan costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n <= 1) return 0;
+    long long sum = 0;
+    for (long long i = 0; i < n - 1; ++i) {
+        long long x; cin >> x; sum += x;
+    }
+
+    long long expected = n * (n + 1) / 2;
+    cout << (expected - sum);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

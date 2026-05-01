@@ -1,0 +1,41 @@
+Question Number: 4
+Problem Title: Longest Common Subsequence
+Problem Description:
+Given two strings, find the length of their longest common subsequence.
+
+Approach / Explanation:
+1) Use dp[i][j] for LCS length of prefixes a[0..i-1], b[0..j-1].
+2) If chars match, dp[i][j]=dp[i-1][j-1]+1.
+3) Else dp[i][j]=max(dp[i-1][j], dp[i][j-1]).
+4) Fill table row by row.
+5) Final answer is dp[n][m].
+6) This avoids exponential recursion.
+7) Output the length.
+
+Brute Force Note:
+Recursive LCS without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b; if (!(cin >> a >> b)) return 0;
+    int n = (int)a.size(), m = (int)b.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (a[i-1] == b[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+            else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+        }
+    }
+    cout << dp[n][m];
+    return 0;
+}
+
+Time Complexity: O(n*m)
+Space Complexity: O(n*m)

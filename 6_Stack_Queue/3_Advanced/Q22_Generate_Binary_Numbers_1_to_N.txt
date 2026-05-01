@@ -1,0 +1,42 @@
+Question Number: 22
+Problem Title: Generate binary numbers from 1 to N using queue
+Problem Description:
+Given N, generate binary representations from 1 to N.
+
+Approach / Explanation:
+1) Use a queue to generate binary numbers in BFS order.
+2) Start with "1" in the queue.
+3) Pop front, output it, and push (x + "0") and (x + "1").
+4) Repeat N times.
+5) This produces numbers in increasing order.
+6) Linear time in N.
+7) Output the sequence.
+
+Brute Force Note:
+Converting each number with division is also O(n log n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int N; if (!(cin >> N) || N <= 0) return 0;
+    queue<string> q;
+    q.push("1");
+
+    for (int i = 0; i < N; ++i) {
+        string cur = q.front(); q.pop();
+        cout << cur;
+        if (i + 1 < N) cout << " ";
+        q.push(cur + "0");
+        q.push(cur + "1");
+    }
+
+    return 0;
+}
+
+Time Complexity: O(N)
+Space Complexity: O(N)

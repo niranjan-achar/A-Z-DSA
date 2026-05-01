@@ -1,0 +1,35 @@
+Question Number: 3
+Problem Title: Find the first non-repeating character in a string
+Problem Description:
+Given a string, output the first character that does not repeat.
+
+Approach / Explanation:
+1) Count frequency of each character.
+2) Scan the string from left to right.
+3) The first character with frequency 1 is the answer.
+4) If none exists, output -1.
+5) Works for ASCII strings.
+6) Linear time.
+7) Output the character or -1.
+
+Brute Force Note:
+Checking each character against all others is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    vector<int> freq(256, 0);
+    for (char c : s) freq[(unsigned char)c]++;
+    for (char c : s) if (freq[(unsigned char)c] == 1) { cout << c; return 0; }
+    cout << -1;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

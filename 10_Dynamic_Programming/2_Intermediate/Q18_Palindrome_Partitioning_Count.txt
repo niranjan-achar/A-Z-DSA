@@ -1,0 +1,48 @@
+Question Number: 18
+Problem Title: Palindrome Partitioning
+Problem Description:
+Given a string, count the number of palindrome partitions.
+
+Approach / Explanation:
+1) Precompute pal[i][j] for all substrings.
+2) Use dp[i] = number of partitions for suffix starting at i.
+3) dp[n]=1 as empty suffix.
+4) For each i, sum dp[j+1] where s[i..j] is palindrome.
+5) This counts all valid partitions.
+6) Bottom-up ensures reuse of subproblems.
+7) Output dp[0].
+
+Brute Force Note:
+Enumerating all partitions without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int n = (int)s.size();
+    vector<vector<char>> pal(n, vector<char>(n, 0));
+    for (int i = n - 1; i >= 0; --i) {
+        for (int j = i; j < n; ++j) {
+            if (s[i] == s[j] && (j - i < 2 || pal[i+1][j-1])) pal[i][j] = 1;
+        }
+    }
+
+    vector<long long> dp(n + 1, 0);
+    dp[n] = 1;
+    for (int i = n - 1; i >= 0; --i) {
+        long long ways = 0;
+        for (int j = i; j < n; ++j) if (pal[i][j]) ways += dp[j + 1];
+        dp[i] = ways;
+    }
+
+    cout << dp[0];
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)

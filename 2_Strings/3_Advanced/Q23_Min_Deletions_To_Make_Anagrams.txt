@@ -1,0 +1,42 @@
+Question Number: 23
+Problem Title: Minimum number of deletions to make two strings anagrams
+Problem Description:
+Given two strings, find the minimum deletions needed to make them anagrams.
+
+Approach / Explanation:
+1) Count character frequencies for both strings.
+2) For each character, compute the absolute difference in counts.
+3) Sum these differences to get deletions required.
+4) This works because deletions remove extra characters.
+5) Use ASCII size 256 for generality.
+6) Linear time in total length.
+7) Output the minimum deletions.
+
+Brute Force Note:
+Trying all deletions is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string a, b;
+    if (!getline(cin, a)) return 0;
+    if (!getline(cin, b)) return 0;
+
+    vector<int> fa(256, 0), fb(256, 0);
+    for (unsigned char c : a) ++fa[c];
+    for (unsigned char c : b) ++fb[c];
+
+    long long del = 0;
+    for (int i = 0; i < 256; ++i) del += llabs(fa[i] - fb[i]);
+
+    cout << del;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

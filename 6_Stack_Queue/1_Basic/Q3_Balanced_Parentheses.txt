@@ -1,0 +1,47 @@
+Question Number: 3
+Problem Title: Check for balanced parentheses/brackets
+Problem Description:
+Given a string of brackets, determine if it is balanced.
+
+Approach / Explanation:
+1) Use a stack to store opening brackets.
+2) For each closing bracket, check stack top for matching opening.
+3) If mismatch or stack empty, not balanced.
+4) After processing, stack must be empty.
+5) Handles (), {}, [].
+6) Linear time with stack.
+7) Output 1 if balanced, 0 otherwise.
+
+Brute Force Note:
+Repeatedly removing pairs is less efficient.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool match(char open, char close) {
+    return (open=='('&&close==')') || (open=='{'&&close=='}') || (open=='['&&close==']');
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    stack<char> st;
+    bool ok = true;
+    for (char c : s) {
+        if (c=='(' || c=='{' || c=='[') st.push(c);
+        else if (c==')' || c=='}' || c==']') {
+            if (st.empty() || !match(st.top(), c)) { ok = false; break; }
+            st.pop();
+        }
+    }
+    if (!st.empty()) ok = false;
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

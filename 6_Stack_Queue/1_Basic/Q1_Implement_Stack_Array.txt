@@ -1,0 +1,67 @@
+Question Number: 1
+Problem Title: Implement a stack using array
+Problem Description:
+Implement a stack with push, pop, top, and isEmpty operations using an array.
+
+Approach / Explanation:
+1) Maintain an array and an index `top`.
+2) `top` starts at -1; increment on push, decrement on pop.
+3) Check for overflow and underflow where needed.
+4) top() returns element at `top` if valid.
+5) isEmpty checks if top == -1.
+6) All operations are O(1).
+7) Output results for sample operations.
+
+Brute Force Note:
+Using a dynamic array or vector also works with similar logic.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct StackArray {
+    vector<long long> data;
+    int top;
+    StackArray(int cap) : data(cap), top(-1) {}
+    bool isEmpty() const { return top == -1; }
+    bool push(long long x) {
+        if (top + 1 >= (int)data.size()) return false;
+        data[++top] = x; return true;
+    }
+    bool pop() {
+        if (isEmpty()) return false;
+        --top; return true;
+    }
+    bool peek(long long &out) const {
+        if (isEmpty()) return false;
+        out = data[top]; return true;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int cap; if (!(cin >> cap) || cap <= 0) return 0;
+    StackArray st(cap);
+    int q; cin >> q;
+    while (q--) {
+        string op; cin >> op;
+        if (op == "push") {
+            long long x; cin >> x;
+            cout << (st.push(x) ? "ok" : "overflow") << "\n";
+        } else if (op == "pop") {
+            cout << (st.pop() ? "ok" : "underflow") << "\n";
+        } else if (op == "top") {
+            long long v;
+            if (st.peek(v)) cout << v << "\n"; else cout << "empty\n";
+        } else if (op == "empty") {
+            cout << (st.isEmpty() ? 1 : 0) << "\n";
+        }
+    }
+
+    return 0;
+}
+
+Time Complexity: O(1) per operation
+Space Complexity: O(n)

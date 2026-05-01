@@ -1,0 +1,46 @@
+Question Number: 14
+Problem Title: Matrix Chain Multiplication
+Problem Description:
+Given dimensions of matrices, find the minimum number of multiplications.
+
+Approach / Explanation:
+1) Use dp[i][j] = min cost to multiply matrices i..j.
+2) Base case: dp[i][i]=0.
+3) For each length, try all split points k.
+4) Cost = dp[i][k] + dp[k+1][j] + dims cost.
+5) Take the minimum over all k.
+6) Build dp by increasing chain length.
+7) Output dp[1][n-1].
+
+Brute Force Note:
+Trying all parenthesizations is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 2) return 0;
+    vector<long long> p(n);
+    for (int i = 0; i < n; ++i) cin >> p[i];
+
+    vector<vector<long long>> dp(n, vector<long long>(n, 0));
+    for (int len = 2; len < n; ++len) {
+        for (int i = 1; i + len - 1 < n; ++i) {
+            int j = i + len - 1;
+            dp[i][j] = LLONG_MAX;
+            for (int k = i; k < j; ++k) {
+                long long cost = dp[i][k] + dp[k+1][j] + p[i-1]*p[k]*p[j];
+                dp[i][j] = min(dp[i][j], cost);
+            }
+        }
+    }
+    cout << dp[1][n-1];
+    return 0;
+}
+
+Time Complexity: O(n^3)
+Space Complexity: O(n^2)

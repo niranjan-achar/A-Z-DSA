@@ -1,0 +1,41 @@
+Question Number: 27
+Problem Title: Palindrome check using deque
+Problem Description:
+Given a string, check if it is a palindrome using deque.
+
+Approach / Explanation:
+1) Push all characters into a deque.
+2) Repeatedly compare front and back.
+3) If mismatch occurs, not a palindrome.
+4) Pop both ends until size <= 1.
+5) This uses deque for O(1) pops at both ends.
+6) Linear time and space.
+7) Output 1 if palindrome, 0 otherwise.
+
+Brute Force Note:
+Reversing a copy and comparing uses extra space.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!getline(cin >> ws, s)) return 0;
+    deque<char> dq;
+    for (char c : s) dq.push_back(c);
+
+    bool ok = true;
+    while (dq.size() > 1) {
+        if (dq.front() != dq.back()) { ok = false; break; }
+        dq.pop_front(); dq.pop_back();
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

@@ -1,0 +1,44 @@
+Question Number: 24
+Problem Title: Subarray with 0 sum
+Problem Description:
+Given an array, determine if any subarray has sum zero.
+
+Approach / Explanation:
+1) Use prefix sum and a hash set.
+2) If a prefix sum repeats, subarray between them sums to 0.
+3) Also if prefix sum becomes 0, subarray from start sums to 0.
+4) Insert prefix sums as you scan.
+5) Works with negative numbers.
+6) Single pass gives linear time.
+7) Output 1 if exists, 0 otherwise.
+
+Brute Force Note:
+Checking all subarrays costs O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    unordered_set<long long> seen;
+    long long prefix = 0;
+    seen.insert(0);
+    bool ok = false;
+
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        prefix += x;
+        if (seen.count(prefix)) { ok = true; break; }
+        seen.insert(prefix);
+    }
+
+    cout << (ok ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(n) average
+Space Complexity: O(n)

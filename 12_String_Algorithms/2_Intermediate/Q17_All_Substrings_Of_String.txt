@@ -1,0 +1,39 @@
+Question Number: 17
+Problem Title: Find all substrings of a string
+Problem Description:
+Given a string, print all of its substrings.
+
+Approach / Explanation:
+1) Use two loops for start and end indices.
+2) For each pair, output substring.
+3) Total substrings are n*(n+1)/2.
+4) This enumerates all substrings.
+5) Works for any string.
+6) O(n^2) substrings.
+7) Output each substring on a new line.
+
+Brute Force Note:
+All substrings must be generated.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    int n = s.size();
+    for (int i = 0; i < n; ++i) {
+        string cur;
+        for (int j = i; j < n; ++j) {
+            cur.push_back(s[j]);
+            cout << cur << "\n";
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)

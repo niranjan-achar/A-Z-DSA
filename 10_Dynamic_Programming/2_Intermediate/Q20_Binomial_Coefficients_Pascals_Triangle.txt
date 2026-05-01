@@ -1,0 +1,41 @@
+Question Number: 20
+Problem Title: Binomial Coefficients (Pascal's Triangle)
+Problem Description:
+Given n and k, compute nCk using DP.
+
+Approach / Explanation:
+1) Use dp[i][j] = iCj.
+2) Base cases: dp[i][0]=dp[i][i]=1.
+3) For others, dp[i][j]=dp[i-1][j-1]+dp[i-1][j].
+4) Build row by row up to n.
+5) This is Pascal's triangle.
+6) Works for 0 <= k <= n.
+7) Output dp[n][k].
+
+Brute Force Note:
+Recursive computation without memoization is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n >> k) || n < 0 || k < 0 || k > n) return 0;
+    vector<vector<long long>> dp(n + 1, vector<long long>(k + 1, 0));
+    for (int i = 0; i <= n; ++i) {
+        int lim = min(i, k);
+        dp[i][0] = 1;
+        for (int j = 1; j <= lim; ++j) {
+            if (j == i) dp[i][j] = 1;
+            else dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+        }
+    }
+    cout << dp[n][k];
+    return 0;
+}
+
+Time Complexity: O(n*k)
+Space Complexity: O(n*k)

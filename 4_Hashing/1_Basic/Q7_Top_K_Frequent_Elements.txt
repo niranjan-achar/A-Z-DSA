@@ -1,0 +1,52 @@
+Question Number: 7
+Problem Title: Find top k frequent elements
+Problem Description:
+Given an array and k, return the k most frequent elements.
+
+Approach / Explanation:
+1) Count frequencies with a hash map.
+2) Use a min-heap of size k storing (frequency, value).
+3) Push each unique element; if heap grows beyond k, pop.
+4) Heap keeps the k most frequent items.
+5) This avoids sorting all elements.
+6) Output elements from the heap.
+7) Order of output can be arbitrary.
+
+Brute Force Note:
+Sorting all unique elements by frequency costs O(u log u).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    cin >> k;
+    if (k <= 0) return 0;
+
+    unordered_map<long long, int> freq;
+    for (long long x : a) ++freq[x];
+
+    using P = pair<int, long long>;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    for (const auto &kv : freq) {
+        pq.push({kv.second, kv.first});
+        if ((int)pq.size() > k) pq.pop();
+    }
+
+    vector<long long> res;
+    while (!pq.empty()) { res.push_back(pq.top().second); pq.pop(); }
+    for (int i = 0; i < (int)res.size(); ++i) {
+        if (i) cout << " ";
+        cout << res[i];
+    }
+    return 0;
+}
+
+Time Complexity: O(n log k)
+Space Complexity: O(n)
