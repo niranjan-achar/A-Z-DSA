@@ -21,11 +21,11 @@ This repository is designed to help you **master problem-solving**, build strong
 
 | Category | Basic | Intermediate | Advanced | Status |
 |----------|------|-------------|----------|--------|
-| Numerics | ⬜ | ⬜ | ⬜ | Not Started |
-| Strings | ⬜ | ⬜ | ⬜ | Not Started |
-| Arrays | ⬜ | ⬜ | ⬜ | Not Started |
-| Sliding Window | ⬜ | ⬜ | ⬜ | Not Started |
-| Sorting & Searching | ⬜ | ⬜ | ⬜ | Not Started |
+| Numerics | ✅ | ✅ | ✅ | Completed |
+| Strings | ✅ | ✅ | ⬜ | In Progress |
+| Arrays | ✅ | ✅ | ⬜ | In Progress |
+| Sliding Window | ✅ | 🟨 | ⬜ | In Progress |
+| Sorting & Searching | ✅ | ⬜ | ⬜ | In Progress |
 | Hashing | ⬜ | ⬜ | ⬜ | Not Started |
 | Stack & Queue | ⬜ | ⬜ | ⬜ | Not Started |
 | Linked List | ⬜ | ⬜ | ⬜ | Not Started |
