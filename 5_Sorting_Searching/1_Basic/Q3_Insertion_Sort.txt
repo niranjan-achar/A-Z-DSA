@@ -19,16 +19,44 @@ C++ Code:
 #include <bits/stdc++.h>
 using namespace std;
 
-void insertionSort(vector<long long>& a) {
+void insertionSort(vector<int>& a) {
     int n = (int)a.size();
+      
     for (int i = 1; i < n; ++i) {
-        long long key = a[i];
+        int key = a[i];
         int j = i - 1;
+
         while (j >= 0 && a[j] > key) {
             a[j + 1] = a[j];
             --j;
         }
         a[j + 1] = key;
+    }
+}
+0 1 2 3 4
+3 7 1 5 2
+
+void insertionSort( vector<int> &a){
+    int n = a.size();
+    for( int i = 0; i < n ; i++){
+        int key = a[i], j = i-1;
+
+        while( j >= 0 && a[j] > key){
+            a[j+1] = a[j];
+            j--;
+        }
+        a[j+1] = key;
+    }
+}
+
+void insertionSort(vector<int>& a) {
+    for (int i = 1; i < a.size(); i++) {
+        int j = i;
+        
+        while (j > 0 && a[j] < a[j - 1]) {
+            swap(a[j], a[j - 1]);
+            j--;
+        }
     }
 }
 
