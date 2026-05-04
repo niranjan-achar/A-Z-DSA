@@ -1,0 +1,34 @@
+Problem 11: Count of Bits to Change
+
+Description:
+Count number of bit flips needed to convert one number to another.
+
+Approach:
+XOR the two numbers and count set bits in result.
+
+Brute Force Note:
+Convert to binary strings and compare: O(log max(a, b)) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int countBitFlips(int a, int b) {
+    int xorResult = a ^ b;
+    return __builtin_popcount(xorResult);
+}
+
+int main() {
+    int a = 1;  // Binary: 001
+    int b = 4;  // Binary: 100
+    
+    cout << "Bit flips needed from " << a << " to " << b << ": " 
+         << countBitFlips(a, b) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) or O(log n) depending on popcount implementation
+Space Complexity: O(1) - Constant space

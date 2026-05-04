@@ -1,0 +1,35 @@
+Question Number: 13
+Problem Title: Check if a number is Harshad/Niven
+Problem Description:
+Given n, determine if it is divisible by the sum of its digits.
+
+Approach / Explanation:
+1) Compute sum of digits.
+2) Check if n % sum == 0.
+3) If yes, it is a Harshad/Niven number.
+4) Handle n = 0 separately.
+5) O(number of digits).
+6) Works for positive integers.
+7) Output 1 if true, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    long long t = llabs(n), sum = 0;
+    while (t > 0) { sum += t % 10; t /= 10; }
+    if (sum == 0) { cout << 0; return 0; }
+    cout << ((n % sum == 0) ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

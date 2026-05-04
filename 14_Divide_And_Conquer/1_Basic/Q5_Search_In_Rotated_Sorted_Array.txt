@@ -1,0 +1,57 @@
+Problem 5: Search in Rotated Sorted Array
+
+Description:
+Search for a target value in a rotated sorted array. Return the index if found, otherwise -1.
+
+Approach:
+Use binary search. Identify which half is properly sorted. If target is in that half, search there; otherwise search other half.
+
+Brute Force Note:
+Linear search: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int search(vector<int>& arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target)
+            return mid;
+        
+        // Check which half is sorted
+        if (arr[left] <= arr[mid]) {
+            // Left half is sorted
+            if (target >= arr[left] && target < arr[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        } else {
+            // Right half is sorted
+            if (target > arr[mid] && target <= arr[right])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+    }
+    
+    return -1;
+}
+
+int main() {
+    vector<int> arr = {4, 5, 6, 7, 0, 1, 2};
+    int target = 0;
+    
+    cout << "Index: " << search(arr, target) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Binary search
+Space Complexity: O(1) - Constant space

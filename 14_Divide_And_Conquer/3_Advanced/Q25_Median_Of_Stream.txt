@@ -1,0 +1,62 @@
+Problem 25: Find Median of Stream using D&C
+
+Description:
+Find median of elements in a stream of integers as they arrive.
+
+Approach:
+Maintain two heaps: max-heap for smaller half, min-heap for larger half. Balance heaps using divide and conquer approach.
+
+Brute Force Note:
+Store all elements and sort for each median query: O(n log n) per query.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+class MedianFinder {
+private:
+    priority_queue<int> maxHeap;  // Smaller half
+    priority_queue<int, vector<int>, greater<int>> minHeap;  // Larger half
+    
+public:
+    void addNum(int num) {
+        if (maxHeap.empty() || num <= maxHeap.top())
+            maxHeap.push(num);
+        else
+            minHeap.push(num);
+        
+        // Balance heaps
+        if (maxHeap.size() > minHeap.size() + 1)
+            minHeap.push(maxHeap.top()), maxHeap.pop();
+        else if (minHeap.size() > maxHeap.size())
+            maxHeap.push(minHeap.top()), minHeap.pop();
+    }
+    
+    double findMedian() {
+        if (maxHeap.size() > minHeap.size())
+            return maxHeap.top();
+        return (maxHeap.top() + minHeap.top()) / 2.0;
+    }
+};
+
+int main() {
+    MedianFinder mf;
+    
+    mf.addNum(1);
+    cout << "Median: " << mf.findMedian() << endl;
+    
+    mf.addNum(2);
+    cout << "Median: " << mf.findMedian() << endl;
+    
+    mf.addNum(3);
+    cout << "Median: " << mf.findMedian() << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) per addition - Heap operations
+Space Complexity: O(n) - Both heaps

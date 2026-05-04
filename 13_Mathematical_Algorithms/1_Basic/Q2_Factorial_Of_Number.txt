@@ -1,0 +1,34 @@
+Question Number: 2
+Problem Title: Find the factorial of a number
+Problem Description:
+Given n, compute n!.
+
+Approach / Explanation:
+1) Initialize result to 1.
+2) Multiply from 2 to n.
+3) Use long long for moderate n.
+4) Iterative loop avoids recursion overhead.
+5) O(n) time.
+6) Output the factorial.
+7) For very large n, big integers are needed.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long res = 1;
+    for (long long i = 2; i <= n; ++i) res *= i;
+    cout << res;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

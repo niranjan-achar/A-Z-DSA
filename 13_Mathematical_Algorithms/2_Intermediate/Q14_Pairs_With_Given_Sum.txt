@@ -1,0 +1,39 @@
+Question Number: 14
+Problem Title: Find all pairs with given sum
+Problem Description:
+Given an array and target sum, count pairs with sum equal to target.
+
+Approach / Explanation:
+1) Use a hash map to store seen counts.
+2) For each number x, add count of (target-x) to answer.
+3) Then increment count of x.
+4) This counts each pair once.
+5) Works for negative numbers too.
+6) O(n) time.
+7) Output the count.
+
+Brute Force Note:
+Checking all pairs is O(n^2).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; long long target; if (!(cin >> n >> target) || n < 0) return 0;
+    unordered_map<long long, long long> freq;
+    long long ans = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        if (freq.count(target - x)) ans += freq[target - x];
+        freq[x]++;
+    }
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)

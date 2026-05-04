@@ -1,0 +1,45 @@
+Question Number: 9
+Problem Title: Find the first n prime numbers
+Problem Description:
+Given n, print the first n primes.
+
+Approach / Explanation:
+1) Use a simple prime check for each candidate.
+2) Start from 2 and test each number.
+3) Add to result if prime.
+4) Stop when n primes are found.
+5) This is efficient for moderate n.
+6) Output primes separated by spaces.
+7) Works for basic constraints.
+
+Brute Force Note:
+Trial division for each candidate is slower for large n.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPrime(long long x) {
+    if (x <= 1) return false;
+    for (long long i = 2; i * i <= x; ++i) if (x % i == 0) return false;
+    return true;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    int count = 0;
+    for (long long x = 2; count < n; ++x) {
+        if (isPrime(x)) {
+            if (count) cout << " ";
+            cout << x;
+            ++count;
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O(n * sqrt(p))
+Space Complexity: O(1)

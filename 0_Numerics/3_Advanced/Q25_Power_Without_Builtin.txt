@@ -1,0 +1,42 @@
+Question Number: 25
+Problem Title: Calculate power without using built-in functions
+Problem Description:
+Given a and b, compute a^b.
+
+Approach / Explanation:
+1) Use exponentiation by squaring.
+2) If exponent is odd, multiply answer by base.
+3) Square the base each step.
+4) Halve the exponent.
+5) This is much faster than repeated multiplication.
+6) O(log b) time.
+7) Output the power.
+
+Brute Force Note:
+Multiplying a by itself b times is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long power(long long a, long long b) {
+    long long ans = 1;
+    while (b > 0) {
+        if (b & 1) ans *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long a, b; if (!(cin >> a >> b) || b < 0) return 0;
+    cout << power(a, b);
+    return 0;
+}
+
+Time Complexity: O(log b)
+Space Complexity: O(1)

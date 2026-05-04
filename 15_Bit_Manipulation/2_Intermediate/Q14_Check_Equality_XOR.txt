@@ -1,0 +1,31 @@
+Problem 14: Check if Two Numbers are Equal using XOR
+
+Description:
+Check if two numbers are equal using only XOR operation.
+
+Approach:
+If two numbers are equal, their XOR = 0. Otherwise XOR is non-zero.
+
+Brute Force Note:
+Direct comparison: Same efficiency but less fun!
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+bool areEqual(int a, int b) {
+    return (a ^ b) == 0;
+}
+
+int main() {
+    cout << "5 == 5: " << (areEqual(5, 5) ? "True" : "False") << endl;
+    cout << "5 == 3: " << (areEqual(5, 3) ? "True" : "False") << endl;
+    cout << "-5 == -5: " << (areEqual(-5, -5) ? "True" : "False") << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Constant time bit operation
+Space Complexity: O(1) - Constant space

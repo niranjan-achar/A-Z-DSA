@@ -1,0 +1,38 @@
+Question Number: 29
+Problem Title: Generate Fibonacci series up to n
+Problem Description:
+Given n, print the Fibonacci series up to the nth term.
+
+Approach / Explanation:
+1) Start with 0 and 1.
+2) Print each term iteratively.
+3) Compute the next term as sum of previous two.
+4) Repeat until n terms are printed.
+5) This is a simple iterative sequence generator.
+6) O(n) time.
+7) Output the series separated by spaces.
+
+Brute Force Note:
+Naive recursion repeats work.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 0) return 0;
+    long long a = 0, b = 1;
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << " ";
+        cout << a;
+        long long c = a + b;
+        a = b; b = c;
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

@@ -1,0 +1,39 @@
+Problem 9: Single Number (XOR Trick)
+
+Description:
+Find the single number that appears once while all other numbers appear twice in an array.
+
+Approach:
+XOR all elements. Pairs cancel out (a^a=0), leaving only the single element (0^a=a).
+
+Brute Force Note:
+Hash map to count occurrences: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int findSingleNumber(vector<int>& arr) {
+    int result = 0;
+    for (int num : arr) {
+        result ^= num;
+    }
+    return result;
+}
+
+int main() {
+    vector<int> arr = {4, 2, 7, 2, 4};
+    
+    cout << "Single number: " << findSingleNumber(arr) << endl;
+    
+    vector<int> arr2 = {1, 1, 2, 2, 3, 3, 5, 5, 7};
+    cout << "Single number: " << findSingleNumber(arr2) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Single pass through array
+Space Complexity: O(1) - Constant space

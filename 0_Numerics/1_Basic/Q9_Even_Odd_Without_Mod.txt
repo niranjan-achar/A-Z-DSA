@@ -1,0 +1,32 @@
+Question Number: 9
+Problem Title: Check for even/odd without using % operator
+Problem Description:
+Given n, determine if it is even or odd without modulo.
+
+Approach / Explanation:
+1) Use bitwise AND with 1.
+2) If (n & 1) == 0, the number is even.
+3) Otherwise, it is odd.
+4) Works for signed integers too.
+5) Constant time.
+6) No extra memory.
+7) Output 0 for even and 1 for odd.
+
+Brute Force Note:
+Repeated subtraction or division is unnecessary.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    cout << (n & 1LL);
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)

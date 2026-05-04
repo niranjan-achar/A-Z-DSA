@@ -1,0 +1,39 @@
+Question Number: 2
+Problem Title: Check if a number is a palindrome
+Problem Description:
+Given an integer n, determine if it reads the same forward and backward.
+
+Approach / Explanation:
+1) Negative numbers are not palindromes.
+2) Reverse the digits of the number.
+3) Compare reversed value with the original.
+4) If equal, it is a palindrome.
+5) Works for standard integer values.
+6) Uses no extra storage.
+7) Output 1 if palindrome, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long reverseNum(long long n) {
+    long long rev = 0;
+    while (n > 0) { rev = rev * 10 + (n % 10); n /= 10; }
+    return rev;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    if (n < 0) { cout << 0; return 0; }
+    cout << (reverseNum(n) == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

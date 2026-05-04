@@ -1,0 +1,57 @@
+Problem 19: Find Triplet with Given Sum
+
+Description:
+Find a triplet in an array that sums to a given target using divide and conquer.
+
+Approach:
+Sort array. For each element, use two-pointer technique (or binary search) to find other two elements.
+
+Brute Force Note:
+Three nested loops: O(n³) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool findTripletSum(vector<int>& arr, int target) {
+    sort(arr.begin(), arr.end());
+    
+    for (int i = 0; i < arr.size() - 2; i++) {
+        int left = i + 1, right = arr.size() - 1;
+        
+        while (left < right) {
+            int sum = arr[i] + arr[left] + arr[right];
+            
+            if (sum == target) {
+                cout << "Triplet found: " << arr[i] << ", " << arr[left] << ", " << arr[right] << endl;
+                return true;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+    
+    return false;
+}
+
+int main() {
+    vector<int> arr = {1, 4, 45, 6, 10, 8};
+    int target = 22;
+    
+    if (findTripletSum(arr, target)) {
+        cout << "Triplet exists" << endl;
+    } else {
+        cout << "No triplet found" << endl;
+    }
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n²) - Sorting + two pointers
+Space Complexity: O(1) - No extra space except sorting

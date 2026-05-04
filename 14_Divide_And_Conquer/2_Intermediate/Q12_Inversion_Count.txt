@@ -1,0 +1,63 @@
+Problem 12: Inversion Count
+
+Description:
+Count the number of inversions in an array. An inversion is a pair (i, j) where i < j but arr[i] > arr[j].
+
+Approach:
+Use modified merge sort. While merging, count inversions when an element from right subarray comes before left subarray element.
+
+Brute Force Note:
+Two nested loops to check all pairs: O(n²) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long long mergeAndCount(vector<int>& arr, int left, int mid, int right) {
+    vector<int> temp;
+    int i = left, j = mid + 1;
+    long long invCount = 0;
+    
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) {
+            temp.push_back(arr[i++]);
+        } else {
+            temp.push_back(arr[j++]);
+            invCount += (mid - i + 1);  // Count inversions
+        }
+    }
+    
+    while (i <= mid)
+        temp.push_back(arr[i++]);
+    while (j <= right)
+        temp.push_back(arr[j++]);
+    
+    for (int i = left, k = 0; i <= right; i++, k++)
+        arr[i] = temp[k];
+    
+    return invCount;
+}
+
+long long mergeSortAndCount(vector<int>& arr, int left, int right) {
+    long long invCount = 0;
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        invCount += mergeSortAndCount(arr, left, mid);
+        invCount += mergeSortAndCount(arr, mid + 1, right);
+        invCount += mergeAndCount(arr, left, mid, right);
+    }
+    return invCount;
+}
+
+int main() {
+    vector<int> arr = {1, 20, 6, 4, 5};
+    cout << "Inversion count: " << mergeSortAndCount(arr, 0, arr.size() - 1) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) - Modified merge sort
+Space Complexity: O(n) - Temporary array

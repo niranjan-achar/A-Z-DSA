@@ -1,0 +1,50 @@
+Problem 13: Position of Rightmost Set Bit
+
+Description:
+Find the position (1-based) of the rightmost set bit.
+
+Approach:
+Use n & -n to isolate rightmost bit. Then use log2 or find position.
+
+Brute Force Note:
+Check each bit from right: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int positionOfRightmostSetBit(int n) {
+    if (n == 0)
+        return -1;
+    
+    // Method 1: Using builtin
+    return __builtin_ctz(n) + 1;  // Count trailing zeros
+}
+
+int positionOfRightmostSetBitManual(int n) {
+    if (n == 0)
+        return -1;
+    
+    int pos = 1;
+    while ((n & 1) == 0) {
+        n >>= 1;
+        pos++;
+    }
+    return pos;
+}
+
+int main() {
+    int num = 12;  // Binary: 1100 (rightmost set bit at position 3)
+    
+    cout << "Number: " << num << endl;
+    cout << "Position of rightmost set bit: " << positionOfRightmostSetBit(num) << endl;
+    cout << "Position (Manual): " << positionOfRightmostSetBitManual(num) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Builtin, or O(log n) manual
+Space Complexity: O(1) - Constant space

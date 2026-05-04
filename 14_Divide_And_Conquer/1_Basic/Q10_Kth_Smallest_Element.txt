@@ -1,0 +1,62 @@
+Problem 10: Find Kth Smallest Element
+
+Description:
+Find the Kth smallest element in an unsorted array using divide and conquer approach (Quick Select).
+
+Approach:
+Use quick sort's partition logic. If partition index equals k-1, found the answer. Otherwise recurse on appropriate side.
+
+Brute Force Note:
+Sort entire array and return k-th element: O(n log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+int kthSmallest(vector<int>& arr, int k) {
+    int left = 0, right = arr.size() - 1;
+    k = k - 1;  // Convert to 0-indexed
+    
+    while (left <= right) {
+        int pi = partition(arr, left, right);
+        
+        if (pi == k)
+            return arr[pi];
+        else if (pi < k)
+            left = pi + 1;
+        else
+            right = pi - 1;
+    }
+    
+    return -1;
+}
+
+int main() {
+    vector<int> arr = {3, 2, 1, 5, 4};
+    int k = 3;
+    
+    cout << k << "rd smallest element: " << kthSmallest(arr, k) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) average, O(n²) worst case - Quick Select
+Space Complexity: O(log n) - Recursion stack

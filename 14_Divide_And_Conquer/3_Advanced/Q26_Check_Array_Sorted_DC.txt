@@ -1,0 +1,47 @@
+Problem 26: Check Array is Sorted using Divide and Conquer
+
+Description:
+Check if an array is sorted using divide and conquer approach.
+
+Approach:
+Divide array into two halves. Check if each half is sorted and if last element of left <= first of right.
+
+Brute Force Note:
+Single pass through array: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isSortedHelper(vector<int>& arr, int left, int right) {
+    if (left >= right)
+        return true;
+    
+    int mid = left + (right - left) / 2;
+    
+    bool leftSorted = isSortedHelper(arr, left, mid);
+    bool rightSorted = isSortedHelper(arr, mid + 1, right);
+    bool merged = arr[mid] <= arr[mid + 1];
+    
+    return leftSorted && rightSorted && merged;
+}
+
+bool isSorted(vector<int>& arr) {
+    return isSortedHelper(arr, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr1 = {1, 2, 3, 4, 5};
+    vector<int> arr2 = {1, 3, 2, 4, 5};
+    
+    cout << "Array 1 sorted: " << (isSorted(arr1) ? "Yes" : "No") << endl;
+    cout << "Array 2 sorted: " << (isSorted(arr2) ? "Yes" : "No") << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Recursion traverses all elements
+Space Complexity: O(log n) - Recursion stack

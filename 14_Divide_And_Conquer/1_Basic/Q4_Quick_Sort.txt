@@ -1,0 +1,53 @@
+Problem 4: Quick Sort
+
+Description:
+Sort an array using Quick Sort algorithm which picks a pivot and partitions the array around it.
+
+Approach:
+Select a pivot element. Partition the array so elements less than pivot are on left, greater on right. Recursively sort left and right parts.
+
+Brute Force Note:
+Insertion sort: O(n²) worst case.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> arr = {64, 34, 25, 12, 22, 11, 90};
+    quickSort(arr, 0, arr.size() - 1);
+    
+    for (int x : arr)
+        cout << x << " ";
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) average, O(n²) worst case
+Space Complexity: O(log n) - Recursion stack

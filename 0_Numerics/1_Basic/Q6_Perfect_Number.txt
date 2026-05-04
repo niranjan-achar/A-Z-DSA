@@ -1,0 +1,39 @@
+Question Number: 6
+Problem Title: Check if number is perfect
+Problem Description:
+Given n, determine if the sum of its proper divisors equals n.
+
+Approach / Explanation:
+1) Sum all divisors less than n.
+2) Use pairs of divisors up to sqrt(n).
+3) Add both divisors when found.
+4) Handle perfect square carefully.
+5) Compare sum with n.
+6) O(sqrt(n)) time.
+7) Output 1 if perfect, else 0.
+
+Brute Force Note:
+Checking every number up to n is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n <= 1) { cout << 0; return 0; }
+    long long sum = 1;
+    for (long long i = 2; i * i <= n; ++i) {
+        if (n % i == 0) {
+            sum += i;
+            if (i * i != n) sum += n / i;
+        }
+    }
+    cout << (sum == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(sqrt(n))
+Space Complexity: O(1)

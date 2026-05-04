@@ -1,0 +1,59 @@
+Question Number: 22
+Problem Title: Chinese Remainder Theorem
+Problem Description:
+Given pairwise coprime moduli and remainders, find the smallest non-negative solution.
+
+Approach / Explanation:
+1) Compute product M of all moduli.
+2) For each congruence, compute Mi = M/mi.
+3) Find inverse of Mi mod mi using extended Euclid.
+4) Add ai * Mi * inv to result.
+5) Take result modulo M.
+6) Works for pairwise coprime moduli.
+7) Output the smallest solution.
+
+Brute Force Note:
+Trying all numbers is slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long egcd(long long a, long long b, long long &x, long long &y) {
+    if (b == 0) { x = 1; y = 0; return a; }
+    long long x1, y1;
+    long long g = egcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
+
+long long modinv(long long a, long long mod) {
+    long long x, y; long long g = egcd(a, mod, x, y);
+    if (g != 1) return -1;
+    return (x % mod + mod) % mod;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int k; if (!(cin >> k) || k <= 0) return 0;
+    vector<long long> a(k), m(k);
+    for (int i = 0; i < k; ++i) cin >> a[i] >> m[i];
+    long long M = 1;
+    for (int i = 0; i < k; ++i) M *= m[i];
+
+    long long res = 0;
+    for (int i = 0; i < k; ++i) {
+        long long Mi = M / m[i];
+        long long inv = modinv(Mi, m[i]);
+        if (inv == -1) { cout << -1; return 0; }
+        res = (res + (__int128)a[i] * Mi % M * inv) % M;
+    }
+    cout << (res % M + M) % M;
+    return 0;
+}
+
+Time Complexity: O(k log M)
+Space Complexity: O(1)

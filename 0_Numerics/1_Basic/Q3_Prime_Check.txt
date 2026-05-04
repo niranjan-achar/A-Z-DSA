@@ -1,0 +1,34 @@
+Question Number: 3
+Problem Title: Check if a number is prime
+Problem Description:
+Given an integer n, determine if it is prime.
+
+Approach / Explanation:
+1) Handle n <= 1 as non-prime.
+2) Check divisibility from 2 to sqrt(n).
+3) If any divisor is found, return false.
+4) Otherwise, n is prime.
+5) Trial division is enough for basic constraints.
+6) Stops early when a factor is found.
+7) Output 1 if prime, else 0.
+
+Brute Force Note:
+Checking divisibility up to n is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    if (n <= 1) { cout << 0; return 0; }
+    for (long long i = 2; i * i <= n; ++i) if (n % i == 0) { cout << 0; return 0; }
+    cout << 1;
+    return 0;
+}
+
+Time Complexity: O(sqrt(n))
+Space Complexity: O(1)

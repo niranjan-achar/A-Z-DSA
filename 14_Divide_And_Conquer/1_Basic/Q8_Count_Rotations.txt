@@ -1,0 +1,45 @@
+Problem 8: Count Rotations in Rotated Sorted Array
+
+Description:
+Count the number of times a sorted array has been rotated. Array contains distinct elements.
+
+Approach:
+Find the pivot point (where rotation happens) using binary search. The index of pivot + 1 gives rotation count.
+
+Brute Force Note:
+Linear scan to find minimum: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int countRotations(vector<int>& arr) {
+    int left = 0, right = arr.size() - 1;
+    
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] > arr[right])
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    
+    return left;
+}
+
+int main() {
+    vector<int> arr1 = {3, 4, 5, 1, 2};
+    vector<int> arr2 = {2, 3, 4, 5, 1};
+    
+    cout << "Rotations: " << countRotations(arr1) << endl;
+    cout << "Rotations: " << countRotations(arr2) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Binary search
+Space Complexity: O(1) - Constant space

@@ -1,0 +1,47 @@
+Problem 10: Two Numbers Appear Once (Two XOR Approach)
+
+Description:
+Find two numbers that appear once while all other numbers appear twice.
+
+Approach:
+XOR gives us x^y. Find any set bit in x^y. Partition array by that bit and XOR each partition separately.
+
+Brute Force Note:
+Hash map approach: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void findTwoNumbers(vector<int>& arr, int& num1, int& num2) {
+    int xorResult = 0;
+    for (int num : arr)
+        xorResult ^= num;
+    
+    // Find rightmost set bit
+    int setBit = xorResult & (-xorResult);
+    
+    num1 = num2 = 0;
+    for (int num : arr) {
+        if (num & setBit)
+            num1 ^= num;
+        else
+            num2 ^= num;
+    }
+}
+
+int main() {
+    vector<int> arr = {1, 2, 1, 3, 2, 5};
+    int num1, num2;
+    
+    findTwoNumbers(arr, num1, num2);
+    cout << "Two numbers: " << num1 << " and " << num2 << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Multiple passes through array
+Space Complexity: O(1) - Constant space

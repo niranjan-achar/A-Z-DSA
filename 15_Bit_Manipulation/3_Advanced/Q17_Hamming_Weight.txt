@@ -1,0 +1,52 @@
+Problem 17: Number of 1 Bits (Hamming Weight)
+
+Description:
+Count the number of 1 bits in a positive integer's binary representation.
+
+Approach:
+Use __builtin_popcount() or manually count by checking each bit or using n & (n-1) trick.
+
+Brute Force Note:
+Check each bit manually: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int hammingWeight(uint32_t n) {
+    int count = 0;
+    
+    while (n) {
+        count += n & 1;
+        n >>= 1;
+    }
+    
+    return count;
+}
+
+int hammingWeightOptimized(uint32_t n) {
+    int count = 0;
+    
+    while (n) {
+        n &= (n - 1);
+        count++;
+    }
+    
+    return count;
+}
+
+int main() {
+    uint32_t num = 11;  // Binary: 1011 (3 ones)
+    
+    cout << "Number: " << num << endl;
+    cout << "Hamming weight (Method 1): " << hammingWeight(num) << endl;
+    cout << "Hamming weight (Method 2): " << hammingWeightOptimized(num) << endl;
+    cout << "Hamming weight (Builtin): " << __builtin_popcount(num) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(k) where k = number of set bits, worst O(32)
+Space Complexity: O(1) - Constant space

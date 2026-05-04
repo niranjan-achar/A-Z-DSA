@@ -1,0 +1,41 @@
+Problem 3: Clear ith Bit
+
+Description:
+Clear the ith bit of a number (set it to 0).
+
+Approach:
+Use bitwise AND with NOT: num & ~(1 << i). Create mask with 0 at ith position, others 1.
+
+Brute Force Note:
+Binary string manipulation: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int clearBit(int num, int i) {
+    return num & ~(1 << i);
+}
+
+int main() {
+    int num = 7;  // Binary: 111
+    int i = 1;
+    
+    cout << "Original: " << num << " (Binary: ";
+    for (int j = 7; j >= 0; j--)
+        cout << ((num >> j) & 1);
+    cout << ")" << endl;
+    
+    int result = clearBit(num, i);
+    cout << "After clearing bit " << i << ": " << result << " (Binary: ";
+    for (int j = 7; j >= 0; j--)
+        cout << ((result >> j) & 1);
+    cout << ")" << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Constant time bit operation
+Space Complexity: O(1) - Constant space

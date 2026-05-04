@@ -1,0 +1,35 @@
+Question Number: 22
+Problem Title: Check if a number is a Duck Number
+Problem Description:
+A duck number contains at least one zero and does not start with zero.
+
+Approach / Explanation:
+1) Convert the number to a string.
+2) Ensure the first digit is not zero.
+3) Scan remaining digits for at least one zero.
+4) If found, it is a duck number.
+5) Works on the decimal representation.
+6) Linear in digits.
+7) Output 1 if duck number, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    if (!s.empty() && s[0] == '0') { cout << 0; return 0; }
+    bool hasZero = false;
+    for (int i = 1; i < (int)s.size(); ++i) if (s[i] == '0') hasZero = true;
+    cout << (hasZero ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

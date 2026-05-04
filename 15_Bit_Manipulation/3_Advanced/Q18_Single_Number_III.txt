@@ -1,0 +1,44 @@
+Problem 18: Single Number III (Bit Manipulation Redux)
+
+Description:
+Find two numbers appearing once while rest appear thrice using bit manipulation.
+
+Approach:
+Track bit counts modulo 3. After processing all numbers, bits set in result appear once, bits unset appear thrice times.
+
+Brute Force Note:
+Hash map with count: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int singleNumber(vector<int>& arr) {
+    int ones = 0, twos = 0, threes = 0;
+    
+    for (int num : arr) {
+        twos |= ones & num;
+        ones ^= num;
+        threes = ones & twos;
+        ones &= ~threes;
+        twos &= ~threes;
+    }
+    
+    return ones;
+}
+
+int main() {
+    vector<int> arr = {2, 2, 3, 2};
+    cout << "Single number: " << singleNumber(arr) << endl;
+    
+    vector<int> arr2 = {0, 1, 0, 1, 0, 1, 99};
+    cout << "Single number: " << singleNumber(arr2) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Single pass through array
+Space Complexity: O(1) - Constant space

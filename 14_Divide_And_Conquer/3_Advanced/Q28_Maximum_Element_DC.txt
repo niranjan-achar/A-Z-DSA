@@ -1,0 +1,46 @@
+Problem 28: Maximum Element using Divide and Conquer
+
+Description:
+Find the maximum element in an array using divide and conquer.
+
+Approach:
+Divide array into two halves. Find max in each half recursively. Return maximum of both.
+
+Brute Force Note:
+Single pass linear search: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int maxHelper(vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];
+    
+    int mid = left + (right - left) / 2;
+    
+    int leftMax = maxHelper(arr, left, mid);
+    int rightMax = maxHelper(arr, mid + 1, right);
+    
+    return max(leftMax, rightMax);
+}
+
+int findMax(vector<int>& arr) {
+    if (arr.empty())
+        return INT_MIN;
+    return maxHelper(arr, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr = {3, 7, 2, 9, 4, 1};
+    cout << "Maximum element: " << findMax(arr) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Recursion traverses all elements
+Space Complexity: O(log n) - Recursion stack

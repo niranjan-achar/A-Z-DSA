@@ -1,0 +1,42 @@
+Question Number: 30
+Problem Title: Generate prime numbers in a range
+Problem Description:
+Given L and R, print all prime numbers in the inclusive range.
+
+Approach / Explanation:
+1) Build a sieve up to R.
+2) Mark non-prime values starting from 2.
+3) Then print primes between L and R.
+4) This is efficient for range queries.
+5) O(R log log R) time.
+6) Uses linear space in the limit.
+7) Output primes separated by spaces.
+
+Brute Force Note:
+Checking each number separately is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int l, r; if (!(cin >> l >> r) || r < 2 || l > r) return 0;
+    vector<char> isPrime(r + 1, 1);
+    isPrime[0] = isPrime[1] = 0;
+    for (int i = 2; 1LL * i * i <= r; ++i) if (isPrime[i]) {
+        for (int j = i * i; j <= r; j += i) isPrime[j] = 0;
+    }
+    bool first = true;
+    for (int i = max(2, l); i <= r; ++i) if (isPrime[i]) {
+        if (!first) cout << " ";
+        cout << i;
+        first = false;
+    }
+    return 0;
+}
+
+Time Complexity: O(r log log r)
+Space Complexity: O(r)

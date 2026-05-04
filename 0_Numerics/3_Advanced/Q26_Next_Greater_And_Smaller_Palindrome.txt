@@ -1,0 +1,75 @@
+Question Number: 26
+Problem Title: Find next greater and next smaller palindrome of a number
+Problem Description:
+Given n, find the nearest palindrome larger than n and the nearest palindrome smaller than n.
+
+Approach / Explanation:
+1) Convert n to string.
+2) Generate palindrome by mirroring left half.
+3) If candidate is not greater, increment middle and mirror again for next greater.
+4) For next smaller, decrement middle and mirror.
+5) Handle carry and borrow across the middle.
+6) Works in O(d) time for each side.
+7) Output both palindromes.
+
+Brute Force Note:
+Scanning all numbers outward is too slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+string buildPalindrome(string s, bool incrementMiddle) {
+    int n = s.size();
+    int i = (n - 1) / 2;
+    int j = n / 2;
+    while (i >= 0 && s[i] == '9' && incrementMiddle) {
+        s[i] = s[j] = '0';
+        --i; ++j;
+    }
+    if (incrementMiddle) {
+        if (i >= 0) { s[i]++; s[j] = s[i]; }
+        else return "1" + string(n - 1, '0') + "1";
+    }
+    for (int l = 0, r = n - 1; l < r; ++l, --r) s[r] = s[l];
+    return s;
+}
+
+string nextGreaterPalindrome(string s) {
+    string p = s;
+    for (int i = 0, j = (int)s.size() - 1; i < j; ++i, --j) p[j] = p[i];
+    if (p > s) return p;
+    int n = s.size(), mid = (n - 1) / 2;
+    while (mid >= 0 && s[mid] == '9') s[mid--] = '0';
+    if (mid < 0) return "1" + string(n - 1, '0') + "1";
+    s[mid]++;
+    p = s;
+    for (int i = 0, j = n - 1; i < j; ++i, --j) p[j] = p[i];
+    return p;
+}
+
+string nextSmallerPalindrome(string s) {
+    string p = s;
+    for (int i = 0, j = (int)s.size() - 1; i < j; ++i, --j) p[j] = p[i];
+    if (p < s) return p;
+    int n = s.size(), mid = (n - 1) / 2;
+    while (mid >= 0 && s[mid] == '0') s[mid--] = '9';
+    if (mid < 0) return "0";
+    s[mid]--;
+    if (s[0] == '0') return string(n - 1, '9');
+    p = s;
+    for (int i = 0, j = n - 1; i < j; ++i, --j) p[j] = p[i];
+    return p;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s; if (!(cin >> s)) return 0;
+    cout << nextGreaterPalindrome(s) << "\n" << nextSmallerPalindrome(s);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(d)

@@ -1,0 +1,41 @@
+Question Number: 10
+Problem Title: Check if number is strong
+Problem Description:
+A strong number is one where sum of factorials of digits equals the number.
+
+Approach / Explanation:
+1) Extract each digit of n.
+2) Compute factorial of each digit.
+3) Sum the factorials.
+4) Compare sum with original number.
+5) If equal, it is a strong number.
+6) O(number of digits).
+7) Output 1 if strong, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long fact(int x) {
+    long long res = 1;
+    for (int i = 2; i <= x; ++i) res *= i;
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long t = n, sum = 0;
+    if (t == 0) sum = fact(0);
+    while (t > 0) { sum += fact(t % 10); t /= 10; }
+    cout << (sum == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

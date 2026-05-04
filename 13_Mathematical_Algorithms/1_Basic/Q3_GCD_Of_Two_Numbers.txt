@@ -1,0 +1,38 @@
+Question Number: 3
+Problem Title: Find the GCD of two numbers
+Problem Description:
+Given two integers, compute their greatest common divisor.
+
+Approach / Explanation:
+1) Use Euclidean algorithm.
+2) Repeatedly set a=b and b=a%b.
+3) When b becomes 0, a is the GCD.
+4) Works for positive integers.
+5) O(log min(a,b)) time.
+6) Output the GCD.
+7) Handles large values efficiently.
+
+Brute Force Note:
+Checking all divisors is slow.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long gcdll(long long a, long long b) {
+    while (b != 0) { long long t = a % b; a = b; b = t; }
+    return a;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long a, b; if (!(cin >> a >> b)) return 0;
+    if (a < 0) a = -a; if (b < 0) b = -b;
+    cout << gcdll(a, b);
+    return 0;
+}
+
+Time Complexity: O(log min(a,b))
+Space Complexity: O(1)

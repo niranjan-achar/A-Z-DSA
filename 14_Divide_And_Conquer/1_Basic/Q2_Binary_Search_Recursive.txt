@@ -1,0 +1,47 @@
+Problem 2: Binary Search (Recursive)
+
+Description:
+Implement binary search recursively to find a target element in a sorted array.
+
+Approach:
+Recursively divide the array into two halves by calculating the mid-point. Compare target with mid element and recurse on appropriate half.
+
+Brute Force Note:
+Linear search on entire array: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int binarySearchHelper(vector<int>& arr, int target, int left, int right) {
+    if (left > right)
+        return -1;
+    
+    int mid = left + (right - left) / 2;
+    
+    if (arr[mid] == target)
+        return mid;
+    else if (arr[mid] < target)
+        return binarySearchHelper(arr, target, mid + 1, right);
+    else
+        return binarySearchHelper(arr, target, left, mid - 1);
+}
+
+int binarySearch(vector<int>& arr, int target) {
+    return binarySearchHelper(arr, target, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr = {2, 4, 6, 8, 10, 12};
+    int target = 8;
+    
+    cout << "Index: " << binarySearch(arr, target) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Recursive calls divide search space by 2 each time
+Space Complexity: O(log n) - Recursion stack depth

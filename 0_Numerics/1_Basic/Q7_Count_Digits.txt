@@ -1,0 +1,36 @@
+Question Number: 7
+Problem Title: Count number of digits
+Problem Description:
+Given an integer n, count its digits.
+
+Approach / Explanation:
+1) Take absolute value of n.
+2) Repeatedly divide by 10.
+3) Each division removes one digit.
+4) Count the number of divisions.
+5) For n = 0, answer is 1.
+6) O(number of digits).
+7) Output the digit count.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    n = llabs(n);
+    if (n == 0) { cout << 1; return 0; }
+    int cnt = 0;
+    while (n > 0) { ++cnt; n /= 10; }
+    cout << cnt;
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

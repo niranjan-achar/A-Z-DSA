@@ -1,0 +1,48 @@
+Problem 27: Sum of Array using Divide and Conquer
+
+Description:
+Calculate the sum of all array elements using divide and conquer approach.
+
+Approach:
+Divide array into two halves. Recursively sum left and right halves. Return sum of both.
+
+Brute Force Note:
+Single loop: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long long sumHelper(vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];
+    
+    if (left > right)
+        return 0;
+    
+    int mid = left + (right - left) / 2;
+    
+    long long leftSum = sumHelper(arr, left, mid);
+    long long rightSum = sumHelper(arr, mid + 1, right);
+    
+    return leftSum + rightSum;
+}
+
+long long arraySum(vector<int>& arr) {
+    if (arr.empty())
+        return 0;
+    return sumHelper(arr, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 4, 5};
+    cout << "Sum of array: " << arraySum(arr) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Recursion traverses all elements
+Space Complexity: O(log n) - Recursion stack

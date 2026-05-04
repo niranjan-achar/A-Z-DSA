@@ -1,0 +1,57 @@
+Question Number: 31
+Problem Title: Generate Armstrong numbers in a range
+Problem Description:
+Given L and R, print all Armstrong numbers in the inclusive range.
+
+Approach / Explanation:
+1) For each number, count its digits.
+2) Sum each digit raised to that digit count.
+3) If the sum equals the number, print it.
+4) Repeat for every value in the range.
+5) This is fine for small to medium ranges.
+6) O((R-L+1) * d) time.
+7) Output Armstrong numbers separated by spaces.
+
+Brute Force Note:
+No easier closed form exists for general ranges.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long ipow(long long a, int b) {
+    long long res = 1;
+    while (b--) res *= a;
+    return res;
+}
+
+bool isArmstrong(long long n) {
+    if (n < 0) return false;
+    long long t = n, sum = 0;
+    int digits = 0;
+    if (t == 0) digits = 1;
+    while (t > 0) { ++digits; t /= 10; }
+    t = n;
+    while (t > 0) { sum += ipow(t % 10, digits); t /= 10; }
+    if (n == 0) sum = 0;
+    return sum == n;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long l, r; if (!(cin >> l >> r) || l > r) return 0;
+    bool first = true;
+    for (long long x = l; x <= r; ++x) {
+        if (isArmstrong(x)) {
+            if (!first) cout << " ";
+            cout << x;
+            first = false;
+        }
+    }
+    return 0;
+}
+
+Time Complexity: O((R-L+1) * d)
+Space Complexity: O(1)

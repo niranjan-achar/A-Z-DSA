@@ -1,0 +1,39 @@
+Question Number: 20
+Problem Title: Find nth Fibonacci number
+Problem Description:
+Given n, compute the nth Fibonacci number.
+
+Approach / Explanation:
+1) Use iterative computation with two variables.
+2) Start from F(0)=0 and F(1)=1.
+3) Update the pair for each step.
+4) This avoids recursion and repeated work.
+5) O(n) time and O(1) space.
+6) Works well for normal constraints.
+7) Output F(n).
+
+Brute Force Note:
+Naive recursion is exponential.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    if (n == 0) { cout << 0; return 0; }
+    long long a = 0, b = 1;
+    for (long long i = 2; i <= n; ++i) {
+        long long c = a + b;
+        a = b;
+        b = c;
+    }
+    cout << b;
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)

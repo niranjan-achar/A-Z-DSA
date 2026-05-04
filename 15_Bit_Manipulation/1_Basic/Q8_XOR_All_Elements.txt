@@ -1,0 +1,39 @@
+Problem 8: XOR of All Elements
+
+Description:
+Find XOR of all elements in an array.
+
+Approach:
+XOR all elements together. XOR is commutative and associative, repeated XOR of same element = 0.
+
+Brute Force Note:
+Store all XORs: Same approach but less efficient without recognizing XOR properties.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int xorAll(vector<int>& arr) {
+    int result = 0;
+    for (int num : arr) {
+        result ^= num;
+    }
+    return result;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 4, 5};
+    
+    cout << "XOR of all elements: " << xorAll(arr) << endl;
+    
+    // Verify: 1^2^3^4^5
+    cout << "Manual calculation: " << (1 ^ 2 ^ 3 ^ 4 ^ 5) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Single pass through array
+Space Complexity: O(1) - Constant space

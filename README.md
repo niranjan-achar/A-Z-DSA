@@ -17,29 +17,29 @@ This repository is designed to help you **master problem-solving**, build strong
 
 ---
 
-## 📊 Progress Tracker
+## 📊 Progress Tracke
 
-| Category | Basic | Intermediate | Advanced | Status |
-|----------|------|-------------|----------|--------|
-| Numerics | ✅ | ✅ | ✅ | Completed |
-| Strings | ✅ | ✅ | ⬜ | In Progress |
-| Arrays | ✅ | ✅ | ⬜ | In Progress |
-| Sliding Window | ✅ | 🟨 | ⬜ | In Progress |
-| Sorting & Searching | ✅ | ⬜ | ⬜ | In Progress |
-| Hashing | ⬜ | ⬜ | ⬜ | Not Started |
-| Stack & Queue | ⬜ | ⬜ | ⬜ | Not Started |
-| Linked List | ⬜ | ⬜ | ⬜ | Not Started |
-| Dynamic Programming | ⬜ | ⬜ | ⬜ | Not Started |
-| Backtracking | ⬜ | ⬜ | ⬜ | Not Started |
-| Greedy | ⬜ | ⬜ | ⬜ | Not Started |
-| Graphs | ⬜ | ⬜ | ⬜ | Not Started |
-| String Algorithms | ⬜ | ⬜ | ⬜ | Not Started |
-| Math | ⬜ | ⬜ | ⬜ | Not Started |
-| Divide & Conquer | ⬜ | ⬜ | ⬜ | Not Started |
-| Bit Manipulation | ⬜ | ⬜ | ⬜ | Not Started |
+| Category            | B  | M   |  A  |
+|---------------------|----|-----|-----|
+| Numerics            | ✅ | ✅ | 🟨 |
+| Strings             | ✅ | ✅ | ⬜ |
+| Arrays              | ✅ | ✅ | ⬜ |
+| Sliding Window      | ✅ | 🟨 | ⬜ |
+| Sorting & Searching | ✅ | 🟨 | ⬜ |
+| Hashing             | ✅ | ⬜ | ⬜ |
+| Stack & Queue       | ⬜ | ⬜ | ⬜ |
+| Linked List         | ✅ | ⬜ | ⬜ |
+| Trees               | ✅ | ⬜ | ⬜ |
+| Dynamic Programming | ⬜ | ⬜ | ⬜ |
+| Backtracking        | ⬜ | ⬜ | ⬜ |
+| Greedy              | ⬜ | ⬜ | ⬜ |
+| Graphs              | ⬜ | ⬜ | ⬜ |
+| String Algorithms   | ✅ | ⬜ | ⬜ |
+| Math                | ⬜ | ⬜ | ⬜ |
+| Divide & Conquer    | 🟨 | ⬜ | ⬜ |
+| Bit Manipulation    | ⬜ | ⬜ | ⬜ |
 
 ### Legend
-
 - ⬜ Not Started  
 - 🟨 In Progress  
 - ✅ Completed  

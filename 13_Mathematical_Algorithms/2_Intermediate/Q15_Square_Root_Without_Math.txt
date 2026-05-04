@@ -1,0 +1,38 @@
+Question Number: 15
+Problem Title: Find square root without using math functions
+Problem Description:
+Given n, compute floor(sqrt(n)) using binary search.
+
+Approach / Explanation:
+1) Use binary search on [0, n].
+2) For mid, compare mid*mid with n.
+3) If mid*mid <= n, move right; else move left.
+4) Track the best integer answer.
+5) O(log n) time.
+6) Works for large n without floating point.
+7) Output the floor square root.
+
+Brute Force Note:
+Linear scan from 1 to n is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long l = 0, r = n, ans = 0;
+    while (l <= r) {
+        long long mid = l + (r - l) / 2;
+        if (mid <= n / max(1LL, mid)) { ans = mid; l = mid + 1; }
+        else r = mid - 1;
+    }
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)

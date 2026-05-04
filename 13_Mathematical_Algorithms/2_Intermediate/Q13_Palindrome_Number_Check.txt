@@ -1,0 +1,39 @@
+Question Number: 13
+Problem Title: Palindrome number check
+Problem Description:
+Given an integer n, determine if it is a palindrome.
+
+Approach / Explanation:
+1) If n is negative, it is not a palindrome.
+2) Reverse the digits of n.
+3) Compare reversed value to original.
+4) If equal, palindrome.
+5) O(d) time.
+6) Output 1 if palindrome, else 0.
+7) Works for 64-bit values.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long reverseNum(long long n) {
+    long long rev = 0;
+    while (n > 0) { rev = rev * 10 + (n % 10); n /= 10; }
+    return rev;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    if (n < 0) { cout << 0; return 0; }
+    cout << (reverseNum(n) == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

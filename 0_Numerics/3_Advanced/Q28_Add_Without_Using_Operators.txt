@@ -1,0 +1,37 @@
+Question Number: 28
+Problem Title: Add two numbers without using + or -
+Problem Description:
+Given two integers, compute their sum without using + or -.
+
+Approach / Explanation:
+1) Use bitwise XOR for sum without carry.
+2) Use AND followed by left shift for carry.
+3) Repeat until carry becomes 0.
+4) The final XOR result is the answer.
+5) This simulates binary addition.
+6) O(number of bits) time.
+7) Output the sum.
+
+Brute Force Note:
+Repeated increment/decrement is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long a, b; if (!(cin >> a >> b)) return 0;
+    while (b != 0) {
+        long long carry = (unsigned long long)(a & b) << 1;
+        a = a ^ b;
+        b = carry;
+    }
+    cout << a;
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)

@@ -1,0 +1,35 @@
+Question Number: 19
+Problem Title: Check if number is automorphic
+Problem Description:
+A number is automorphic if its square ends with the same number.
+
+Approach / Explanation:
+1) Compute n^2.
+2) Compare the ending digits of n^2 with n.
+3) Use string comparison for simplicity.
+4) If square ends with n, it is automorphic.
+5) Works for moderate values.
+6) O(d) time.
+7) Output 1 if automorphic, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long sq = n * n;
+    string a = to_string(n), b = to_string(sq);
+    if (b.size() >= a.size() && b.substr(b.size() - a.size()) == a) cout << 1;
+    else cout << 0;
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

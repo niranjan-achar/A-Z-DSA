@@ -1,0 +1,36 @@
+Question Number: 1
+Problem Title: Reverse a number
+Problem Description:
+Given an integer n, reverse its digits.
+
+Approach / Explanation:
+1) Take absolute value of n.
+2) Extract digits using modulo 10.
+3) Build reversed value by multiplying by 10.
+4) Restore the sign at the end.
+5) This uses only arithmetic operations.
+6) Linear in number of digits.
+7) Output the reversed number.
+
+Brute Force Note:
+No brute force is needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    long long sign = n < 0 ? -1 : 1;
+    n = llabs(n);
+    long long rev = 0;
+    while (n > 0) { rev = rev * 10 + (n % 10); n /= 10; }
+    cout << rev * sign;
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

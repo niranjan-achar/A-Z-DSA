@@ -1,0 +1,40 @@
+Question Number: 11
+Problem Title: Find LCM and GCD of two numbers
+Problem Description:
+Given two integers, compute their gcd and lcm.
+
+Approach / Explanation:
+1) Use Euclidean algorithm for gcd.
+2) Compute lcm using |a/gcd * b|.
+3) Handle zero carefully.
+4) Print both values.
+5) GCD is O(log min(a,b)).
+6) LCM follows from gcd.
+7) Output gcd and lcm.
+
+Brute Force Note:
+Trying all divisors or multiples is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long gcdll(long long a, long long b) {
+    while (b != 0) { long long t = a % b; a = b; b = t; }
+    return a;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long a, b; if (!(cin >> a >> b)) return 0;
+    a = llabs(a); b = llabs(b);
+    long long g = gcdll(a, b);
+    long long l = (a == 0 || b == 0) ? 0 : (a / g) * b;
+    cout << g << " " << l;
+    return 0;
+}
+
+Time Complexity: O(log min(a,b))
+Space Complexity: O(1)

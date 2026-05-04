@@ -69,7 +69,7 @@ int main()
     {
         cout << val << " ";
     }
-    // Output: 1 3 2
+    // Output: 4 2 5 1 3
 
     return 0;
 }

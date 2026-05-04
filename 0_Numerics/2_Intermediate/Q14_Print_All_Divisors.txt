@@ -1,0 +1,40 @@
+Question Number: 14
+Problem Title: Print all divisors of a number
+Problem Description:
+Given n, print all its positive divisors.
+
+Approach / Explanation:
+1) Iterate from 1 to sqrt(n).
+2) If i divides n, store i and n/i.
+3) Avoid duplicate for perfect squares.
+4) Sort the collected divisors.
+5) O(sqrt(n)) time.
+6) Prints all divisors in increasing order.
+7) Output divisors separated by spaces.
+
+Brute Force Note:
+Checking every number up to n is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n <= 0) return 0;
+    vector<long long> d;
+    for (long long i = 1; i * i <= n; ++i) {
+        if (n % i == 0) {
+            d.push_back(i);
+            if (i * i != n) d.push_back(n / i);
+        }
+    }
+    sort(d.begin(), d.end());
+    for (int i = 0; i < (int)d.size(); ++i) { if (i) cout << " "; cout << d[i]; }
+    return 0;
+}
+
+Time Complexity: O(sqrt(n) log sqrt(n))
+Space Complexity: O(sqrt(n))

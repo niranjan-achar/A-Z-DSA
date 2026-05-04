@@ -1,0 +1,33 @@
+Question Number: 12
+Problem Title: Check if a number is a power of 2
+Problem Description:
+Given n, determine whether it is a power of two.
+
+Approach / Explanation:
+1) A power of two has exactly one set bit.
+2) For n > 0, check (n & (n - 1)) == 0.
+3) If true, n is a power of two.
+4) This is constant time.
+5) Works for signed integers with n > 0.
+6) No extra space needed.
+7) Output 1 if true, else 0.
+
+Brute Force Note:
+Repeated division by 2 is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    if (n <= 0) { cout << 0; return 0; }
+    cout << ((n & (n - 1)) == 0 ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)

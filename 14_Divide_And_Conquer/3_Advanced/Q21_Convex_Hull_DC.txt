@@ -1,0 +1,88 @@
+Problem 21: Convex Hull (Divide and Conquer)
+
+Description:
+Find the convex hull of a set of 2D points using divide and conquer approach.
+
+Approach:
+Divide points into two halves by x-coordinate. Recursively find hulls of both halves. Merge hulls by finding tangent lines.
+
+Brute Force Note:
+Graham scan or Jarvis march: O(n log n) or O(n*h) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Point {
+    long long x, y;
+};
+
+long long orientation(const Point& p, const Point& q, const Point& r) {
+    long long val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+    if (val == 0) return 0;
+    return (val > 0) ? 1 : 2;
+}
+
+vector<Point> merge(vector<Point>& left, vector<Point>& right) {
+    vector<Point> result;
+    
+    // Find lower tangent
+    int i = 0, j = right.size() - 1;
+    while (orientation(left[i], right[j], right[(j + 1) % right.size()]) != 2) {
+        j = (j + 1) % right.size();
+    }
+    while (orientation(right[j], left[i], left[(i + 1) % left.size()]) != 2) {
+        i = (i + 1) % left.size();
+    }
+    
+    int p1 = i, p2 = j;
+    i = p1;
+    while (i != p2) {
+        result.push_back(left[i]);
+        i = (i + 1) % left.size();
+    }
+    result.push_back(left[p2]);
+    
+    j = p2;
+    while (j != p1) {
+        result.push_back(right[j]);
+        j = (j + 1) % right.size();
+    }
+    
+    return result;
+}
+
+vector<Point> convexHullDC(vector<Point>& points, int left, int right) {
+    vector<Point> result;
+    
+    if (right - left <= 2) {
+        for (int i = left; i <= right; i++)
+            result.push_back(points[i]);
+        return result;
+    }
+    
+    int mid = left + (right - left) / 2;
+    vector<Point> leftHull = convexHullDC(points, left, mid);
+    vector<Point> rightHull = convexHullDC(points, mid + 1, right);
+    
+    return merge(leftHull, rightHull);
+}
+
+int main() {
+    vector<Point> points = {{0, 0}, {1, 1}, {2, 2}, {0, 2}, {2, 0}};
+    sort(points.begin(), points.end(), [](const Point& a, const Point& b) {
+        return a.x < b.x || (a.x == b.x && a.y < b.y);
+    });
+    
+    vector<Point> hull = convexHullDC(points, 0, points.size() - 1);
+    cout << "Convex hull points: " << hull.size() << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) - Divide and conquer
+Space Complexity: O(n) - Result hull

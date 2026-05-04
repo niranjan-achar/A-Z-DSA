@@ -1,0 +1,46 @@
+Problem 29: Minimum Element using Divide and Conquer
+
+Description:
+Find the minimum element in an array using divide and conquer.
+
+Approach:
+Divide array into two halves. Find min in each half recursively. Return minimum of both.
+
+Brute Force Note:
+Linear pass: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int minHelper(vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];
+    
+    int mid = left + (right - left) / 2;
+    
+    int leftMin = minHelper(arr, left, mid);
+    int rightMin = minHelper(arr, mid + 1, right);
+    
+    return min(leftMin, rightMin);
+}
+
+int findMin(vector<int>& arr) {
+    if (arr.empty())
+        return INT_MAX;
+    return minHelper(arr, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr = {3, 7, 2, 9, 4, 1};
+    cout << "Minimum element: " << findMin(arr) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) - Recursion traverses all elements
+Space Complexity: O(log n) - Recursion stack

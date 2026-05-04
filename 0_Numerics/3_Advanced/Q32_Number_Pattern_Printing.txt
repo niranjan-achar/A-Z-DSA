@@ -1,0 +1,37 @@
+Question Number: 32
+Problem Title: Print number pattern
+Problem Description:
+Given n, print a pyramid number pattern.
+
+Approach / Explanation:
+1) Use nested loops for rows and columns.
+2) Print leading spaces to center the pyramid.
+3) Print increasing numbers then decreasing numbers.
+4) Repeat for each row.
+5) This is a standard pattern-printing task.
+6) O(n^2) time due to output size.
+7) Output the pattern line by line.
+
+Brute Force Note:
+This is already direct construction.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n <= 0) return 0;
+    for (int i = 1; i <= n; ++i) {
+        for (int s = 0; s < n - i; ++s) cout << ' ';
+        for (int j = 1; j <= i; ++j) cout << j;
+        for (int j = i - 1; j >= 1; --j) cout << j;
+        cout << '\n';
+    }
+    return 0;
+}
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)

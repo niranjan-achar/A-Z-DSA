@@ -1,0 +1,38 @@
+Question Number: 10
+Problem Title: Count the number of divisors of a number
+Problem Description:
+Given n, count its positive divisors.
+
+Approach / Explanation:
+1) Iterate i from 1 to sqrt(n).
+2) If i divides n, count i and n/i.
+3) If i*i==n, count only once.
+4) Use absolute value for negative n.
+5) O(sqrt(n)) time.
+6) Output the divisor count.
+7) Works for n >= 1.
+
+Brute Force Note:
+Checking all numbers up to n is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    n = llabs(n);
+    if (n == 0) { cout << 0; return 0; }
+    long long cnt = 0;
+    for (long long i = 1; i * i <= n; ++i) {
+        if (n % i == 0) cnt += (i * i == n ? 1 : 2);
+    }
+    cout << cnt;
+    return 0;
+}
+
+Time Complexity: O(sqrt(n))
+Space Complexity: O(1)

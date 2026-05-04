@@ -1,0 +1,69 @@
+Problem 23: Kth Largest Element using Quickselect with Pivot Optimization
+
+Description:
+Find the Kth largest element using optimized quickselect with random pivot selection.
+
+Approach:
+Use randomized partition (pivot). Find rank of pivot. If rank matches K, return element. Otherwise recurse.
+
+Brute Force Note:
+Sort and pick Kth element: O(n log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int randomPartition(vector<int>& arr, int low, int high) {
+    int random = low + rand() % (high - low + 1);
+    swap(arr[random], arr[high]);
+    
+    int pivot = arr[high];
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] > pivot) {  // For Kth largest
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+int kthLargestHelper(vector<int>& arr, int low, int high, int k) {
+    if (low <= high) {
+        int pi = randomPartition(arr, low, high);
+        
+        if (pi == k - 1)
+            return arr[pi];
+        else if (pi < k - 1)
+            return kthLargestHelper(arr, pi + 1, high, k);
+        else
+            return kthLargestHelper(arr, low, pi - 1, k);
+    }
+    
+    return -1;
+}
+
+int kthLargest(vector<int>& arr, int k) {
+    srand(time(0));
+    return kthLargestHelper(arr, 0, arr.size() - 1, k);
+}
+
+int main() {
+    vector<int> arr = {3, 2, 1, 5, 6, 4};
+    int k = 2;
+    
+    cout << k << "nd largest element: " << kthLargest(arr, k) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n) average, O(n²) worst case
+Space Complexity: O(log n) - Recursion stack

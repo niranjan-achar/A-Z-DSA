@@ -1,0 +1,41 @@
+Question Number: 17
+Problem Title: Convert decimal to binary/hex
+Problem Description:
+Given a decimal number, print its binary and hexadecimal representation.
+
+Approach / Explanation:
+1) Use built-in formatting with bitset for binary.
+2) Use stringstream with uppercase hex formatting.
+3) Handle zero as a special case.
+4) Output both formats.
+5) This is simple base conversion.
+6) Constant extra work aside from output.
+7) Output binary and hex strings.
+
+Brute Force Note:
+Manual repeated division also works but is longer.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    unsigned long long n; if (!(cin >> n)) return 0;
+    unsigned long long original = n;
+    string binary;
+    if (n == 0) binary = "0";
+    else {
+        while (n > 0) { binary.push_back((n & 1) ? '1' : '0'); n >>= 1; }
+        reverse(binary.begin(), binary.end());
+    }
+    stringstream ss;
+    ss << uppercase << hex << original;
+    cout << binary << "\n" << ss.str();
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(log n)

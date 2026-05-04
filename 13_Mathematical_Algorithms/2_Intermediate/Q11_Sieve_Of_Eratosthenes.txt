@@ -1,0 +1,42 @@
+Question Number: 11
+Problem Title: Sieve of Eratosthenes
+Problem Description:
+Given n, print all primes up to n.
+
+Approach / Explanation:
+1) Create a boolean array isPrime initialized to true.
+2) Mark 0 and 1 as non-prime.
+3) For each i from 2 to sqrt(n), if prime, mark multiples.
+4) After sieve, output all indices marked prime.
+5) This is efficient for range primes.
+6) O(n log log n) time.
+7) Output primes separated by spaces.
+
+Brute Force Note:
+Checking each number by trial division is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; if (!(cin >> n) || n < 2) return 0;
+    vector<char> isPrime(n + 1, 1);
+    isPrime[0] = isPrime[1] = 0;
+    for (int i = 2; 1LL * i * i <= n; ++i) if (isPrime[i]) {
+        for (int j = i * i; j <= n; j += i) isPrime[j] = 0;
+    }
+
+    bool first = true;
+    for (int i = 2; i <= n; ++i) if (isPrime[i]) {
+        if (!first) cout << " ";
+        cout << i; first = false;
+    }
+    return 0;
+}
+
+Time Complexity: O(n log log n)
+Space Complexity: O(n)

@@ -1,0 +1,43 @@
+Question Number: 21
+Problem Title: Check if a number is a Happy Number
+Problem Description:
+Given n, determine if repeated digit-sum-square process reaches 1.
+
+Approach / Explanation:
+1) Repeatedly replace n with sum of squares of its digits.
+2) Use a set to detect cycles.
+3) If n becomes 1, it is happy.
+4) If a value repeats, it is not happy.
+5) This is a cycle detection problem.
+6) O(number of steps) time.
+7) Output 1 if happy, else 0.
+
+Brute Force Note:
+Without cycle detection, loops may continue forever.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long nextVal(long long n) {
+    long long sum = 0;
+    while (n > 0) { long long d = n % 10; sum += d * d; n /= 10; }
+    return sum;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n <= 0) return 0;
+    unordered_set<long long> seen;
+    while (n != 1 && !seen.count(n)) {
+        seen.insert(n);
+        n = nextVal(n);
+    }
+    cout << (n == 1 ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(k)
+Space Complexity: O(k)

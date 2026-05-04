@@ -1,0 +1,39 @@
+Question Number: 23
+Problem Title: Check if a number is a Magic Number
+Problem Description:
+A magic number is obtained by repeatedly summing digits until one digit remains, and that digit is 1.
+
+Approach / Explanation:
+1) Repeatedly sum the digits of n.
+2) Continue until a single digit remains.
+3) If the result is 1, it is a magic number.
+4) This is a simple digital-root style check.
+5) O(d log n) in practice, tiny for typical inputs.
+6) No extra data structures are needed.
+7) Output 1 if magic, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long digitSum(long long n) {
+    long long sum = 0;
+    while (n > 0) { sum += n % 10; n /= 10; }
+    return sum;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n <= 0) return 0;
+    while (n >= 10) n = digitSum(n);
+    cout << (n == 1 ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

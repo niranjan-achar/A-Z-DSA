@@ -1,0 +1,65 @@
+Problem 30: Majority Vote Algorithm (Boyer-Moore using D&C)
+
+Description:
+Find the candidate for majority element using Boyer-Moore voting algorithm with divide and conquer.
+
+Approach:
+Divide array into halves. Find candidate in each half. Verify if it's true majority by counting.
+
+Brute Force Note:
+Hash map approach: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int findCandidate(vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];
+    
+    int mid = left + (right - left) / 2;
+    int leftCandidate = findCandidate(arr, left, mid);
+    int rightCandidate = findCandidate(arr, mid + 1, right);
+    
+    if (leftCandidate == rightCandidate)
+        return leftCandidate;
+    
+    int leftCount = 0, rightCount = 0;
+    for (int i = left; i <= right; i++) {
+        if (arr[i] == leftCandidate)
+            leftCount++;
+        else if (arr[i] == rightCandidate)
+            rightCount++;
+    }
+    
+    return (leftCount > rightCount) ? leftCandidate : rightCandidate;
+}
+
+bool isMajority(vector<int>& arr, int candidate) {
+    int count = 0;
+    for (int x : arr) {
+        if (x == candidate)
+            count++;
+    }
+    return count > arr.size() / 2;
+}
+
+int majorityVote(vector<int>& arr) {
+    int candidate = findCandidate(arr, 0, arr.size() - 1);
+    if (isMajority(arr, candidate))
+        return candidate;
+    return -1;  // No majority
+}
+
+int main() {
+    vector<int> arr = {2, 2, 2, 2, 1, 1, 1, 3, 3};
+    cout << "Majority element: " << majorityVote(arr) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) - Divide and conquer with counting
+Space Complexity: O(log n) - Recursion stack

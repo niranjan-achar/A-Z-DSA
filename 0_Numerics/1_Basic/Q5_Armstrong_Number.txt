@@ -1,0 +1,44 @@
+Question Number: 5
+Problem Title: Check if number is Armstrong
+Problem Description:
+Given n, determine if it is an Armstrong number.
+
+Approach / Explanation:
+1) Count the number of digits.
+2) For each digit, raise it to that power.
+3) Sum all powered digits.
+4) Compare sum with original n.
+5) If equal, it is Armstrong.
+6) Linear in digits.
+7) Output 1 if Armstrong, else 0.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long ipow(long long a, int b) {
+    long long res = 1;
+    while (b--) res *= a;
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long t = n, sum = 0;
+    int digits = 0;
+    if (t == 0) digits = 1;
+    while (t > 0) { ++digits; t /= 10; }
+    t = n;
+    while (t > 0) { sum += ipow(t % 10, digits); t /= 10; }
+    cout << (sum == n ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)

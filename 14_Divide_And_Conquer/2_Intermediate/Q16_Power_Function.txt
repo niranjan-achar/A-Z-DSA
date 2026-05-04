@@ -1,0 +1,50 @@
+Problem 16: Power Function (x^n) using D&C
+
+Description:
+Calculate x raised to power n efficiently using divide and conquer.
+
+Approach:
+If n is even: x^n = (x^(n/2))^2. If n is odd: x^n = x * x^(n-1).
+
+Brute Force Note:
+Multiply x n times: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+double powerHelper(double x, long long n) {
+    if (n == 0)
+        return 1.0;
+    
+    if (n == 1)
+        return x;
+    
+    if (n < 0)
+        return 1.0 / powerHelper(x, -n);
+    
+    double half = powerHelper(x, n / 2);
+    
+    if (n % 2 == 0) {
+        return half * half;
+    } else {
+        return half * half * x;
+    }
+}
+
+double power(double x, long long n) {
+    return powerHelper(x, n);
+}
+
+int main() {
+    cout << "2^10 = " << power(2, 10) << endl;
+    cout << "2^-2 = " << power(2, -2) << endl;
+    cout << "2^7 = " << power(2, 7) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Divide and conquer
+Space Complexity: O(log n) - Recursion stack

@@ -1,0 +1,37 @@
+Question Number: 15
+Problem Title: Check if two numbers are co-prime
+Problem Description:
+Given two integers, determine if they are co-prime.
+
+Approach / Explanation:
+1) Compute gcd of the two numbers.
+2) If gcd is 1, they are co-prime.
+3) Otherwise, they are not co-prime.
+4) This is a direct application of Euclid.
+5) Works for positive integers.
+6) O(log min(a,b)) time.
+7) Output 1 if co-prime, else 0.
+
+Brute Force Note:
+Checking all common divisors is slower.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long gcdll(long long a, long long b) {
+    while (b != 0) { long long t = a % b; a = b; b = t; }
+    return a;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long a, b; if (!(cin >> a >> b)) return 0;
+    cout << (gcdll(llabs(a), llabs(b)) == 1 ? 1 : 0);
+    return 0;
+}
+
+Time Complexity: O(log min(a,b))
+Space Complexity: O(1)

@@ -116,10 +116,6 @@ Then if you have extra time, go deeper into Backtracking → DP → Graphs → O
 26. Find next greater and next smaller palindrome of a number
 27. Check if number is a Kaprekar number
 28. Add two numbers without using `+` or `-`
-
-
-### 🧠 Bonus: Series Generation Questions
-
 29. Generate Fibonacci series up to `n`
 30. Generate prime numbers in a range
 31. Generate Armstrong numbers in a range

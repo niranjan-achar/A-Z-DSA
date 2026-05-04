@@ -1,0 +1,48 @@
+Problem 6: Count Number of Set Bits
+
+Description:
+Count the number of set bits (1s) in a number.
+
+Approach:
+Repeatedly clear rightmost set bit using num & (num - 1) and count iterations. Or use __builtin_popcount().
+
+Brute Force Note:
+Check each bit one by one: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int countSetBits(int num) {
+    int count = 0;
+    while (num) {
+        count += num & 1;
+        num >>= 1;
+    }
+    return count;
+}
+
+int countSetBitsOptimized(int num) {
+    int count = 0;
+    while (num) {
+        num &= (num - 1);
+        count++;
+    }
+    return count;
+}
+
+int main() {
+    int num = 13;  // Binary: 1101 (3 set bits)
+    
+    cout << "Number: " << num << endl;
+    cout << "Set bits (Method 1): " << countSetBits(num) << endl;
+    cout << "Set bits (Method 2): " << countSetBitsOptimized(num) << endl;
+    cout << "Set bits (Builtin): " << __builtin_popcount(num) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Iterate through bits
+Space Complexity: O(1) - Constant space

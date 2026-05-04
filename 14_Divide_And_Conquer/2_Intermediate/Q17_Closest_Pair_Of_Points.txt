@@ -1,0 +1,85 @@
+Problem 17: Closest Pair of Points
+
+Description:
+Find the closest pair of points in a 2D plane using divide and conquer.
+
+Approach:
+Sort points by x-coordinate. Divide into left and right halves. Recursively find closest in each half. Check strip near dividing line.
+
+Brute Force Note:
+Check all pairs: O(n²) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+struct Point {
+    double x, y;
+};
+
+double distance(const Point& a, const Point& b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+}
+
+double closestInStrip(vector<Point>& strip, double minDist) {
+    double minStripDist = minDist;
+    
+    for (int i = 0; i < strip.size(); i++) {
+        for (int j = i + 1; j < strip.size() && 
+             (strip[j].y - strip[i].y) < minStripDist; j++) {
+            double dist = distance(strip[i], strip[j]);
+            minStripDist = min(minStripDist, dist);
+        }
+    }
+    
+    return minStripDist;
+}
+
+double closestUtil(vector<Point>& points, int left, int right) {
+    if (right - left <= 2) {
+        double minDist = 1e9;
+        for (int i = left; i <= right; i++) {
+            for (int j = i + 1; j <= right; j++) {
+                minDist = min(minDist, distance(points[i], points[j]));
+            }
+        }
+        return minDist;
+    }
+    
+    int mid = left + (right - left) / 2;
+    double leftDist = closestUtil(points, left, mid);
+    double rightDist = closestUtil(points, mid + 1, right);
+    
+    double minDist = min(leftDist, rightDist);
+    
+    vector<Point> strip;
+    for (int i = left; i <= right; i++) {
+        if (abs(points[i].x - points[mid].x) < minDist)
+            strip.push_back(points[i]);
+    }
+    
+    return min(minDist, closestInStrip(strip, minDist));
+}
+
+double closestPair(vector<Point>& points) {
+    sort(points.begin(), points.end(), [](const Point& a, const Point& b) {
+        return a.x < b.x;
+    });
+    
+    return closestUtil(points, 0, points.size() - 1);
+}
+
+int main() {
+    vector<Point> points = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}};
+    cout << "Closest distance: " << closestPair(points) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) - After sorting
+Space Complexity: O(n) - Strip array

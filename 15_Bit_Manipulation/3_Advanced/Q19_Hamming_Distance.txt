@@ -1,0 +1,40 @@
+Problem 19: Hamming Distance
+
+Description:
+Calculate the Hamming distance (number of bit positions where values differ) between two integers.
+
+Approach:
+XOR the two numbers and count set bits in result.
+
+Brute Force Note:
+Convert to binary strings and compare position by position: O(log max(x, y)) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int hammingDistance(int x, int y) {
+    int xorResult = x ^ y;
+    return __builtin_popcount(xorResult);
+}
+
+int main() {
+    int x = 1;  // Binary: 0001
+    int y = 4;  // Binary: 0100
+    
+    cout << "Hamming distance between " << x << " and " << y << ": " 
+         << hammingDistance(x, y) << endl;
+    
+    x = 1;
+    y = 3;  // Binary: 0011
+    
+    cout << "Hamming distance between " << x << " and " << y << ": " 
+         << hammingDistance(x, y) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Fixed 32-bit numbers
+Space Complexity: O(1) - Constant space

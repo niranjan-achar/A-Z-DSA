@@ -1,0 +1,34 @@
+Question Number: 24
+Problem Title: Count trailing zeros in factorial
+Problem Description:
+Given n, count the trailing zeros in n!.
+
+Approach / Explanation:
+1) Trailing zeros come from factors of 10.
+2) Each zero needs one 2 and one 5.
+3) Factorials have more 2s than 5s.
+4) Count the powers of 5 in n!.
+5) Add n/5 + n/25 + n/125 + ...
+6) O(log n) time.
+7) Output the count.
+
+Brute Force Note:
+Computing factorial directly is infeasible.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    long long ans = 0;
+    for (long long p = 5; p <= n; p *= 5) ans += n / p;
+    cout << ans;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)

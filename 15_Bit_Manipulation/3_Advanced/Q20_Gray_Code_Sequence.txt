@@ -1,0 +1,50 @@
+Problem 20: Gray Code Sequence
+
+Description:
+Generate the Gray code sequence of n bits (reflected binary code).
+
+Approach:
+Gray code: G(i) = i XOR (i >> 1). Generate all n-bit Gray codes.
+
+Brute Force Note:
+Recursive generation with reflection: O(2^n) time anyway.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> grayCode(int n) {
+    vector<int> result;
+    int total = 1 << n;  // 2^n
+    
+    for (int i = 0; i < total; i++) {
+        result.push_back(i ^ (i >> 1));
+    }
+    
+    return result;
+}
+
+int main() {
+    int n = 3;
+    vector<int> gray = grayCode(n);
+    
+    cout << "Gray code sequence for " << n << " bits: ";
+    for (int code : gray) {
+        cout << code << " ";
+    }
+    cout << endl;
+    
+    // Print in binary
+    cout << "In binary: ";
+    for (int code : gray) {
+        cout << "0x" << hex << code << " ";
+    }
+    
+    return 0;
+}
+```
+
+Time Complexity: O(2^n) - Generate all n-bit numbers
+Space Complexity: O(2^n) - Result array

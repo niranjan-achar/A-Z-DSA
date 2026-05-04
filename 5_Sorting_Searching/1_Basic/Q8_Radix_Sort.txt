@@ -1,0 +1,69 @@
+Problem 8: Radix Sort
+
+Description:
+Sort an array of non-negative integers using the Radix Sort algorithm which sorts by individual digits.
+
+Approach:
+Sort numbers by individual digits starting from the least significant digit (LSD). Use a stable sorting algorithm (like counting sort) for each digit.
+
+Brute Force Note:
+Comparison-based sorts: O(n log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void countingSortForRadix(vector<int>& arr, int exp) {
+    int n = arr.size();
+    vector<int> output(n);
+    vector<int> count(10, 0);
+    
+    for (int i = 0; i < n; i++)
+        count[(arr[i] / exp) % 10]++;
+    
+    for (int i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+    
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        count[(arr[i] / exp) % 10]--;
+    }
+    
+    for (int i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+
+void radixSort(vector<int>& arr) {
+    if (arr.empty())
+        return;
+    
+    int max = *max_element(arr.begin(), arr.end());
+    
+    for (int exp = 1; max / exp > 0; exp *= 10)
+        countingSortForRadix(arr, exp);
+}
+
+int main() {
+    vector<int> arr = {170, 45, 75, 90, 2, 101, 24};
+    
+    cout << "Original array: ";
+    for (int x : arr)
+        cout << x << " ";
+    cout << endl;
+    
+    radixSort(arr);
+    
+    cout << "Sorted array: ";
+    for (int x : arr)
+        cout << x << " ";
+    cout << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(d * (n + k)) where d is number of digits, k is base
+Space Complexity: O(n + k) - Output and count arrays

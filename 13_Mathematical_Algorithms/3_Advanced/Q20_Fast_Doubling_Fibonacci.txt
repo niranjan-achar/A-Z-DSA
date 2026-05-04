@@ -1,0 +1,43 @@
+Question Number: 20
+Problem Title: Fast Doubling Fibonacci
+Problem Description:
+Given n, compute the nth Fibonacci number using fast doubling.
+
+Approach / Explanation:
+1) Use recursion with identities for (F(2k), F(2k+1)).
+2) Compute (a,b) for k = n/2.
+3) Use formulas: c=a*(2*b-a), d=a*a+b*b.
+4) If n is even, return (c,d); else (d,c+d).
+5) This runs in O(log n).
+6) Works for large n.
+7) Output F(n).
+
+Brute Force Note:
+Iterative DP is O(n).
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<long long,long long> fib(long long n) {
+    if (n == 0) return {0, 1};
+    auto p = fib(n >> 1);
+    long long a = p.first;
+    long long b = p.second;
+    long long c = a * (2 * b - a);
+    long long d = a * a + b * b;
+    if (n & 1) return {d, c + d};
+    else return {c, d};
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n) || n < 0) return 0;
+    cout << fib(n).first;
+    return 0;
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(log n)

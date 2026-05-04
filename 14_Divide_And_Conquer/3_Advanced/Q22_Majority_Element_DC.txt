@@ -1,0 +1,58 @@
+Problem 22: Majority Element using Divide and Conquer
+
+Description:
+Find the majority element (appears more than n/2 times) using divide and conquer.
+
+Approach:
+Divide array into two halves. Find majority in each half recursively. Merge results by checking counts.
+
+Brute Force Note:
+Hash map approach: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int countInRange(vector<int>& arr, int num, int left, int right) {
+    int count = 0;
+    for (int i = left; i <= right; i++) {
+        if (arr[i] == num)
+            count++;
+    }
+    return count;
+}
+
+int majorityElementHelper(vector<int>& arr, int left, int right) {
+    if (left == right)
+        return arr[left];
+    
+    int mid = left + (right - left) / 2;
+    
+    int leftMajority = majorityElementHelper(arr, left, mid);
+    int rightMajority = majorityElementHelper(arr, mid + 1, right);
+    
+    if (leftMajority == rightMajority)
+        return leftMajority;
+    
+    int leftCount = countInRange(arr, leftMajority, left, right);
+    int rightCount = countInRange(arr, rightMajority, left, right);
+    
+    return leftCount > rightCount ? leftMajority : rightMajority;
+}
+
+int majorityElement(vector<int>& arr) {
+    return majorityElementHelper(arr, 0, arr.size() - 1);
+}
+
+int main() {
+    vector<int> arr = {3, 3, 4, 2, 4, 4, 2, 4, 4};
+    cout << "Majority element: " << majorityElement(arr) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(n log n) - Divide and conquer with counting
+Space Complexity: O(log n) - Recursion stack

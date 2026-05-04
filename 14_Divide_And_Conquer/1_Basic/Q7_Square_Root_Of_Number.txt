@@ -1,0 +1,51 @@
+Problem 7: Square Root of a Number (Integer)
+
+Description:
+Find the integer square root of a number (floor value). For example, sqrt(8) = 2.
+
+Approach:
+Use binary search between 1 and n. Find the largest number whose square is <= n.
+
+Brute Force Note:
+Linear search from 1 to n: O(n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int sqrtInteger(int n) {
+    if (n < 2)
+        return n;
+    
+    int left = 1, right = n;
+    int result = 1;
+    
+    while (left <= right) {
+        long long mid = left + (right - left) / 2;
+        long long square = mid * mid;
+        
+        if (square == n)
+            return mid;
+        else if (square < n) {
+            result = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return result;
+}
+
+int main() {
+    cout << "sqrt(8) = " << sqrtInteger(8) << endl;
+    cout << "sqrt(16) = " << sqrtInteger(16) << endl;
+    cout << "sqrt(25) = " << sqrtInteger(25) << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(log n) - Binary search
+Space Complexity: O(1) - Constant space

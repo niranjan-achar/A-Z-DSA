@@ -1,0 +1,52 @@
+Problem 16: Majority Element using Bit Manipulation
+
+Description:
+Find the majority element (appears > n/3 times) using bit manipulation.
+
+Approach:
+Process each bit position. For each bit, count how many numbers have that bit set. If count > n/3, set that bit in result.
+
+Brute Force Note:
+Hash map approach: O(n) time, O(n) space.
+
+C++ Code:
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> findMajority(vector<int>& arr) {
+    vector<int> result;
+    int n = arr.size();
+    
+    for (int i = 0; i < 32; i++) {
+        int count = 0;
+        for (int num : arr) {
+            if (num & (1 << i))
+                count++;
+        }
+        
+        // If this bit appears in majority elements, set it
+        if (count > n / 3) {
+            for (int& r : result)
+                r |= (1 << i);
+        }
+    }
+    
+    return result;
+}
+
+int main() {
+    vector<int> arr = {1, 1, 1, 2, 2, 3};
+    vector<int> majority = findMajority(arr);
+    
+    cout << "Majority elements: ";
+    for (int num : majority)
+        cout << num << " ";
+    
+    return 0;
+}
+```
+
+Time Complexity: O(32 * n) = O(n) - Fixed 32 bits
+Space Complexity: O(1) - Constant space for output

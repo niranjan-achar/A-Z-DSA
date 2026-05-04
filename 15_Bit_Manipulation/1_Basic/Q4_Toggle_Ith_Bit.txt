@@ -1,0 +1,41 @@
+Problem 4: Toggle ith Bit
+
+Description:
+Toggle the ith bit of a number (flip 0 to 1 or 1 to 0).
+
+Approach:
+Use bitwise XOR: num ^ (1 << i). XOR flips the bit at position i.
+
+Brute Force Note:
+Check bit state and flip: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+int toggleBit(int num, int i) {
+    return num ^ (1 << i);
+}
+
+int main() {
+    int num = 5;  // Binary: 101
+    int i = 1;
+    
+    cout << "Original: " << num << " (Binary: ";
+    for (int j = 7; j >= 0; j--)
+        cout << ((num >> j) & 1);
+    cout << ")" << endl;
+    
+    int result = toggleBit(num, i);
+    cout << "After toggling bit " << i << ": " << result << " (Binary: ";
+    for (int j = 7; j >= 0; j--)
+        cout << ((result >> j) & 1);
+    cout << ")" << endl;
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Constant time bit operation
+Space Complexity: O(1) - Constant space

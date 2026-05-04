@@ -1,0 +1,35 @@
+Problem 1: Check if ith Bit is Set
+
+Description:
+Check if the ith bit of a number is set (equals 1).
+
+Approach:
+Use bitwise AND operation: (num >> i) & 1. Shift the number right by i positions and check last bit.
+
+Brute Force Note:
+Convert to binary string and check character: O(log n) time.
+
+C++ Code:
+```cpp
+#include <iostream>
+using namespace std;
+
+bool isBitSet(int num, int i) {
+    return (num >> i) & 1;
+}
+
+int main() {
+    int num = 5;  // Binary: 101
+    
+    cout << "Number: " << num << endl;
+    for (int i = 0; i < 8; i++) {
+        if (isBitSet(num, i))
+            cout << "Bit " << i << " is set" << endl;
+    }
+    
+    return 0;
+}
+```
+
+Time Complexity: O(1) - Constant time bit operation
+Space Complexity: O(1) - Constant space

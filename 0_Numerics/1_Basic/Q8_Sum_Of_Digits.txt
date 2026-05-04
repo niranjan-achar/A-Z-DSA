@@ -1,0 +1,35 @@
+Question Number: 8
+Problem Title: Sum of digits of a number
+Problem Description:
+Given an integer n, compute the sum of its digits.
+
+Approach / Explanation:
+1) Take absolute value of n.
+2) Extract digits one by one using % 10.
+3) Add each digit to the running total.
+4) Remove the digit by dividing by 10.
+5) Repeat until number becomes 0.
+6) O(number of digits).
+7) Output the digit sum.
+
+Brute Force Note:
+No brute force needed.
+
+C++ Code:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long n; if (!(cin >> n)) return 0;
+    n = llabs(n);
+    long long sum = 0;
+    while (n > 0) { sum += n % 10; n /= 10; }
+    cout << sum;
+    return 0;
+}
+
+Time Complexity: O(d)
+Space Complexity: O(1)
